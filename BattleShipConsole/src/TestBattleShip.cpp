@@ -13,9 +13,9 @@ int main() {
 	int changeTurn(0);
 	cout << "Let the games begin" << endl;
 	cout << "Player One will set his board first" << endl;
-	Game1.SetBoard(Game1.pOneboard, Game1.getPlayerOne());
+	Game1.SetBoard(Game1.pOneboard, Game1.getPlayer(1));
 	cout << "Now Player Two will set his board" << endl;
-	Game1.SetBoard(Game1.pTwoboard, Game1.getPlayerTwo());
+	Game1.SetBoard(Game1.pTwoboard, Game1.getPlayer(2));
 
 	cout << "Player One Board" << endl;
 	Game1.PrintBoard(Game1.pOneboard);

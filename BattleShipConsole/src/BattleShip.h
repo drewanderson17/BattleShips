@@ -26,6 +26,12 @@ struct Bike{
 	string pathImg = "Path/To/Bike";
 };
 
+struct Coordinates{
+	int x;
+	int y;
+	string direction;
+};
+
 class Player {
 public:
 	Player();
@@ -34,17 +40,13 @@ public:
 	int bikeCount;
 };
 
-
 class Game{
 public:
 	Game();
 	void SetBoard(vector<vector<string>>& board, Player playerX);
-	bool ValidPlacement(vector<vector<string>>& board, int x, int y,
-			string direction, string type);
-	void PlaceShip(vector<vector<string>>& board, int x, int y,
-			string direction, string type);
-	Player getPlayerOne();
-	Player getPlayerTwo();
+	bool ValidPlacement(vector<vector<string>>& board, Coordinates placement, string type);
+	void PlaceShip(vector<vector<string>>& board, Coordinates placement, string type);
+	Player getPlayer(int player_num);
 	void PrintBoard(vector<vector<string>>& board);
 	void TakeTurn(vector<vector<string>>& board);
 	bool checkWin(vector<vector<string>>& board);
@@ -58,3 +60,8 @@ private:
 	Car car;
 	Bus bus;
 };
+
+// Non-Member util functions
+Coordinates getCoordinates(string vehichle);
+
+
