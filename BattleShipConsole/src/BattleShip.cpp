@@ -25,6 +25,7 @@ Game::Game(){
 }
 
 Coordinates getCoordinates(string vehichle){
+	//TODO add input validation
 	Coordinates c;
 	cout << "Choose X,Y coordinates for your " << vehichle << " (0-9)" << endl;
 	cout << "X:";
@@ -42,9 +43,9 @@ void Game::SetBoard(vector<vector<string>>& board, Player playerX){
 	bool canPlace;
 	while (playerX.carCount > 0){
 		Coordinates car_placement = getCoordinates("Car");
-		canPlace = ValidPlacement(board, car_placement, "Car");
+		canPlace = isValidPlacement(board, car_placement, "Car");
 		if (canPlace){
-			PlaceShip(board, car_placement,"Car");
+			placeShip(board, car_placement,"Car");
 			playerX.carCount -= 1;
 		} else{
 			cout << "Try again, that spot is taken or a car cannot be placed there" << endl;
@@ -52,9 +53,9 @@ void Game::SetBoard(vector<vector<string>>& board, Player playerX){
 	}
 	while (playerX.busCount > 0){
 		Coordinates bus_placement = getCoordinates("Bus");
-		canPlace = ValidPlacement(board, bus_placement ,"Bus");
+		canPlace = isValidPlacement(board, bus_placement ,"Bus");
 		if (canPlace){
-			PlaceShip(board, bus_placement, "Bus");
+			placeShip(board, bus_placement, "Bus");
 			playerX.busCount -= 1;
 		} else{
 			cout << "Try again, that spot is taken or a bus cannot be placed there" << endl;
@@ -62,9 +63,9 @@ void Game::SetBoard(vector<vector<string>>& board, Player playerX){
 	}
 	while (playerX.bikeCount > 0){
 		Coordinates bike_placement = getCoordinates("Bike");
-		canPlace = ValidPlacement(board,bike_placement, "Bike");
+		canPlace = isValidPlacement(board,bike_placement, "Bike");
 		if (canPlace){
-			PlaceShip(board, bike_placement, "Bike");
+			placeShip(board, bike_placement, "Bike");
 			playerX.bikeCount -= 1;
 		} else{
 			cout << "Try again, that spot is taken or a bike cannot be placed there" << endl;
@@ -72,78 +73,72 @@ void Game::SetBoard(vector<vector<string>>& board, Player playerX){
 	}
 }
 
-Player Game::getPlayer(int player_num){
+Player Game::GetPlayer(int player_num){
 	if (player_num == 1)
 		return playerOne;
 	return playerTwo;
 }
 
-bool Game::ValidPlacement(vector<vector<string>>& board, Coordinates placement, string type){
-	int width;
-	int height;
-	if (type == "Car"){
-		height = car.height;
-		width = car.width;
-	} else if (type == "Bus"){
-		height = bus.height;
-		width = bus.width;
-	} else {
-		height = bike.height;
-		width = bike.width;
-	}
+tuple<int, int> Game::getHeightAndWidth(string type){
+	if (type == "Car")
+		return make_tuple(car.height, car.width);
+	else if (type == "Bus")
+		return make_tuple(bus.height, bus.width);
+	else
+		return make_tuple(bike.height, bike.width);
+}
 
-	if (placement.direction == "V"){
-		if ( (placement.x+width <= boardSize) && (placement.y+height <= boardSize) ){
-			for (int i = placement.y; i < placement.y+height; i++){
-				for(int j = placement.x; j < placement.x+width; j++){
-					if (board[i][j] != "X"){return false;}
+bool Game::isValidPlacement(vector<vector<string>>& board, Coordinates placement, string type){
+	tuple<int, int> height_and_width = getHeightAndWidth(type);
+	int height = get<0>(height_and_width);
+	int width = get<1>(height_and_width);
+	int add_to_x;
+	int add_to_y;
+	if (placement.direction == "V"){ // Vertical
+		add_to_x=width;
+		add_to_y=height;
+	} else {     // Horizontal
+		add_to_x=height;
+		add_to_y=width;
+	}
+	if ( (placement.x+add_to_x <= boardSize) && (placement.y+add_to_y <= boardSize) ){
+		for (int i = placement.y; i < placement.y+add_to_y; i++){
+			for(int j = placement.x; j < placement.x+add_to_x; j++){
+				if (board[i][j] != "X"){
+					return false;
 				}
 			}
-		} else{
-			return false;
-			}
-	} else {     // Horizontal
-		if ( (placement.x+height <= boardSize) && (placement.y+width <= boardSize) ){
-					for (int i = placement.y; i < placement.y+width; i++){
-						for(int j = placement.x; j < placement.x+height; j++){
-							if (board[i][j] != "X"){return false;}
-						}
-					}
-				} else{return false;}
+		}
+	} else {
+		return false;
 	}
 	return true;
 }
 
-void Game::PlaceShip(vector<vector<string>>& board, Coordinates placement, string type){
-	int width;
-	int height;
+void Game::placeShip(vector<vector<string>>& board, Coordinates placement, string type){
 	string identifier;
-
 	if (type == "Car"){
-		height = car.height;
-		width = car.width;
 		identifier = "C";
 	} else if (type == "Bus"){
-		height = bus.height;
-		width = bus.width;
 		identifier = "B";
 	} else {
-		height = bike.height;
-		width = bike.width;
 		identifier = "P";
 	}
-
-	if (placement.direction == "V"){
-			for (int i = placement.y; i < placement.y+height; i++){
-				for(int j = placement.x; j < placement.x+width; j++){
-					board[i][j] = identifier;
-				}
-			}
-	} else {     // Horizontal
-		for (int i = placement.y; i < placement.y+width; i++){
-			for(int j = placement.x; j < placement.x+height; j++){
-				board[i][j] = identifier;
-				}
+	tuple<int, int> height_and_width = getHeightAndWidth(type);
+	int height = get<0>(height_and_width);
+	int width = get<1>(height_and_width);
+	int add_to_i;
+	int add_to_j;
+	if (placement.direction == "V"){ // Vertical
+		add_to_i = height;
+		add_to_j = width;
+	} else {   // Horizontal
+		add_to_i = width;
+		add_to_j = height;
+		}
+	for (int i = placement.y; i < placement.y+add_to_i; i++){
+		for(int j = placement.x; j < placement.x+add_to_j; j++){
+			board[i][j] = identifier;
 			}
 		}
 }
@@ -166,7 +161,7 @@ void Game::TakeTurn(vector<vector<string>>& board){
 	}
 }
 
-bool Game::checkWin(vector<vector<string>>& board){
+bool Game::CheckWin(vector<vector<string>>& board){
 	bool trigger(true);
 	for (int i = 0; i < board.size(); i++){
 		for (int j = 0; j < board[i].size(); j++){
