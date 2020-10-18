@@ -1,4 +1,8 @@
 
+/* CISC 320 Project: Team Cobol
+*  Contains declaration of classes used for the Queen's themed version of battleship.
+*/
+
 #pragma once
 
 #include <iostream>
@@ -43,10 +47,15 @@ public:
 class Game{
 public:
 	Game();
+	// Enables user to place all their vehichles on the grid
 	void SetBoard(vector<vector<string>>& board, Player playerX);
+	// Returns specified player object
 	Player GetPlayer(int player_num);
+	// Displays corresponding player's board
 	void PrintBoard(vector<vector<string>>& board);
+	// User's turn: User shoots a square and views results of their shot
 	void TakeTurn(vector<vector<string>>& board);
+	// Returns whether or not the game is over
 	bool CheckWin(vector<vector<string>>& board);
 	vector<vector<string>> pOneboard;
 	vector<vector<string>> pTwoboard;
@@ -57,9 +66,12 @@ private:
 	Bike bike;
 	Car car;
 	Bus bus;
+	// Returns height and width (in that order) of vehichle of the corresponding type
 	tuple<int, int> getHeightAndWidth(string type);
+	// Returns whether a user can place the corresponding vehichle at the specified grid location
 	bool isValidPlacement(vector<vector<string>>& board, Coordinates placement, string type);
-	void placeShip(vector<vector<string>>& board, Coordinates placement, string type);
+	// Adds vehichle onto specified grid location
+	void placeVehichle(vector<vector<string>>& board, Coordinates placement, string type);
 	
 };
 

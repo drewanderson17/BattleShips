@@ -1,4 +1,8 @@
 
+/* CISC 320 Project: Team Cobol
+*  Contains implementation of classes used for the Queen's themed version of battleship.
+*/
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -12,7 +16,6 @@ Player::Player(){
 	bikeCount = 1;
 	carCount = 1;
 };
-
 
 Game::Game(){
 	boardSize = 10;
@@ -45,7 +48,7 @@ void Game::SetBoard(vector<vector<string>>& board, Player playerX){
 		Coordinates car_placement = getCoordinates("Car");
 		canPlace = isValidPlacement(board, car_placement, "Car");
 		if (canPlace){
-			placeShip(board, car_placement,"Car");
+			placeVehichle(board, car_placement,"Car");
 			playerX.carCount -= 1;
 		} else{
 			cout << "Try again, that spot is taken or a car cannot be placed there" << endl;
@@ -55,7 +58,7 @@ void Game::SetBoard(vector<vector<string>>& board, Player playerX){
 		Coordinates bus_placement = getCoordinates("Bus");
 		canPlace = isValidPlacement(board, bus_placement ,"Bus");
 		if (canPlace){
-			placeShip(board, bus_placement, "Bus");
+			placeVehichle(board, bus_placement, "Bus");
 			playerX.busCount -= 1;
 		} else{
 			cout << "Try again, that spot is taken or a bus cannot be placed there" << endl;
@@ -65,7 +68,7 @@ void Game::SetBoard(vector<vector<string>>& board, Player playerX){
 		Coordinates bike_placement = getCoordinates("Bike");
 		canPlace = isValidPlacement(board,bike_placement, "Bike");
 		if (canPlace){
-			placeShip(board, bike_placement, "Bike");
+			placeVehichle(board, bike_placement, "Bike");
 			playerX.bikeCount -= 1;
 		} else{
 			cout << "Try again, that spot is taken or a bike cannot be placed there" << endl;
@@ -115,7 +118,7 @@ bool Game::isValidPlacement(vector<vector<string>>& board, Coordinates placement
 	return true;
 }
 
-void Game::placeShip(vector<vector<string>>& board, Coordinates placement, string type){
+void Game::placeVehichle(vector<vector<string>>& board, Coordinates placement, string type){
 	string identifier;
 	if (type == "Car"){
 		identifier = "C";
@@ -142,7 +145,6 @@ void Game::placeShip(vector<vector<string>>& board, Coordinates placement, strin
 			}
 		}
 }
-
 
 void Game::TakeTurn(vector<vector<string>>& board){
 	int X, Y;
@@ -172,7 +174,6 @@ bool Game::CheckWin(vector<vector<string>>& board){
 	}
 	return trigger;
 }
-
 
 void Game::PrintBoard(vector<vector<string>>& board){
 	for (int i = 0; i < board.size(); i++){
