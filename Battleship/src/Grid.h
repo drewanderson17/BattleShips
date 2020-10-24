@@ -38,7 +38,7 @@ public:
 
 private:
     int shots, hits;
-    vector<vector<char>> shotsGrid;
+    vector<vector<char> > shotsGrid;
     vector<Ship> ships;
     vector<Ship> sunk;
 };
