@@ -60,7 +60,7 @@ string Grid::printGrid() const {
 void Grid::shoot(int row, int col) {
     if (this->checkBounds(row, col))
         throw GridException("Shot exceeds board bounds.");
-    if (shotsGrid[row][col] == 'M' || shotsGrid[row][col] == 'H')
+    if (shotsGrid[row][col] == 'M' || shotsGrid[row][col] == 'H' || shotsGrid[row][col] == 'X')
         throw GridException("You have already shot position (" + to_string(row) + ", " + to_string(col) + ").");
 
     if (shotsGrid[row][col] == 'S') {

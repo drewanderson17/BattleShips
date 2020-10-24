@@ -22,15 +22,17 @@ private:
 
 class Ship {
 public:
-    Ship(int length);
-    Ship(int length, int row, int col, bool dir);
+    Ship(string name, int length);
+    Ship(string name, int length, int row, int col, bool dir);
     void placeShip(int row, int col, bool dir);
     vector<vector<int> > getPos() const;
+    string toStr();
     int getHealth() const;
     bool hit(int row, int col); //the integer indicates how far the shot was from the head of the ship
 
 private:
     //bool dir;   // stores the direction of the ship 0:columnwise(left), 1:rowwise(down)
+    string name;
     int length;
     vector<vector<int> > pos;//stores the (row, column, health) of each segment
 

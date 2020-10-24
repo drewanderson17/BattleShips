@@ -10,31 +10,39 @@
 ShipException::ShipException(const string &m) : message(m) {}
 string ShipException::what() const { return message; }
 
-Ship::Ship(int lengthIn) {
+Ship::Ship(string nameIn, int lengthIn) {
+    name = nameIn;
     length = lengthIn;
 
 }
 
-Ship::Ship(int lengthIn, int row, int col, bool dirIn) {
+Ship::Ship(string nameIn, int lengthIn, int row, int col, bool dirIn) {
+    name = nameIn;
     length = lengthIn;
     placeShip(row, col, dirIn);
 }
 
 void Ship::placeShip(int row, int col, bool dir) {
 
-    vector<int> cell;
-    cell.push_back(row);
-    cell.push_back(col);
-    cell.push_back(1);
-    vector<vector<int>> ship (length, cell);
-
-    for(int i = 0; i < ship.size(); i++){
-        if(dir)
-            ship[i][0] += i;
-        else
-            ship[i][1] += i;
+    if(pos.size() != 0) {
+        throw ShipException("The ship has already been placed.");
     }
-    pos = ship;
+    else {
+
+        vector<int> cell;
+        cell.push_back(row);
+        cell.push_back(col);
+        cell.push_back(1);
+        vector<vector<int>> ship(length, cell);
+
+        for (int i = 0; i < ship.size(); i++) {
+            if (dir)
+                ship[i][0] += i;
+            else
+                ship[i][1] += i;
+        }
+        pos = ship;
+    }
 }
 
 bool Ship::hit(int row, int col) {
@@ -57,6 +65,10 @@ int Ship::getHealth() const {
     for(int i = 0; i < pos.size(); i++)
         health += pos[i][2];
     return health;
+}
+
+string Ship::toStr() {
+    return name;
 }
 
 
