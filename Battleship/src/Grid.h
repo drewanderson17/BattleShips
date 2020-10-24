@@ -17,6 +17,18 @@ using namespace std;
 const int MAX_GRID = 100;
 const int MIN_GRID = 10;
 
+struct vehichle {
+    int num;
+    // TODO Implement this
+    int width;
+    int length;
+};
+
+const vehichle BIKES{2, 1, 2};
+const vehichle CARS{2, 1, 3};
+const vehichle BUSES{2, 2, 3};
+
+
 class GridException {
 public:
     GridException(const string&);
@@ -35,6 +47,7 @@ public:
     void writeShip(const Ship&, char);
     bool checkBounds(int row, int col);
     bool checkWin() const;
+    void setUpBoard(const vehichle);
 
 private:
     int shots, hits;

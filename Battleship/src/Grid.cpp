@@ -6,6 +6,7 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -129,6 +130,23 @@ string Grid::printStats() const {
     return stats;
 }
 
-
-
+void Grid::setUpBoard(const vehichle v){
+    int row, col, direction;
+    cout << "Enter a row: ";
+    cin >> row;
+    cout << "Enter a column: ";
+    cin >> col;
+    cout << "Enter '0' for horizontal placement" << endl;
+    cout << "Enter '1' for vertical placement: ";
+    cin >> direction;
+    // Un-hardcode length
+    
+    try {
+        Ship ship_obj("Battleship", v.length, row, col, direction);
+        this->addShip(ship_obj);
+    }
+    catch (ShipException& e){
+        cerr << endl << e.what() << endl;
+    }
+}
 

@@ -8,24 +8,11 @@ int main() {
     Grid grid(15);
     int row, col;
 
-    Ship ship1("Battleship" ,4, 3, 7, 0);
-    Ship ship2("Destroyer" ,3, 3, 1, 1);
-    Ship ship3("Submarine", 3, 0, 0, 0);
-    Ship ship4("Carrier", 5);
-
-    try{
-        ship4.placeShip(12, 6, 0);
-    } catch (ShipException& e){
-        cerr << endl << e.what() << endl;
-    }
-
-    try{
-        grid.addShip(ship1);
-        grid.addShip(ship2);
-        grid.addShip(ship3);
-        grid.addShip(ship4);
-    } catch (ShipException& e){
-        cerr << endl << e.what() << endl;
+    vector<vehichle> vehichles{ BIKES, CARS, BUSES };
+    for (const vehichle v : vehichles){
+        for (int i = 0; i < v.num; i++){
+            grid.setUpBoard(v);
+        }
     }
 
     cout << grid.printGrid() << endl;
