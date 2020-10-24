@@ -10,6 +10,16 @@ int main() {
 
     vector<vehichle> vehichles{ BIKES, CARS, BUSES };
     for (const vehichle v : vehichles){
+        string type = v.name;
+        if (v.num > 1){
+            if (v.name == BUSES.name){
+                type.append("es");
+            }
+            else {
+                type.append("s");
+            }
+        }
+        cout << "Now it's time to place your " << v.num << " " << type << "!" << endl;
         for (int i = 0; i < v.num; i++){
             grid.setUpBoard(v);
         }

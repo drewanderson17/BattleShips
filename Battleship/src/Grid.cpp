@@ -132,6 +132,7 @@ string Grid::printStats() const {
 
 void Grid::setUpBoard(const vehichle v){
     int row, col, direction;
+    
     cout << "Enter a row: ";
     cin >> row;
     cout << "Enter a column: ";
@@ -142,7 +143,7 @@ void Grid::setUpBoard(const vehichle v){
     // Un-hardcode length
     
     try {
-        Ship ship_obj("Battleship", v.length, row, col, direction);
+        Ship ship_obj(v.name, v.length, row, col, direction);
         this->addShip(ship_obj);
     }
     catch (ShipException& e){
