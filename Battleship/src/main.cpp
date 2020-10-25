@@ -1,48 +1,53 @@
+/* CISC 320 Group Project: Team Cobol
+*  Queen's Themed version of Battleship
+*/
+
 #include <iostream>
+#include <random>
+#include <ctime>
 
 #include "Grid.h"
 
 using namespace std;
 
+// To generate random numbers, referred to:
+// https://stackoverflow.com/questions/33044735/c-generating-random-numbers-inside-loop/33045918
+default_random_engine seed (chrono::steady_clock::now().time_since_epoch().count());
+
 int main() {
-    Grid grid(15);
-    int row, col;
+    int gridSize = 15;
+    string name = promptPlayerForName(1);
+    Grid grid1(gridSize, name);
+    grid1.setUpBoard();
+    name = promptPlayerForName(2);
+    Grid grid2(gridSize, name);
+    grid2.setUpBoard();
 
-    vector<vehichle> vehichles{ BIKES, CARS, BUSES };
-    for (const vehichle v : vehichles){
-        string type = v.name;
-        if (v.num > 1){
-            if (v.name == BUSES.name){
-                type.append("es");
-            }
-            else {
-                type.append("s");
-            }
-        }
-        cout << "Now it's time to place your " << v.num << " " << type << "!" << endl;
-        for (int i = 0; i < v.num; i++){
-            grid.setUpBoard(v);
-        }
-    }
-
-    cout << grid.printGrid() << endl;
+    // Ask SOMEONE ABOUT THIS
+    // vector<Grid> grids = { grid1, grid2 };
 
     bool quit = false;
-
-    do {
-        cout << "Enter a row: ";
-        cin >> row;
-        cout << "Enter a column: ";
-        cin >> col;
-
-        try {
-            grid.shoot(row, col);
-        } catch (GridException &e) {
-            cerr << endl << e.what() << endl;
+    // generates random number between 1 and 2 (inclusive)
+    uniform_int_distribution<int> uid {1,2};
+    int player = uid(seed);
+    if (player == 1){
+        cout << grid1.getPlayerName() << " was picked randomly to start!" << endl;
+    }
+    else {
+        cout << grid2.getPlayerName() << " was picked randomly to start!" << endl;
+    }
+    while (!grid1.keepPlaying() && !grid2.keepPlaying() && !quit){
+        if (player == 1){
+            cout << grid2.printGrid(true);
+            grid2.attack(grid1.getPlayerName());
         }
-        cout << grid.printGrid() << endl;
-    } while (!grid.checkWin() || quit);
-    cout << grid.printStats() << endl;
+        else {
+            cout << grid1.printGrid();
+            grid1.attack(grid2.getPlayerName());
+        }
+        player = (player + 1) % 2;
+    }
+    displayEndOfGameStats(grid1, grid2);
 
     return 0;
 }

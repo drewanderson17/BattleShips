@@ -1,6 +1,6 @@
-//
-// Created by Eric Leuty on 2020-10-14.
-//
+/* 
+* Implementation of functions used to interact with Grid object.
+*/
 
 #include "Grid.h"
 
@@ -13,7 +13,8 @@ using namespace std;
 GridException::GridException(const string& m) : message(m) {}
 string GridException::what() const { return message; }
 
-Grid::Grid(int gridSizeIn) {
+Grid::Grid(int gridSizeIn, string name) {
+    playerName = name;
     if (gridSizeIn < MIN_GRID || gridSizeIn > MAX_GRID)
         throw GridException("Grid dimensions must be less than " + to_string(MAX_GRID) + " or greater than " + to_string(MIN_GRID) + ".");
     shots = 0;
@@ -29,7 +30,7 @@ Grid::Grid(int gridSizeIn) {
     sunk = temp2;
 }
 
-string Grid::printGrid() const {
+string Grid::printGrid(bool showShips) const {
     int row, col;
 
     string gridOut = "  "; //account for initial offset from row
@@ -47,6 +48,13 @@ string Grid::printGrid() const {
         gridOut += to_string(row);
         for(col = 0; col < shotsGrid[0].size(); col++) {
             temp = shotsGrid.at(row).at(col);
+            // Only show hits and misses by default
+            // showShips is true only for debugging purposes
+            if (!showShips){
+                if (temp == 'S'){
+                    temp = 'O';
+                }
+            }
             gridOut += "   ";
             gridOut.push_back(temp);
         }
@@ -65,6 +73,7 @@ void Grid::shoot(int row, int col) {
         throw GridException("You have already shot position (" + to_string(row) + ", " + to_string(col) + ").");
 
     if (shotsGrid[row][col] == 'S') {
+        cout << "\nHIT\n" << endl;
         shotsGrid[row][col] = 'H';
         hits++;
         for(int i = 0; i < ships.size(); i++){
@@ -82,9 +91,10 @@ void Grid::shoot(int row, int col) {
             }
         }
     }
-    else if (shotsGrid[row][col] == 'O')
+    else if (shotsGrid[row][col] == 'O'){
+        cout << "\nMISS\n" << endl;
         shotsGrid[row][col] = 'M';
-
+    }
     shots++;
 }
 
@@ -118,7 +128,7 @@ void Grid::writeShip(const Ship& shipIn, char cIn) {
     }
 }
 
-bool Grid::checkWin() const {
+bool Grid::keepPlaying() const {
     return (ships.size() == 0);
 }
 
@@ -130,7 +140,7 @@ string Grid::printStats() const {
     return stats;
 }
 
-void Grid::setUpBoard(const vehichle v){
+void Grid::addVehichle(const vehichle v){
     int row, col, direction;
     
     cout << "Enter a row: ";
@@ -151,3 +161,64 @@ void Grid::setUpBoard(const vehichle v){
     }
 }
 
+void Grid::setUpBoard(){
+    cout << "\n" << playerName << " it's time to place your vehichles on your board." << endl;
+    vector<vehichle> vehichles{ BIKES, CARS, BUSES };
+    for (const vehichle v : vehichles){
+        string type = v.name;
+        if (v.num > 1){
+            if (v.name == BUSES.name){
+                type.append("es");
+            }
+            else {
+                type.append("s");
+            }
+        }
+        cout << "\nNow it's time to place your " << v.num << " " << type << "." << endl;
+        for (int i = 0; i < v.num; i++){
+            this->addVehichle(v);
+        }
+    }
+}
+
+void Grid::attack(string name){
+    int row, col;
+    cout << "\n" << name << " time to take a shot!" << endl;
+    cout << "Enter a row: ";
+    cin >> row;
+    cout << "Enter a column: ";
+    cin >> col;
+    try {
+        this->shoot(row, col);
+    } catch (GridException &e) {
+        cerr << endl << e.what() << endl;
+    }
+}
+
+string Grid::getPlayerName() const {
+    return playerName;
+}
+
+string promptPlayerForName(int playerNum){
+    string name;
+    cout << "\nPlayer " << playerNum << ", please enter your name: ";
+    cin >> name;
+    return name;
+}
+
+// Non-member function
+void displayEndOfGameStats(const Grid& grid1, const Grid& grid2){
+    string winner, loser;
+    if (grid1.keepPlaying()){
+        winner = grid2.getPlayerName();
+        loser = grid1.getPlayerName();
+    }
+    else if (grid2.keepPlaying()){
+        winner = grid1.getPlayerName();
+        loser = grid2.getPlayerName();
+    }
+    cout << "\n" << winner << " WON!!!!!" << endl;
+    cout << loser << " lost :( \n" << endl;
+    cout << grid1.printStats() << endl;
+    cout << "\n" << grid2.printStats() << endl;
+}
