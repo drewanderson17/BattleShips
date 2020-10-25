@@ -23,9 +23,6 @@ int main() {
     Grid grid2(gridSize, name);
     grid2.setUpBoard();
 
-    // Ask SOMEONE ABOUT THIS
-    // vector<Grid> grids = { grid1, grid2 };
-
     bool quit = false;
     // generates random number between 1 and 2 (inclusive)
     uniform_int_distribution<int> uid {1,2};

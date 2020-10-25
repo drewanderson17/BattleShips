@@ -150,7 +150,6 @@ void Grid::addVehichle(const vehichle v){
     cout << "Enter '0' for horizontal placement" << endl;
     cout << "Enter '1' for vertical placement: ";
     cin >> direction;
-    // Un-hardcode length
     
     try {
         Ship ship_obj(v.name, v.length, row, col, direction);
