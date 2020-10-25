@@ -1,6 +1,6 @@
-//
-// Created by Eric Leuty on 2020-10-14.
-//
+/* 
+* Outline of functions used to interact with Ship object.
+*/
 
 #include "Ship.h"
 
