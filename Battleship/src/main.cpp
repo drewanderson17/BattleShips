@@ -38,7 +38,7 @@ int main() {
     }
     while (!grid1.keepPlaying() && !grid2.keepPlaying() && !quit){
         if (player == 1){
-            cout << grid2.printGrid(true);
+            cout << grid2.printGrid();
             grid2.attack(grid1.getPlayerName());
         }
         else {
