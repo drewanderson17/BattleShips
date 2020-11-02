@@ -1,5 +1,5 @@
 /* 
-* Outline of functions used to interact with Grid object.
+* Outline of functions used to interact with Grid object. :)
 */
 
 #ifndef BATTLESHIP_GRID_H
