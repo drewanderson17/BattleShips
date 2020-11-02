@@ -23,7 +23,8 @@ private:
 class Ship {
 public:
     Ship(string name, int length);
-    Ship(string name, int length, int row, int col, bool dir);
+    Ship(string name, int length, int width);
+    Ship(string name, int length, int width, int row, int col, bool dir);
     void placeShip(int row, int col, bool dir);
     vector<vector<int> > getPos() const;
     string toStr();
@@ -34,6 +35,7 @@ private:
     //bool dir;   // stores the direction of the ship 0:columnwise(left), 1:rowwise(down)
     string name;
     int length;
+    int width;
     vector<vector<int> > pos;//stores the (row, column, health) of each segment
 
 };

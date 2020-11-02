@@ -152,7 +152,7 @@ void Grid::addVehichle(const vehichle v){
     cin >> direction;
     
     try {
-        Ship ship_obj(v.name, v.length, row, col, direction);
+        Ship ship_obj(v.name, v.length, v.width, row, col, direction);
         this->addShip(ship_obj);
     }
     catch (ShipException& e){
