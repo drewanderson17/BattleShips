@@ -144,18 +144,17 @@ void Grid::addVehichle(const vehichle v){
     int row, col, direction;
     
     cout << "Enter a row: ";
-    cin >> row;
+    row = checkInput("coordinate");
     cout << "Enter a column: ";
-    cin >> col;
+    col = checkInput("coordinate");
     cout << "Enter '0' for horizontal placement" << endl;
     cout << "Enter '1' for vertical placement: ";
-    cin >> direction;
+    direction = checkInput("direction");
     
     try {
         Ship ship_obj(v.name, v.length, v.width, row, col, direction);
         this->addShip(ship_obj);
-    }
-    catch (ShipException& e){
+    } catch (ShipException& e) {
         cerr << endl << e.what() << endl;
     }
 }
@@ -184,9 +183,10 @@ void Grid::attack(string name){
     int row, col;
     cout << "\n" << name << " time to take a shot!" << endl;
     cout << "Enter a row: ";
-    cin >> row;
+    row = checkInput("coordinate");
     cout << "Enter a column: ";
-    cin >> col;
+    col = checkInput("coordinate");
+
     try {
         this->shoot(row, col);
     } catch (GridException &e) {
@@ -220,4 +220,31 @@ void displayEndOfGameStats(const Grid& grid1, const Grid& grid2){
     cout << loser << " lost :( \n" << endl;
     cout << grid1.printStats() << endl;
     cout << "\n" << grid2.printStats() << endl;
+}
+
+// Accepts "coordinate" or "direction"
+int checkInput(string inType) {
+	string in;
+	bool success = false;
+
+	while(!success) {
+		cin >> in;
+		cout << endl;
+
+		if(inType == "coordinate") {
+			for(int i = 0; i < in.length(); i++) {
+				if(!isdigit(in[i])) {
+					cout << "Coordinates should be number values. Please try again: ";
+					continue;
+				}
+			}
+		} else if(inType == "direction") {
+			if(in != "0" && in != "1") {
+				cout << "Direction should be either 0 or 1. Please try again: ";
+				continue;
+			}
+		}
+		success = true;
+	}
+	return stoi(in);
 }

@@ -1,5 +1,5 @@
 /* 
-* Outline of functions used to interact with Grid object.
+* Outline of functions used to interact with Grid object. :)
 */
 
 #ifndef BATTLESHIP_GRID_H
@@ -69,5 +69,8 @@ private:
 // Non-member functions used in main game loop
 string promptPlayerForName(int playerNum);
 void displayEndOfGameStats(const Grid& grid1, const Grid& grid2);
+
+// Input validation function, takes "coordinate" or "direction" as input
+int checkInput(string inType);
 
 #endif //BATTLESHIP_GRID_H
