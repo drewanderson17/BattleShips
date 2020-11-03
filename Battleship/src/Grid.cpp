@@ -154,7 +154,7 @@ void Grid::addVehichle(const vehichle v){
     try {
         Ship ship_obj(v.name, v.length, v.width, row, col, direction);
         this->addShip(ship_obj);
-    }
+    } catch (ShipException& e) {
         cerr << endl << e.what() << endl;
     }
 }
