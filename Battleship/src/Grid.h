@@ -70,4 +70,7 @@ private:
 string promptPlayerForName(int playerNum);
 void displayEndOfGameStats(const Grid& grid1, const Grid& grid2);
 
+// Input validation function, takes "coordinate" or "direction" as input
+int checkInput(string inType);
+
 #endif //BATTLESHIP_GRID_H
