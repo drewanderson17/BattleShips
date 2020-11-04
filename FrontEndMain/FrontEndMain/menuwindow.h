@@ -40,6 +40,8 @@ public:
     void setShipCounts(); // Sets the ship count found in the options page to each player
     Player& getActivePlayer(); // Returns which player the board should reference for placement
 
+    void createShotGrid();
+
 private slots:
     void on_StartGameButton_clicked(); //Starts the ship placement screen
     void on_helpButton_clicked(); //Opens help window
@@ -50,12 +52,21 @@ private slots:
     void on_gridClick(QPushButton *button); // When user clicks a button (cell) on the grid
     void on_doneButtonStartScreen_clicked(); // Done button for when user is finished placing his board
 
+    void on_fireButton_clicked();
+
+    void on_passWindowOkayButton_clicked();
+
+    void on_MainMenuButton_clicked();
+
+    void on_NewGameButton_clicked();
+
+    void on_ExitGameButton_clicked();
 private:
     Ui::MenuWindow *ui;
     QVector<QVector<QPushButton*>> buttonBoard;
     int boardSize;
     Player playerOne;
     Player playerTwo;
-    bool activePlayer; // If true : PlayerOne is active. If false: PlayerTwo is active
+    bool activePlayer; // If true : PlayerOne is active. If false: PlayerTwo is active 
 };
 #endif // MENUWINDOW_H

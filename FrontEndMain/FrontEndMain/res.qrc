@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>BattleShipLogo.svg</file>
+        <file>passWindow.svg</file>
     </qresource>
 </RCC>

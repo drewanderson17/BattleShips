@@ -29,6 +29,13 @@
       <height>600</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 0, 0);
+</string>
+    </property>
+    <property name="currentIndex">
+     <number>6</number>
+    </property>
     <widget class="QWidget" name="MenuPage">
      <property name="styleSheet">
       <string notr="true">background-color: rgb(0, 0, 0);</string>
@@ -338,7 +345,7 @@ font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
        <string>Bike</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_5">
+     <widget class="QLabel" name="RemainingLabel_1">
       <property name="geometry">
        <rect>
         <x>600</x>
@@ -355,7 +362,7 @@ font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
        <string>Remaining:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_6">
+     <widget class="QLabel" name="RemainingLabel_2">
       <property name="geometry">
        <rect>
         <x>600</x>
@@ -372,7 +379,7 @@ font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
        <string>Remaining:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_7">
+     <widget class="QLabel" name="RemainingLabel_3">
       <property name="geometry">
        <rect>
         <x>600</x>
@@ -457,7 +464,7 @@ font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
        <string>Horizontal</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_8">
+     <widget class="QLabel" name="ChooseDirectionLabel">
       <property name="geometry">
        <rect>
         <x>530</x>
@@ -476,7 +483,7 @@ font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
        <string>Choose Direction:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_9">
+     <widget class="QLabel" name="directionDescriptionLabel">
       <property name="geometry">
        <rect>
         <x>540</x>
@@ -493,7 +500,7 @@ font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
        <string>If not selected, Vertical is assumed</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_10">
+     <widget class="QLabel" name="shipTitleLabel">
       <property name="geometry">
        <rect>
         <x>540</x>
@@ -956,7 +963,7 @@ text-decoration: underline;</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="GamePlayLabel">
       <property name="geometry">
        <rect>
         <x>60</x>
@@ -974,7 +981,7 @@ text-decoration: underline;</string>
        <string>Gameplay</string>
       </property>
      </widget>
-     <widget class="QTextBrowser" name="textBrowser">
+     <widget class="QTextBrowser" name="gameplayOutline">
       <property name="geometry">
        <rect>
         <x>60</x>
@@ -1007,7 +1014,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;-  A player wins if he/she removes all ships from the opponent's grid&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="ShipDimensionsLabel">
       <property name="geometry">
        <rect>
         <x>50</x>
@@ -1047,7 +1054,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:14pt;&quot;&gt;Bike: Height = 2, Width = 1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_3">
+     <widget class="QLabel" name="RuleTitleLabel">
       <property name="geometry">
        <rect>
         <x>50</x>
@@ -1065,7 +1072,7 @@ text-decoration: underline;</string>
        <string>ONE RULE</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_4">
+     <widget class="QLabel" name="oneRuleLabel">
       <property name="geometry">
        <rect>
         <x>60</x>
@@ -1130,12 +1137,13 @@ text-decoration: underline;</string>
        <rect>
         <x>130</x>
         <y>20</y>
-        <width>251</width>
+        <width>311</width>
         <height>41</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
+       <string notr="true">font: 18pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>Shooting Screen</string>
@@ -1153,6 +1161,9 @@ text-decoration: underline;</string>
         <height>21</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
       <property name="text">
        <string>Cars Sunk:</string>
       </property>
@@ -1169,6 +1180,9 @@ text-decoration: underline;</string>
         <height>16</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
       <property name="text">
        <string>Buses Sunk:</string>
       </property>
@@ -1182,8 +1196,331 @@ text-decoration: underline;</string>
         <height>16</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
       <property name="text">
        <string>Bikes Sunk:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="fireButton">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>520</y>
+        <width>191</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	font: 18pt &quot;MS Shell Dlg 2&quot;;
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 20px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+    border-style: inset;
+    background: qradialgradient(
+        cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,
+        radius: 1.35, stop: 0 #fff, stop: 1 #ddd
+        );
+    }</string>
+      </property>
+      <property name="text">
+       <string>Shoot</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="PassToOppo">
+     <widget class="QFrame" name="PassWindowFrame">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>800</width>
+        <height>600</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame{image: url(:/passWindow.svg);
+background-color: rgb(0, 0, 0);}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QPushButton" name="passWindowOkayButton">
+       <property name="geometry">
+        <rect>
+         <x>500</x>
+         <y>490</y>
+         <width>231</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	font: 18pt &quot;MS Shell Dlg 2&quot;;
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 20px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+    border-style: inset;
+    background: qradialgradient(
+        cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,
+        radius: 1.35, stop: 0 #fff, stop: 1 #ddd
+        );
+    }</string>
+       </property>
+       <property name="text">
+        <string>Okay</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="WinWindow">
+     <widget class="QFrame" name="LogoFrame_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>751</width>
+        <height>411</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame{
+image: url(:/BattleShipLogo.svg);
+background-color: rgb(0, 0, 0);
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="MainMenuButton">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>540</y>
+        <width>211</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	font: 75 18pt &quot;MS Shell Dlg 2&quot;;
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 20px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+    border-style: inset;
+    background: qradialgradient(
+        cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,
+        radius: 1.35, stop: 0 #fff, stop: 1 #ddd
+        );
+    }</string>
+      </property>
+      <property name="text">
+       <string>Main Menu</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="NewGameButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>540</y>
+        <width>211</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	font: 75 18pt &quot;MS Shell Dlg 2&quot;;
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 20px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+    border-style: inset;
+    background: qradialgradient(
+        cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,
+        radius: 1.35, stop: 0 #fff, stop: 1 #ddd
+        );
+    }</string>
+      </property>
+      <property name="text">
+       <string>New Game</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="ExitGameButton">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>540</y>
+        <width>211</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	font: 75 18pt &quot;MS Shell Dlg 2&quot;;
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 20px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+    border-style: inset;
+    background: qradialgradient(
+        cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,
+        radius: 1.35, stop: 0 #fff, stop: 1 #ddd
+        );
+    }</string>
+      </property>
+      <property name="text">
+       <string>Exit Game</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="winnerLabel">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>0</y>
+        <width>341</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 75 48pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(255, 94, 79);
+text-decoration: underline;</string>
+      </property>
+      <property name="text">
+       <string>WINNER!!!</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="winnerLabel_2">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>480</y>
+        <width>361</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 75 26pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(255, 94, 79);</string>
+      </property>
+      <property name="text">
+       <string>The winning player is:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="winnerLabel_3">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>480</y>
+        <width>211</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 75 26pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(255, 94, 79);</string>
+      </property>
+      <property name="text">
+       <string>Player One</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

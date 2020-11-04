@@ -6,6 +6,7 @@ MenuWindow::MenuWindow(QWidget *parent)
     , ui(new Ui::MenuWindow)
 {
     ui->setupUi(this);
+    ui->PageController->setCurrentIndex(0);
 }
 
 MenuWindow::~MenuWindow()
@@ -13,6 +14,7 @@ MenuWindow::~MenuWindow()
     delete ui;
 }
 
+// Prints Active Players Board in the console
 void MenuWindow::printBoard(){
     Player activePlayer = getActivePlayer();
     QTextStream out(stdout);
@@ -22,6 +24,12 @@ void MenuWindow::printBoard(){
                     }
                     out << endl;
                 }
+}
+
+Player& MenuWindow::getActivePlayer(){
+    if (MenuWindow::activePlayer){
+        return MenuWindow::playerOne;
+    } else {return MenuWindow::playerTwo;}
 }
 
 
@@ -39,10 +47,10 @@ void MenuWindow::setGrid(){
     Player &player = MenuWindow::getActivePlayer();
     int gridHeight = ui->gridFrame->height();
     int gridWidth = ui->gridFrame->width();
-    const QSize btnSize = QSize(gridHeight/MenuWindow::playerOne.board.size(),gridWidth/MenuWindow::playerOne.board.size());
-    for (int i = 0; i < MenuWindow::playerOne.board.size(); i++){
+    const QSize btnSize = QSize(gridHeight/boardSize,gridWidth/boardSize);
+    for (int i = 0; i < boardSize; i++){
         QVector<QPushButton*> temp;
-                    for (int j = 0; j < MenuWindow::playerOne.board[i].size(); j++){
+                    for (int j = 0; j < boardSize; j++){
                         QPushButton *button = new QPushButton();
                         button->setText(QString::number(j)+""+QString::number(i));
                         button->sizePolicy().setHeightForWidth(true);
@@ -214,22 +222,6 @@ void MenuWindow::placeVehichle(QVector<QVector<QString>> &board, Coordinates pla
 // End of Console Stuff
 
 
-void MenuWindow::setShipCounts(){
-    playerOne.carCount = ui->carCount->text().toInt();
-    playerOne.busCount = ui->busCount->text().toInt();
-    playerOne.bikeCount = ui->bikeCount->text().toInt();
-
-    playerTwo.carCount = ui->carCount->text().toInt();
-    playerTwo.busCount = ui->busCount->text().toInt();
-    playerTwo.bikeCount = ui->bikeCount->text().toInt();
-}
-
-Player& MenuWindow::getActivePlayer(){
-    if (MenuWindow::activePlayer){
-        return MenuWindow::playerOne;
-    } else {return MenuWindow::playerTwo;}
-}
-
 // Menu Page
 
 // Show Start Game Screen if button has been clicked
@@ -269,6 +261,17 @@ void MenuWindow::on_backButtonStartScreen_clicked()
    ui->PageController->setCurrentIndex(0);
 }
 
+void MenuWindow::setShipCounts(){
+    playerOne.carCount = ui->carCount->text().toInt();
+    playerOne.busCount = ui->busCount->text().toInt();
+    playerOne.bikeCount = ui->bikeCount->text().toInt();
+
+    playerTwo.carCount = ui->carCount->text().toInt();
+    playerTwo.busCount = ui->busCount->text().toInt();
+    playerTwo.bikeCount = ui->bikeCount->text().toInt();
+}
+
+
 
 
 
@@ -305,6 +308,69 @@ void MenuWindow::on_doneButtonStartScreen_clicked()
             ui->busTotal->setText(QString::number(secondPlayer.busCount));
             ui->bikeTotal->setText(QString::number(secondPlayer.bikeCount));
             ui->PageController->setCurrentIndex(1);
-        } else {ui->PageController->setCurrentIndex(0);}
+        } else {
+            MenuWindow::createShotGrid();
+            ui->PageController->setCurrentIndex(4);
+        }
     }
+}
+
+
+
+
+//Shoot Screen
+
+void MenuWindow::createShotGrid(){
+    // Need to find a way to overlay an image of the parking lot on top of the buttons
+    // Need to be able to create 'parking lots' of different sizes
+    // Need to find a way to uncover a part of a vehicle when a shot is fired
+    int gridHeight = ui->ShootingFrame->height();
+    int gridWidth = ui->ShootingFrame->width();
+    const QSize btnSize = QSize(gridHeight/MenuWindow::playerOne.board.size(),gridWidth/MenuWindow::playerOne.board.size());
+    for (int i = 0; i < MenuWindow::playerOne.board.size(); i++){
+                    for (int j = 0; j < MenuWindow::playerOne.board[i].size(); j++){
+                        QPushButton *button = new QPushButton();
+                        button->setText(QString::number(j)+""+QString::number(i));
+                        button->sizePolicy().setHeightForWidth(true);
+                        button->setStyleSheet("QPushButton{"
+                                              "font: 18pt 'MS Shell Dlg 2';"
+                                              "color: #333;"
+                                              "border: 2px solid #555;"
+                                              "background-color: rgb(255,255,255);}"
+
+                                          "QPushButton:hover {background-color: rgb(255,0,0);}"
+                        );
+                        button->setFixedSize(btnSize);
+                        //connect(button,&QPushButton::clicked,[this,button]{on_gridClick(button);});
+                        ui->ShootingGrid->addWidget(button,i,j);
+                    }
+                }
+
+}
+
+void MenuWindow::on_fireButton_clicked()
+{
+    ui->PageController->setCurrentIndex(5);
+}
+
+//Pass Computer Window
+void MenuWindow::on_passWindowOkayButton_clicked()
+{
+    ui->PageController->setCurrentIndex(6);
+}
+
+//Win Screen Window
+void MenuWindow::on_MainMenuButton_clicked()
+{
+    ui->PageController->setCurrentIndex(0);
+}
+
+void MenuWindow::on_NewGameButton_clicked()
+{
+    MenuWindow::on_StartGameButton_clicked();
+}
+
+void MenuWindow::on_ExitGameButton_clicked()
+{
+    close();
 }
