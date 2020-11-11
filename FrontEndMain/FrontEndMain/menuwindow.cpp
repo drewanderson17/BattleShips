@@ -1,6 +1,15 @@
 #include "menuwindow.h"
 #include "ui_menuwindow.h"
+#include <Grid.cpp>
+#include <Ship.cpp>
 #include <QTextStream>
+
+#include <string>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
 MenuWindow::MenuWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MenuWindow)
@@ -143,6 +152,7 @@ void MenuWindow::on_gridClick(QPushButton *button){
 //End of Ship Placement Methods
 
 //Console Stuff
+
 bool MenuWindow::isValidPlacement(QVector<QVector<QString>> board, Coordinates placement, QString type){
     QTextStream out(stdout);
     bool indicator(true);
@@ -219,6 +229,7 @@ void MenuWindow::placeVehichle(QVector<QVector<QString>> &board, Coordinates pla
             }
         }
 }
+
 // End of Console Stuff
 
 
@@ -230,6 +241,12 @@ void MenuWindow::on_StartGameButton_clicked()
     MenuWindow::activePlayer = true;
     MenuWindow::playerOne.board.clear();
     MenuWindow::playerTwo.board.clear();
+    string name = "name";
+    Grid p1Grid(ui->boardSizeInput->text().toInt(),name);
+    Grid p2Grid(ui->boardSizeInput->text().toInt(),name);
+    grids.clear();
+    grids.append(p1Grid);
+    grids.append(p2Grid);
     clearGrid();
     buttonBoard.clear();
     setBoard();
@@ -345,7 +362,6 @@ void MenuWindow::createShotGrid(){
                         ui->ShootingGrid->addWidget(button,i,j);
                     }
                 }
-
 }
 
 void MenuWindow::on_fireButton_clicked()

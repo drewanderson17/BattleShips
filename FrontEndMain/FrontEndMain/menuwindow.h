@@ -5,6 +5,9 @@
 #include <QVector>
 #include <QString>
 #include <QPushButton>
+#include <Grid.h>
+#include <Ship.h>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MenuWindow; }
@@ -39,7 +42,6 @@ public:
     void clearGrid(); // Clear button grid before starting new game
     void setShipCounts(); // Sets the ship count found in the options page to each player
     Player& getActivePlayer(); // Returns which player the board should reference for placement
-
     void createShotGrid();
 
 private slots:
@@ -51,7 +53,6 @@ private slots:
     void on_backButtonOptions_clicked(); //Returns to homescreen
     void on_gridClick(QPushButton *button); // When user clicks a button (cell) on the grid
     void on_doneButtonStartScreen_clicked(); // Done button for when user is finished placing his board
-
     void on_fireButton_clicked();
 
     void on_passWindowOkayButton_clicked();
@@ -61,12 +62,13 @@ private slots:
     void on_NewGameButton_clicked();
 
     void on_ExitGameButton_clicked();
-private:
+protected:
     Ui::MenuWindow *ui;
     QVector<QVector<QPushButton*>> buttonBoard;
     int boardSize;
     Player playerOne;
     Player playerTwo;
     bool activePlayer; // If true : PlayerOne is active. If false: PlayerTwo is active 
+    QVector<Grid> grids;
 };
 #endif // MENUWINDOW_H
