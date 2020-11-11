@@ -34,7 +34,7 @@
 </string>
     </property>
     <property name="currentIndex">
-     <number>6</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="MenuPage">
      <property name="styleSheet">
@@ -1018,9 +1018,9 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>300</y>
+        <y>320</y>
         <width>221</width>
-        <height>51</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -1142,7 +1142,8 @@ text-decoration: underline;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 18pt &quot;MS Shell Dlg 2&quot;;
+       <string notr="true">font: 75 22pt &quot;MS Shell Dlg 2&quot;;
+text-decoration: underline;
 color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
@@ -1155,17 +1156,18 @@ color: rgb(255, 255, 255);</string>
      <widget class="QLabel" name="carsSunkLabel">
       <property name="geometry">
        <rect>
-        <x>590</x>
-        <y>115</y>
-        <width>61</width>
+        <x>580</x>
+        <y>120</y>
+        <width>111</width>
         <height>21</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);</string>
+       <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
       </property>
       <property name="text">
-       <string>Cars Sunk:</string>
+       <string>Cars Sunk: 0</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1176,15 +1178,16 @@ color: rgb(255, 255, 255);</string>
        <rect>
         <x>590</x>
         <y>150</y>
-        <width>61</width>
+        <width>101</width>
         <height>16</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);</string>
+       <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
       </property>
       <property name="text">
-       <string>Buses Sunk:</string>
+       <string>Buses Sunk: 0</string>
       </property>
      </widget>
      <widget class="QLabel" name="BikesSunkLabel">
@@ -1192,15 +1195,16 @@ color: rgb(255, 255, 255);</string>
        <rect>
         <x>590</x>
         <y>180</y>
-        <width>61</width>
+        <width>101</width>
         <height>16</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);</string>
+       <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
       </property>
       <property name="text">
-       <string>Bikes Sunk:</string>
+       <string>Bikes Sunk: 0</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1246,6 +1250,69 @@ QPushButton:pressed {
       </property>
       <property name="text">
        <string>Shoot</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="shipsRemainLabel">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>80</y>
+        <width>141</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+text-decoration: underline;
+font: 75 20pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Sunk Ships</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="indiTitleLabelShotPage">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>250</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 75 16pt &quot;MS Shell Dlg 2&quot;;
+text-decoration: underline;</string>
+      </property>
+      <property name="text">
+       <string>Turn Indicator:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="turnIndiShotPage">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>240</y>
+        <width>61</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 75 20pt &quot;MS Shell Dlg 2&quot;;
+text-decoration: underline;</string>
+      </property>
+      <property name="text">
+       <string>P2</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </widget>
