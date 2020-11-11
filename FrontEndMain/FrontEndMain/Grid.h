@@ -1,5 +1,5 @@
 /* 
-* Outline of functions used to interact with Grid object.
+* Outline of functions used to interact with Grid object. :)
 */
 
 #ifndef BATTLESHIP_GRID_H
@@ -17,19 +17,6 @@ using namespace std;
 const int MAX_GRID = 100;
 const int MIN_GRID = 10;
 
-struct vehichle {
-    string name;
-    int num;
-    // TODO Implement ability to have width
-    int width;
-    int length;
-};
-
-const vehichle BIKES{"bike", 1, 1, 2};
-const vehichle CARS{"car", 1, 1, 3};
-const vehichle BUSES{"bus", 1, 2, 3};
-
-
 class GridException {
 public:
     GridException(const string&);
@@ -40,16 +27,21 @@ private:
 
 class Grid {
 public:
+    //Grid() makes a square character array with dimension and
+    //stores the player's name
+    Grid();
     Grid(int dimension, string name);
     // printGrid() displays hit and misses on opponent's board
     // showShips is only true when used for debugging purposes
     string printGrid(bool showShips=false) const;
     string printStats() const;
     void shoot(int row, int col);
+    //addShip() adds a placed Ship object onto the grid
     void addShip(const Ship&);
+    //updates the cells occupied by ship with char
     void writeShip(const Ship&, char);
     bool checkBounds(int row, int col);
-    bool keepPlaying() const;
+    bool isWon() const;
     // addVehichle() adds a singular vehichle on to the player's board
     void addVehichle(const vehichle);
     // setUpBoard() prompts user to place all their vehichles
@@ -69,5 +61,8 @@ private:
 // Non-member functions used in main game loop
 string promptPlayerForName(int playerNum);
 void displayEndOfGameStats(const Grid& grid1, const Grid& grid2);
+
+// Input validation function, takes "coordinate" or "direction" as input
+int checkInput(string inType);
 
 #endif //BATTLESHIP_GRID_H

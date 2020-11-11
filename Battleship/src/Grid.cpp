@@ -13,6 +13,10 @@ using namespace std;
 GridException::GridException(const string& m) : message(m) {}
 string GridException::what() const { return message; }
 
+Grid::Grid() {
+
+}
+
 Grid::Grid(int gridSizeIn, string name) {
     playerName = name;
     if (gridSizeIn < MIN_GRID || gridSizeIn > MAX_GRID)
@@ -128,7 +132,7 @@ void Grid::writeShip(const Ship& shipIn, char cIn) {
     }
 }
 
-bool Grid::keepPlaying() const {
+bool Grid::isWon() const {
     return (ships.size() == 0);
 }
 
@@ -208,11 +212,11 @@ string promptPlayerForName(int playerNum){
 // Non-member function
 void displayEndOfGameStats(const Grid& grid1, const Grid& grid2){
     string winner, loser;
-    if (grid1.keepPlaying()){
+    if (grid1.isWon()){
         winner = grid2.getPlayerName();
         loser = grid1.getPlayerName();
     }
-    else if (grid2.keepPlaying()){
+    else if (grid2.isWon()){
         winner = grid1.getPlayerName();
         loser = grid2.getPlayerName();
     }

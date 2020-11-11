@@ -10,39 +10,54 @@
 ShipException::ShipException(const string &m) : message(m) {}
 string ShipException::what() const { return message; }
 
-Ship::Ship(string nameIn, int lengthIn) {
-    name = nameIn;
-    length = lengthIn;
-
+Ship::Ship() {
+    isLocked = false;
+    name = "Default";
+    length = 1;
+    width = 1;
 }
 
-Ship::Ship(string nameIn, int lengthIn, int row, int col, bool dirIn) {
+Ship::Ship(string nameIn, int lengthIn, int widthIn) {
+    isLocked = false;
     name = nameIn;
     length = lengthIn;
-    placeShip(row, col, dirIn);
+    width = widthIn;
+
+    vector<int> cell;
+    cell.push_back(0);
+    cell.push_back(0);
+    cell.push_back(1);
+    vector<vector<int>> tempPos(length*width, cell);
+    pos = tempPos;
 }
 
 void Ship::placeShip(int row, int col, bool dir) {
-
-    if(pos.size() != 0) {
+    if(!isLocked) {
         throw ShipException("The ship has already been placed.");
     }
     else {
-
         vector<int> cell;
         cell.push_back(row);
         cell.push_back(col);
         cell.push_back(1);
-        vector<vector<int>> ship(length, cell);
+        vector<vector<int>> ship(length*width, cell);
 
         for (int i = 0; i < ship.size(); i++) {
-            if (dir)
-                ship[i][0] += i;
-            else
-                ship[i][1] += i;
+            if (dir) {
+                ship[i][0] += i % length;
+                ship[i][1] += i / length;
+            }
+            else {
+                ship[i][1] += i % length;
+                ship[i][0] += i / length;
+            }
         }
         pos = ship;
     }
+}
+
+void Ship::lockPos() const {
+    isLocked = true;
 }
 
 bool Ship::hit(int row, int col) {
@@ -70,6 +85,17 @@ int Ship::getHealth() const {
 string Ship::toStr() {
     return name;
 }
+
+int Ship::getLength() {
+    return length;
+}
+
+int Ship::getWidth() {
+    return width;
+}
+
+
+
 
 
 

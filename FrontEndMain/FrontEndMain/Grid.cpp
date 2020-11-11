@@ -13,6 +13,10 @@ using namespace std;
 GridException::GridException(const string& m) : message(m) {}
 string GridException::what() const { return message; }
 
+Grid::Grid() {
+
+}
+
 Grid::Grid(int gridSizeIn, string name) {
     playerName = name;
     if (gridSizeIn < MIN_GRID || gridSizeIn > MAX_GRID)
@@ -128,7 +132,7 @@ void Grid::writeShip(const Ship& shipIn, char cIn) {
     }
 }
 
-bool Grid::keepPlaying() const {
+bool Grid::isWon() const {
     return (ships.size() == 0);
 }
 
@@ -144,18 +148,17 @@ void Grid::addVehichle(const vehichle v){
     int row, col, direction;
     
     cout << "Enter a row: ";
-    cin >> row;
+    row = checkInput("coordinate");
     cout << "Enter a column: ";
-    cin >> col;
+    col = checkInput("coordinate");
     cout << "Enter '0' for horizontal placement" << endl;
     cout << "Enter '1' for vertical placement: ";
-    cin >> direction;
+    direction = checkInput("direction");
     
     try {
-        Ship ship_obj(v.name, v.length, row, col, direction);
+        Ship ship_obj(v.name, v.length, v.width, row, col, direction);
         this->addShip(ship_obj);
-    }
-    catch (ShipException& e){
+    } catch (ShipException& e) {
         cerr << endl << e.what() << endl;
     }
 }
@@ -184,9 +187,10 @@ void Grid::attack(string name){
     int row, col;
     cout << "\n" << name << " time to take a shot!" << endl;
     cout << "Enter a row: ";
-    cin >> row;
+    row = checkInput("coordinate");
     cout << "Enter a column: ";
-    cin >> col;
+    col = checkInput("coordinate");
+
     try {
         this->shoot(row, col);
     } catch (GridException &e) {
@@ -208,11 +212,11 @@ string promptPlayerForName(int playerNum){
 // Non-member function
 void displayEndOfGameStats(const Grid& grid1, const Grid& grid2){
     string winner, loser;
-    if (grid1.keepPlaying()){
+    if (grid1.isWon()){
         winner = grid2.getPlayerName();
         loser = grid1.getPlayerName();
     }
-    else if (grid2.keepPlaying()){
+    else if (grid2.isWon()){
         winner = grid1.getPlayerName();
         loser = grid2.getPlayerName();
     }
@@ -220,4 +224,31 @@ void displayEndOfGameStats(const Grid& grid1, const Grid& grid2){
     cout << loser << " lost :( \n" << endl;
     cout << grid1.printStats() << endl;
     cout << "\n" << grid2.printStats() << endl;
+}
+
+// Accepts "coordinate" or "direction"
+int checkInput(string inType) {
+	string in;
+	bool success = false;
+
+	while(!success) {
+		cin >> in;
+		cout << endl;
+
+		if(inType == "coordinate") {
+			for(int i = 0; i < in.length(); i++) {
+				if(!isdigit(in[i])) {
+					cout << "Coordinates should be number values. Please try again: ";
+					continue;
+				}
+			}
+		} else if(inType == "direction") {
+			if(in != "0" && in != "1") {
+				cout << "Direction should be either 0 or 1. Please try again: ";
+				continue;
+			}
+		}
+		success = true;
+	}
+	return stoi(in);
 }

@@ -247,6 +247,9 @@ void MenuWindow::on_StartGameButton_clicked()
     grids.clear();
     grids.append(p1Grid);
     grids.append(p2Grid);
+
+    Ship ("Bus")
+
     clearGrid();
     buttonBoard.clear();
     setBoard();

@@ -69,6 +69,8 @@ protected:
     Player playerOne;
     Player playerTwo;
     bool activePlayer; // If true : PlayerOne is active. If false: PlayerTwo is active 
+    QVector<Ship> ships1;
+    QVector<Ship> ships2;
     QVector<Grid> grids;
 };
 #endif // MENUWINDOW_H
