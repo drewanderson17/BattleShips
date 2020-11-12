@@ -16,7 +16,7 @@ QT_END_NAMESPACE
 struct Coordinates{
     int x;
     int y;
-    QString direction;
+    int direction;
 };
 
 struct Player{
@@ -24,7 +24,6 @@ struct Player{
     int busCount;
     int bikeCount;
     QString name;
-    QVector<QVector<QString>> board;
 };
 
 class MenuWindow : public QMainWindow
@@ -34,11 +33,8 @@ class MenuWindow : public QMainWindow
 public:
     MenuWindow(QWidget *parent = nullptr);
     ~MenuWindow();
-    void printBoard(); // Prints the players Board
-    void setBoard(); // Sets PlayerOne and PlayerTwo boards
     void setGrid(); // Set the buttonGrid on the place ships page
-    bool isValidPlacement(QVector<QVector<QString>> board, Coordinates placement, QString type); //Checks for valid placement (will be replaced by new backend)
-    void placeVehichle(QVector<QVector<QString>> &board, Coordinates placement, QString identifier); // Places vehicle on buttonBoard and on player boards (will be replaced by new backend)
+    void placeVehichle(Coordinates placement, Ship ship1); // Places vehicle on buttonBoard and on player boards (will be replaced by new backend)
     void clearGrid(); // Clear button grid before starting new game
     void setShipCounts(); // Sets the ship count found in the options page to each player
     Player& getActivePlayer(); // Returns which player the board should reference for placement

@@ -32,7 +32,7 @@ Ship::Ship(string nameIn, int lengthIn, int widthIn) {
 }
 
 void Ship::placeShip(int row, int col, bool dir) {
-    if(!isLocked) {
+    if(isLocked) {
         throw ShipException("The ship has already been placed.");
     }
     else {
@@ -56,7 +56,7 @@ void Ship::placeShip(int row, int col, bool dir) {
     }
 }
 
-void Ship::lockPos() const {
+void Ship::lockPos() {
     isLocked = true;
 }
 

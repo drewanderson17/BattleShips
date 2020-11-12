@@ -15,7 +15,7 @@
 using namespace std;
 
 const int MAX_GRID = 100;
-const int MIN_GRID = 10;
+const int MIN_GRID = 7;
 
 class GridException {
 public:
@@ -43,9 +43,7 @@ public:
     bool checkBounds(int row, int col);
     bool isWon() const;
     // addVehichle() adds a singular vehichle on to the player's board
-    void addVehichle(const vehichle);
     // setUpBoard() prompts user to place all their vehichles
-    void setUpBoard();
     // attack() prompts the user to take a shot on their opponent's board
     void attack(string name);
     string getPlayerName() const;

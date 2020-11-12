@@ -144,44 +144,7 @@ string Grid::printStats() const {
     return stats;
 }
 
-void Grid::addVehichle(const vehichle v){
-    int row, col, direction;
-    
-    cout << "Enter a row: ";
-    row = checkInput("coordinate");
-    cout << "Enter a column: ";
-    col = checkInput("coordinate");
-    cout << "Enter '0' for horizontal placement" << endl;
-    cout << "Enter '1' for vertical placement: ";
-    direction = checkInput("direction");
-    
-    try {
-        Ship ship_obj(v.name, v.length, v.width, row, col, direction);
-        this->addShip(ship_obj);
-    } catch (ShipException& e) {
-        cerr << endl << e.what() << endl;
-    }
-}
 
-void Grid::setUpBoard(){
-    cout << "\n" << playerName << " it's time to place your vehichles on your board." << endl;
-    vector<vehichle> vehichles{ BIKES, CARS, BUSES };
-    for (const vehichle v : vehichles){
-        string type = v.name;
-        if (v.num > 1){
-            if (v.name == BUSES.name){
-                type.append("es");
-            }
-            else {
-                type.append("s");
-            }
-        }
-        cout << "\nNow it's time to place your " << v.num << " " << type << "." << endl;
-        for (int i = 0; i < v.num; i++){
-            this->addVehichle(v);
-        }
-    }
-}
 
 void Grid::attack(string name){
     int row, col;

@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <ostream>
 
 using namespace std;
 
@@ -24,16 +25,7 @@ MenuWindow::~MenuWindow()
 }
 
 // Prints Active Players Board in the console
-void MenuWindow::printBoard(){
-    Player activePlayer = getActivePlayer();
-    QTextStream out(stdout);
-    for (int i = 0; i < activePlayer.board.size(); i++){
-                    for (int j = 0; j < activePlayer.board[i].size(); j++){
-                        out << activePlayer.board[i][j] << " ";
-                    }
-                    out << endl;
-                }
-}
+
 
 Player& MenuWindow::getActivePlayer(){
     if (MenuWindow::activePlayer){
@@ -43,14 +35,7 @@ Player& MenuWindow::getActivePlayer(){
 
 
 //Ship Placement Window Methods
-void MenuWindow::setBoard(){
-    QVector<QVector<QString>> b(ui->boardSizeInput->text().toInt(),QVector<QString>(ui->boardSizeInput->text().toInt(),"X"));
-    boardSize = ui->boardSizeInput->text().toInt();
-    playerOne.board = b;
-    playerOne.name = "P1";
-    playerTwo.board = b;
-    playerTwo.name = "P2";
-}
+
 
 void MenuWindow::setGrid(){
     Player &player = MenuWindow::getActivePlayer();
@@ -93,12 +78,16 @@ void MenuWindow::clearGrid(){
 void MenuWindow::on_gridClick(QPushButton *button){
     QTextStream out(stdout);
     Coordinates cord;
-    QString type;
     bool determiner;
+    int typeInt;
+    int playerInt;
+    Ship tempShip;
     Player &player = getActivePlayer();
     if (ui->directionCB->isChecked()){
-        cord.direction = "H";
-    } else {cord.direction = "V";}
+        cord.direction = 0;
+    } else {
+        cord.direction = 1;
+    }
     for (int i = 0; i < buttonBoard.size(); i++){
                     for (int j = 0; j < buttonBoard[i].size(); j++){
                         if (buttonBoard[i][j] == button){
@@ -108,105 +97,98 @@ void MenuWindow::on_gridClick(QPushButton *button){
                     }
                 }
     if (ui->carRadio->isChecked()){
-        type = "C";
+        typeInt = 1; // Placing Car
     } else if (ui->busRadio->isChecked()){
-        type = "B";
+        typeInt = 0; // Placing Bus
     } else {
-        type = "P";
+        typeInt = 2; //Placing Bike
     }
+
+
+    if (MenuWindow::activePlayer){
+        playerInt = 0;
+    } else {playerInt = 1;}
+
     if (player.carCount > 0 || player.busCount > 0 || player.bikeCount > 0){
-        determiner = isValidPlacement(player.board,cord,type);
-        if (determiner == true){
-            if (type == "C"){
+            if (typeInt == 1){ // Placing Car
                 if (player.carCount > 0){
-                      player.carCount = player.carCount - 1;
-                      ui->carTotal->setText(QString::number(player.carCount));
-                      out << "VALID" << endl;
-                      placeVehichle(player.board,cord,type);
-                      printBoard();
+                    try {
+                        if (playerInt == 0){
+                            ships1[typeInt].placeShip(cord.y,cord.x,cord.direction);
+                            grids[playerInt].addShip(ships1[typeInt]);
+                            tempShip = ships1[typeInt];
+                        } else {
+                            ships2[typeInt].placeShip(cord.y,cord.x,cord.direction);
+                            grids[playerInt].addShip(ships2[typeInt]);
+                            tempShip = ships2[typeInt];
+                        }
+                        determiner = true;
+                    } catch (ShipException& e) {
+                        determiner = false;
+                    } if (determiner == true){
+                          player.carCount = player.carCount - 1;
+                          ui->carTotal->setText(QString::number(player.carCount));
+                          out << "VALID" << endl;
+                          placeVehichle(cord,tempShip);
+                    } else {out << "NOT A VALID PLACEMENT" << endl;}
                 }
 
-            } else if (type == "B"){
+            } else if (typeInt == 0){ // Placing Bus
                 if (player.busCount > 0){
-                    player.busCount = player.busCount -1;
-                    ui->busTotal->setText(QString::number(player.busCount));
-                    out << "VALID" << endl;
-                    placeVehichle(player.board,cord,type);
-                    printBoard();
+                    try {
+                        if (playerInt == 0){
+                            ships1[typeInt].placeShip(cord.y,cord.x,cord.direction);
+                            grids[playerInt].addShip(ships1[typeInt]);
+                            tempShip = ships1[typeInt];
+                        } else {
+                            ships2[typeInt].placeShip(cord.y,cord.x,cord.direction);
+                            grids[playerInt].addShip(ships2[typeInt]);
+                            tempShip = ships2[typeInt];
+                        }
+                        determiner = true;
+                    } catch (ShipException& e) {
+                        determiner = false;
+                    } if (determiner == true){
+                        player.busCount = player.busCount -1;
+                        ui->busTotal->setText(QString::number(player.busCount));
+                        out << "VALID" << endl;
+                        placeVehichle(cord,tempShip);
+                    }else {out << "NOT A VALID PLACEMENT" << endl;}
                 }
-            } else {
+            } else { // Placing Bike
                 if (player.bikeCount > 0){
-                    player.bikeCount = player.bikeCount - 1;
-                    ui->bikeTotal->setText(QString::number(player.bikeCount));
-                    out << "VALID" << endl;
-                    placeVehichle(player.board,cord,type);
-                    printBoard();
+                    try {
+                        if (playerInt == 0){
+                            ships1[typeInt].placeShip(cord.y,cord.x,cord.direction);
+                            grids[playerInt].addShip(ships1[typeInt]);
+                            tempShip = ships1[typeInt];
+                        } else {
+                            ships2[typeInt].placeShip(cord.y,cord.x,cord.direction);
+                            grids[playerInt].addShip(ships2[typeInt]);
+                            tempShip = ships2[typeInt];
+                        }
+                        determiner = true;
+                    } catch (ShipException& e) {
+                        determiner = false;
+                    } if (determiner == true){
+                        player.bikeCount = player.bikeCount - 1;
+                        ui->bikeTotal->setText(QString::number(player.bikeCount));
+                        out << "VALID" << endl;
+                        placeVehichle(cord,tempShip);
+                    }else {out << "NOT A VALID PLACEMENT" << endl;}
                 }
             }
-        } else {
-            out << "NOPE" << endl;
-        }
     }
 
 }
 //End of Ship Placement Methods
 
-//Console Stuff
-
-bool MenuWindow::isValidPlacement(QVector<QVector<QString>> board, Coordinates placement, QString type){
-    QTextStream out(stdout);
-    bool indicator(true);
-    int height, width;
-    if (type == "C"){
-        height = 3;
-        width = 1;
-    } else if (type == "B"){
-        height = 3;
-        width = 2;
-    } else {
-        height = 2;
-        width = 1;
-    }
-
-    int add_to_x;
-    int add_to_y;
-    if (placement.direction == "V"){ // Vertical
-        add_to_x=width;
-        add_to_y=height;
-    } else {     // Horizontal
-        add_to_x=height;
-        add_to_y=width;
-    }
-    if ( (placement.x+add_to_x <= boardSize) && (placement.y+add_to_y <= boardSize) ){
-        for (int i = placement.y; i < placement.y+add_to_y; i++){
-            for(int j = placement.x; j < placement.x+add_to_x; j++){
-                if (board[i][j] != "X"){
-                    indicator = false;
-                }
-            }
-        }
-    } else {
-        indicator = false;
-    }
-    return indicator;
-}
-
-void MenuWindow::placeVehichle(QVector<QVector<QString>> &board, Coordinates placement, QString identifier){
-
-    int height, width;
-    if (identifier == "C"){
-        height = 3;
-        width = 1;
-    } else if (identifier == "B"){
-        height = 3;
-        width = 2;
-    } else {
-        height = 2;
-        width = 1;
-    }
+void MenuWindow::placeVehichle(Coordinates placement, Ship ship1){
+    int height = ship1.getLength();
+    int width = ship1.getWidth();
     int add_to_i;
     int add_to_j;
-    if (placement.direction == "V"){ // Vertical
+    if (placement.direction == 1){ // Vertical
         add_to_i = height;
         add_to_j = width;
     } else {   // Horizontal
@@ -215,7 +197,6 @@ void MenuWindow::placeVehichle(QVector<QVector<QString>> &board, Coordinates pla
         }
     for (int i = placement.y; i < placement.y+add_to_i; i++){
         for(int j = placement.x; j < placement.x+add_to_j; j++){
-            board[i][j] = identifier;
             QPushButton *button = buttonBoard[i][j];
             button->setStyleSheet("QPushButton{"
                                   "font: 18pt 'MS Shell Dlg 2';"
@@ -230,8 +211,6 @@ void MenuWindow::placeVehichle(QVector<QVector<QString>> &board, Coordinates pla
         }
 }
 
-// End of Console Stuff
-
 
 // Menu Page
 
@@ -239,8 +218,9 @@ void MenuWindow::placeVehichle(QVector<QVector<QString>> &board, Coordinates pla
 void MenuWindow::on_StartGameButton_clicked()
 {
     MenuWindow::activePlayer = true;
-    MenuWindow::playerOne.board.clear();
-    MenuWindow::playerTwo.board.clear();
+    playerOne.name = "P1";
+    playerTwo.name = "P2";
+    boardSize = ui->boardSizeInput->text().toInt();
     string name = "name";
     Grid p1Grid(ui->boardSizeInput->text().toInt(),name);
     Grid p2Grid(ui->boardSizeInput->text().toInt(),name);
@@ -248,12 +228,24 @@ void MenuWindow::on_StartGameButton_clicked()
     grids.append(p1Grid);
     grids.append(p2Grid);
 
-    Ship ("Bus")
+    Ship bus1("Bus",3,2);
+    Ship car1("Car",3,1);
+    Ship bike1("Bike",2,1);
+
+    ships1.push_back(bus1);
+    ships1.push_back(car1);
+    ships1.push_back(bike1);
+
+    Ship bus2("Bus",3,2);
+    Ship car2("Car",3,1);
+    Ship bike2("Bus",2,1);
+
+    ships2.push_back(bus2);
+    ships2.push_back(car2);
+    ships2.push_back(bike2);
 
     clearGrid();
     buttonBoard.clear();
-    setBoard();
-    printBoard();
     setGrid();
     setShipCounts();
     ui->carTotal->setText(ui->carCount->text());
@@ -329,8 +321,11 @@ void MenuWindow::on_doneButtonStartScreen_clicked()
             ui->bikeTotal->setText(QString::number(secondPlayer.bikeCount));
             ui->PageController->setCurrentIndex(1);
         } else {
+            buttonBoard.clear();
             MenuWindow::createShotGrid();
             ui->PageController->setCurrentIndex(4);
+            cout << grids[0].printGrid(true) << endl;
+            cout << grids[1].printGrid(true) << endl;
         }
     }
 }
@@ -346,9 +341,9 @@ void MenuWindow::createShotGrid(){
     // Need to find a way to uncover a part of a vehicle when a shot is fired
     int gridHeight = ui->ShootingFrame->height();
     int gridWidth = ui->ShootingFrame->width();
-    const QSize btnSize = QSize(gridHeight/MenuWindow::playerOne.board.size(),gridWidth/MenuWindow::playerOne.board.size());
-    for (int i = 0; i < MenuWindow::playerOne.board.size(); i++){
-                    for (int j = 0; j < MenuWindow::playerOne.board[i].size(); j++){
+    const QSize btnSize = QSize(gridHeight/MenuWindow::boardSize,gridWidth/MenuWindow::boardSize);
+    for (int i = 0; i < MenuWindow::boardSize; i++){
+                    for (int j = 0; j < MenuWindow::boardSize; j++){
                         QPushButton *button = new QPushButton();
                         button->setText(QString::number(j)+""+QString::number(i));
                         button->sizePolicy().setHeightForWidth(true);

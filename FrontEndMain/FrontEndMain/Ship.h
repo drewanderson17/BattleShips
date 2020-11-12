@@ -25,7 +25,7 @@ public:
     Ship();
     Ship(string name, int length, int width = 1);
     void placeShip(int row, int col, bool dir);
-    void lockPos() const;
+    void lockPos();
     vector<vector<int> > getPos() const;
     string toStr();
     int getLength();
