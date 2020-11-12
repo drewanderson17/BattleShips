@@ -322,6 +322,7 @@ void MenuWindow::on_doneButtonStartScreen_clicked()
             ui->PageController->setCurrentIndex(1);
         } else {
             buttonBoard.clear();
+            MenuWindow::activePlayer = true;
             MenuWindow::createShotGrid();
             ui->PageController->setCurrentIndex(4);
             cout << grids[0].printGrid(true) << endl;
@@ -343,6 +344,7 @@ void MenuWindow::createShotGrid(){
     int gridWidth = ui->ShootingFrame->width();
     const QSize btnSize = QSize(gridHeight/MenuWindow::boardSize,gridWidth/MenuWindow::boardSize);
     for (int i = 0; i < MenuWindow::boardSize; i++){
+        QVector<QPushButton*> temp;
                     for (int j = 0; j < MenuWindow::boardSize; j++){
                         QPushButton *button = new QPushButton();
                         button->setText(QString::number(j)+""+QString::number(i));
@@ -356,10 +358,51 @@ void MenuWindow::createShotGrid(){
                                           "QPushButton:hover {background-color: rgb(255,0,0);}"
                         );
                         button->setFixedSize(btnSize);
-                        //connect(button,&QPushButton::clicked,[this,button]{on_gridClick(button);});
+                        connect(button,&QPushButton::clicked,[this,button]{on_shotGridClick(button);});
                         ui->ShootingGrid->addWidget(button,i,j);
+                        temp.append(button);
+                    }
+                    buttonBoard.append(temp);
+                }
+}
+
+void MenuWindow::on_shotGridClick(QPushButton *button){
+    Coordinates shotCord = getShotCords(button);
+    cout << "X Cordinate of Shot:"<< shotCord.x << endl;
+    cout << "Y Cordinate of Shot:"<< shotCord.y << endl;
+    try {
+        grids[0].shoot(shotCord.y,shotCord.x);
+    } catch (GridException& e) {
+        cout << e.what() << endl;
+    }
+    button->setStyleSheet("QPushButton{"
+                          "font: 18pt 'MS Shell Dlg 2';"
+                          "color: #333;"
+                          "border: 2px solid #555;"
+                          "background-color: rgb(255,0,0);}"
+
+                      "QPushButton:hover {background-color: rgb(255,0,0);}"
+    );
+
+    cout << grids[0].printGrid(true) << endl;
+    if (grids[0].isWon()){
+        ui->PageController->setCurrentIndex(6);
+        cout << "Player Two's stats are:" << endl << grids[0].printStats() << endl;
+    }
+}
+
+Coordinates MenuWindow::getShotCords(QPushButton *button){
+    Coordinates cord;
+    for (int i = 0; i < buttonBoard.size(); i++){
+                    for (int j = 0; j < buttonBoard[i].size(); j++){
+                        if (buttonBoard[i][j] == button){
+                             cord.x = j;
+                             cord.y = i;
+                             cord.direction = 10;
+                        }
                     }
                 }
+    return cord;
 }
 
 void MenuWindow::on_fireButton_clicked()

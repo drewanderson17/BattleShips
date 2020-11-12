@@ -39,6 +39,7 @@ public:
     void setShipCounts(); // Sets the ship count found in the options page to each player
     Player& getActivePlayer(); // Returns which player the board should reference for placement
     void createShotGrid();
+    Coordinates getShotCords(QPushButton *button);
 
 private slots:
     void on_StartGameButton_clicked(); //Starts the ship placement screen
@@ -48,6 +49,7 @@ private slots:
     void on_backButtonHelp_clicked(); //Returns to homescreen
     void on_backButtonOptions_clicked(); //Returns to homescreen
     void on_gridClick(QPushButton *button); // When user clicks a button (cell) on the grid
+    void on_shotGridClick(QPushButton *button);
     void on_doneButtonStartScreen_clicked(); // Done button for when user is finished placing his board
     void on_fireButton_clicked();
 
