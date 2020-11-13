@@ -47,6 +47,7 @@ public:
     // attack() prompts the user to take a shot on their opponent's board
     void attack(string name);
     string getPlayerName() const;
+    vector<vector<char> > getGrid() const;
 
 private:
     int shots, hits;

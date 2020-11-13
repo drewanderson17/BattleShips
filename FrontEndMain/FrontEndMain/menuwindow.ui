@@ -34,7 +34,7 @@
 </string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="MenuPage">
      <property name="styleSheet">
@@ -1210,7 +1210,7 @@ font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="fireButton">
+     <widget class="QPushButton" name="shootScreenEndTurn">
       <property name="geometry">
        <rect>
         <x>580</x>
@@ -1249,7 +1249,7 @@ QPushButton:pressed {
     }</string>
       </property>
       <property name="text">
-       <string>Shoot</string>
+       <string>End Turn</string>
       </property>
      </widget>
      <widget class="QLabel" name="shipsRemainLabel">

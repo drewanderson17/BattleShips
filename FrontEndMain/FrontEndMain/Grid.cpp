@@ -172,6 +172,10 @@ string promptPlayerForName(int playerNum){
     return name;
 }
 
+vector<vector<char> > Grid::getGrid() const{
+    return shotsGrid;
+}
+
 // Non-member function
 void displayEndOfGameStats(const Grid& grid1, const Grid& grid2){
     string winner, loser;

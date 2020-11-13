@@ -40,6 +40,7 @@ public:
     Player& getActivePlayer(); // Returns which player the board should reference for placement
     void createShotGrid();
     Coordinates getShotCords(QPushButton *button);
+    void loadShotGrid(Grid currentGrid, bool showShips);
 
 private slots:
     void on_StartGameButton_clicked(); //Starts the ship placement screen
@@ -51,7 +52,6 @@ private slots:
     void on_gridClick(QPushButton *button); // When user clicks a button (cell) on the grid
     void on_shotGridClick(QPushButton *button);
     void on_doneButtonStartScreen_clicked(); // Done button for when user is finished placing his board
-    void on_fireButton_clicked();
 
     void on_passWindowOkayButton_clicked();
 
@@ -60,6 +60,8 @@ private slots:
     void on_NewGameButton_clicked();
 
     void on_ExitGameButton_clicked();
+    void on_shootScreenEndTurn_clicked();
+
 protected:
     Ui::MenuWindow *ui;
     QVector<QVector<QPushButton*>> buttonBoard;
@@ -70,5 +72,7 @@ protected:
     QVector<Ship> ships1;
     QVector<Ship> ships2;
     QVector<Grid> grids;
+    bool shotTurnFlag;
+    bool alreadyShot;
 };
 #endif // MENUWINDOW_H

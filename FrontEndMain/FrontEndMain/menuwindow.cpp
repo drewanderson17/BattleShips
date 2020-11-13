@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 #include <ostream>
+#include <chrono>
 
 using namespace std;
 
@@ -35,7 +36,6 @@ Player& MenuWindow::getActivePlayer(){
 
 
 //Ship Placement Window Methods
-
 
 void MenuWindow::setGrid(){
     Player &player = MenuWindow::getActivePlayer();
@@ -106,8 +106,8 @@ void MenuWindow::on_gridClick(QPushButton *button){
 
 
     if (MenuWindow::activePlayer){
-        playerInt = 0;
-    } else {playerInt = 1;}
+        playerInt = 0; //Index of player 1 in grids vector
+    } else {playerInt = 1;} // Index of player 2 in grids vector
 
     if (player.carCount > 0 || player.busCount > 0 || player.bikeCount > 0){
             if (typeInt == 1){ // Placing Car
@@ -129,7 +129,8 @@ void MenuWindow::on_gridClick(QPushButton *button){
                           player.carCount = player.carCount - 1;
                           ui->carTotal->setText(QString::number(player.carCount));
                           out << "VALID" << endl;
-                          placeVehichle(cord,tempShip);
+                          //placeVehichle(cord,tempShip);
+                          loadShotGrid(grids[playerInt], true);
                     } else {out << "NOT A VALID PLACEMENT" << endl;}
                 }
 
@@ -152,7 +153,8 @@ void MenuWindow::on_gridClick(QPushButton *button){
                         player.busCount = player.busCount -1;
                         ui->busTotal->setText(QString::number(player.busCount));
                         out << "VALID" << endl;
-                        placeVehichle(cord,tempShip);
+                        //placeVehichle(cord,tempShip);
+                        loadShotGrid(grids[playerInt], true);
                     }else {out << "NOT A VALID PLACEMENT" << endl;}
                 }
             } else { // Placing Bike
@@ -174,7 +176,8 @@ void MenuWindow::on_gridClick(QPushButton *button){
                         player.bikeCount = player.bikeCount - 1;
                         ui->bikeTotal->setText(QString::number(player.bikeCount));
                         out << "VALID" << endl;
-                        placeVehichle(cord,tempShip);
+                        //placeVehichle(cord,tempShip);
+                        loadShotGrid(grids[playerInt], true);
                     }else {out << "NOT A VALID PLACEMENT" << endl;}
                 }
             }
@@ -217,7 +220,7 @@ void MenuWindow::placeVehichle(Coordinates placement, Ship ship1){
 // Show Start Game Screen if button has been clicked
 void MenuWindow::on_StartGameButton_clicked()
 {
-    MenuWindow::activePlayer = true;
+    MenuWindow::activePlayer = true; // Set the active player to player 1 - They will go first
     playerOne.name = "P1";
     playerTwo.name = "P2";
     boardSize = ui->boardSizeInput->text().toInt();
@@ -244,15 +247,15 @@ void MenuWindow::on_StartGameButton_clicked()
     ships2.push_back(car2);
     ships2.push_back(bike2);
 
-    clearGrid();
-    buttonBoard.clear();
-    setGrid();
-    setShipCounts();
-    ui->carTotal->setText(ui->carCount->text());
-    ui->busTotal->setText(ui->busCount->text());
-    ui->bikeTotal->setText(ui->bikeCount->text());
+    clearGrid(); //Clear current placement grid in case a game has been played before
+    buttonBoard.clear(); //Wipe the contents of button board
+    setGrid(); // Creates shot placement grid and fresh buttonBoard for that grid
+    setShipCounts(); //Sets the ship count from the options screen to ship counts for players 1 and 2
+    ui->carTotal->setText(ui->carCount->text()); //Sets placement window car count to car count from options screen
+    ui->busTotal->setText(ui->busCount->text()); //Sets placement window bus count to bus count from options screen
+    ui->bikeTotal->setText(ui->bikeCount->text()); // Same as above for bike
 
-    ui->PageController->setCurrentIndex(1);
+    ui->PageController->setCurrentIndex(1); // Switch page to placement window
 }
 // Show options screen if button has been clicked
 void MenuWindow::on_optionsButton_clicked()
@@ -324,14 +327,14 @@ void MenuWindow::on_doneButtonStartScreen_clicked()
             buttonBoard.clear();
             MenuWindow::activePlayer = true;
             MenuWindow::createShotGrid();
+            shotTurnFlag = false;
+            alreadyShot = false;
+            loadShotGrid(grids[1],true);
+            ui->turnIndiShotPage->setText("P1");
             ui->PageController->setCurrentIndex(4);
-            cout << grids[0].printGrid(true) << endl;
-            cout << grids[1].printGrid(true) << endl;
         }
     }
 }
-
-
 
 
 //Shoot Screen
@@ -367,28 +370,36 @@ void MenuWindow::createShotGrid(){
 }
 
 void MenuWindow::on_shotGridClick(QPushButton *button){
-    Coordinates shotCord = getShotCords(button);
-    cout << "X Cordinate of Shot:"<< shotCord.x << endl;
-    cout << "Y Cordinate of Shot:"<< shotCord.y << endl;
-    try {
-        grids[0].shoot(shotCord.y,shotCord.x);
-    } catch (GridException& e) {
-        cout << e.what() << endl;
-    }
-    button->setStyleSheet("QPushButton{"
-                          "font: 18pt 'MS Shell Dlg 2';"
-                          "color: #333;"
-                          "border: 2px solid #555;"
-                          "background-color: rgb(255,0,0);}"
+    int gridIndex;
+    if (alreadyShot == false){
+        Coordinates shotCord = getShotCords(button);
+        cout << "X Cordinate of Shot:"<< shotCord.x << endl;
+        cout << "Y Cordinate of Shot:"<< shotCord.y << endl;
+        if (shotTurnFlag){
+            gridIndex = 0;
+        } else{ gridIndex = 1;}
+        try {
+            grids[gridIndex].shoot(shotCord.y,shotCord.x);
+        } catch (GridException& e) {
+            cout << e.what() << endl;
+        }
 
-                      "QPushButton:hover {background-color: rgb(255,0,0);}"
-    );
+        loadShotGrid(grids[gridIndex],true);
 
-    cout << grids[0].printGrid(true) << endl;
-    if (grids[0].isWon()){
-        ui->PageController->setCurrentIndex(6);
-        cout << "Player Two's stats are:" << endl << grids[0].printStats() << endl;
+
+        cout << grids[gridIndex].printGrid(true) << endl;
+        if (grids[gridIndex].isWon()){
+            if (gridIndex == 1){
+                cout << "Player One's stats are:" << endl << grids[gridIndex].printStats() << endl;
+                ui->winnerLabel_3->setText("PLAYER ONE");
+            } else if (gridIndex == 0){
+                cout << "Player Two's stats are:" << endl << grids[gridIndex].printStats() << endl;
+                ui->winnerLabel_3->setText("PLAYER TWO");
+            }
+            ui->PageController->setCurrentIndex(6);
+        }
     }
+    alreadyShot = true;
 }
 
 Coordinates MenuWindow::getShotCords(QPushButton *button){
@@ -405,15 +416,81 @@ Coordinates MenuWindow::getShotCords(QPushButton *button){
     return cord;
 }
 
-void MenuWindow::on_fireButton_clicked()
+void MenuWindow::loadShotGrid(Grid currentGrid, bool showShips){
+    vector<vector<char> > tempGrid = currentGrid.getGrid();
+
+    for (int i = 0; i < buttonBoard.size(); i++){
+                    for (int j = 0; j < buttonBoard[i].size(); j++){
+                        if (tempGrid[i][j] == 'X'){
+                            buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                                                             "font: 18pt 'MS Shell Dlg 2';"
+                                                             "color: #333;"
+                                                             "border: 2px solid #555;"
+                                                             "background-color: rgb(255,0,0);}"
+
+                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");
+
+                        }
+                        else if (tempGrid[i][j] == 'O' || tempGrid[i][j] == 'S'){
+                            if (showShips && tempGrid[i][j] == 'S'){
+                                buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                                                                 "font: 18pt 'MS Shell Dlg 2';"
+                                                                 "color: #333;"
+                                                                 "border: 2px solid #555;"
+                                                                 "background-color: rgb(0,255,0);}"
+
+                                                             "QPushButton:hover {background-color: rgb(255,0,0);}");
+                            } else {
+                                buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                                                             "font: 18pt 'MS Shell Dlg 2';"
+                                                             "color: #333;"
+                                                             "border: 2px solid #555;"
+                                                             "background-color: rgb(255,255,255);}"
+
+                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");
+                            }
+                        } else if (tempGrid[i][j] == 'H'){
+                            buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                                                             "font: 18pt 'MS Shell Dlg 2';"
+                                                             "color: #333;"
+                                                             "border: 2px solid #555;"
+                                                             "background-color: rgb(128,0,128);}"
+
+                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");
+                        } else {
+                            buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                                                             "font: 18pt 'MS Shell Dlg 2';"
+                                                             "color: #333;"
+                                                             "border: 2px solid #555;"
+                                                             "background-color: rgb(120,120,120);}"
+
+                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");
+                        }
+                    }
+                }
+}
+
+//Pass Computer Window
+void MenuWindow::on_shootScreenEndTurn_clicked()
 {
     ui->PageController->setCurrentIndex(5);
 }
 
-//Pass Computer Window
 void MenuWindow::on_passWindowOkayButton_clicked()
 {
-    ui->PageController->setCurrentIndex(6);
+    int gridIndex;
+    alreadyShot = false;
+    shotTurnFlag = !shotTurnFlag;
+    if (shotTurnFlag){
+        gridIndex = 0;
+        ui->turnIndiShotPage->setText("P2");
+    } else{
+        gridIndex = 1;
+        ui->turnIndiShotPage->setText("P1");
+    }
+    loadShotGrid(grids[gridIndex],true);
+
+    ui->PageController->setCurrentIndex(4);
 }
 
 //Win Screen Window
