@@ -3,6 +3,8 @@
 #include <Grid.cpp>
 #include <Ship.cpp>
 #include <QTextStream>
+#include <QString>
+#include <QMessageBox>
 
 #include <string>
 #include <vector>
@@ -18,6 +20,7 @@ MenuWindow::MenuWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->PageController->setCurrentIndex(0);
+    ui->addShipsWidget->setCurrentIndex(0);
 }
 
 MenuWindow::~MenuWindow()
@@ -507,4 +510,80 @@ void MenuWindow::on_NewGameButton_clicked()
 void MenuWindow::on_ExitGameButton_clicked()
 {
     close();
+}
+
+void MenuWindow::on_addBike_clicked()
+{
+    int num = convertStrToint(ui->bikeCount->text()) + 1;
+    ui->bikeCount->setText(QString::number(num));
+}
+
+int MenuWindow::convertStrToint(QString numStr)
+{
+    bool ok;
+    int result = numStr.toInt(&ok);
+    if (!ok){
+        QString errorMsg = "Couldn't convert " + numStr + " to an int.";
+        displayErrorMessage(errorMsg);
+    }
+    return result;
+}
+
+void MenuWindow::displayErrorMessage(QString errorMsg)
+{
+    QMessageBox box;
+    box.setText(errorMsg);
+    box.exec();
+}
+
+void MenuWindow::on_addCar_clicked()
+{
+    int num = convertStrToint(ui->carCount->text()) + 1;
+    ui->carCount->setText(QString::number(num));
+}
+
+void MenuWindow::on_addBus_clicked()
+{
+    int num = convertStrToint(ui->busCount->text()) + 1;
+    ui->busCount->setText(QString::number(num));
+}
+
+void MenuWindow::on_addCustomShip_clicked()
+{
+    int num = convertStrToint(ui->shipCount->text()) + 1;
+    ui->shipCount->setText(QString::number(num));
+}
+
+void MenuWindow::on_rrmBike_clicked()
+{
+    int num = convertStrToint(ui->bikeCount->text()) - 1;
+    ui->bikeCount->setText(QString::number(num));
+}
+
+void MenuWindow::on_rmCar_clicked()
+{
+    int num = convertStrToint(ui->carCount->text()) - 1;
+    ui->carCount->setText(QString::number(num));
+}
+
+void MenuWindow::on_rmBus_clicked()
+{
+    int num = convertStrToint(ui->busCount->text()) - 1;
+    ui->busCount->setText(QString::number(num));
+}
+
+void MenuWindow::on_rmShip_clicked()
+{
+    int num = convertStrToint(ui->shipCount->text()) -1;
+    ui->shipCount->setText(QString::number(num));
+}
+
+void MenuWindow::on_isDefault_clicked()
+{
+    ui->addShipsWidget->setCurrentIndex(0);
+}
+
+void MenuWindow::on_isCustomize_clicked()
+{
+    ui->addShipsWidget->setCurrentIndex(1);
 }

@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <Grid.h>
 #include <Ship.h>
+#include <QMessageBox>
 
 
 QT_BEGIN_NAMESPACE
@@ -41,6 +42,8 @@ public:
     void createShotGrid();
     Coordinates getShotCords(QPushButton *button);
     void loadShotGrid(Grid currentGrid, bool showShips);
+    int convertStrToint(QString numStr);
+    void displayErrorMessage(QString errorMsg);
 
 private slots:
     void on_StartGameButton_clicked(); //Starts the ship placement screen
@@ -61,6 +64,26 @@ private slots:
 
     void on_ExitGameButton_clicked();
     void on_shootScreenEndTurn_clicked();
+
+    void on_addBike_clicked();
+
+    void on_addCar_clicked();
+
+    void on_addBus_clicked();
+
+    void on_addCustomShip_clicked();
+
+    void on_rrmBike_clicked();
+
+    void on_rmCar_clicked();
+
+    void on_rmBus_clicked();
+
+    void on_rmShip_clicked();
+
+    void on_isDefault_clicked();
+
+    void on_isCustomize_clicked();
 
 protected:
     Ui::MenuWindow *ui;
