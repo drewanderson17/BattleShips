@@ -3,6 +3,8 @@
 #include <Grid.cpp>
 #include <Ship.cpp>
 #include <QTextStream>
+#include <QString>
+#include <QMessageBox>
 
 #include <string>
 #include <vector>
@@ -18,6 +20,7 @@ MenuWindow::MenuWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->PageController->setCurrentIndex(0);
+    ui->addShipsWidget->setCurrentIndex(0);
 }
 
 MenuWindow::~MenuWindow()
@@ -74,15 +77,8 @@ void MenuWindow::clearGrid(){
                 }
 }
 
+void MenuWindow::initializeBoardButtons(Coordinates& cord, QPushButton *button){
 
-void MenuWindow::on_gridClick(QPushButton *button){
-    QTextStream out(stdout);
-    Coordinates cord;
-    bool determiner;
-    int typeInt;
-    int playerInt;
-    Ship tempShip;
-    Player &player = getActivePlayer();
     if (ui->directionCB->isChecked()){
         cord.direction = 0;
     } else {
@@ -96,34 +92,68 @@ void MenuWindow::on_gridClick(QPushButton *button){
                         }
                     }
                 }
-    if (ui->carRadio->isChecked()){
-        typeInt = 1; // Placing Car
-    } else if (ui->busRadio->isChecked()){
-        typeInt = 0; // Placing Bus
-    } else {
-        typeInt = 2; //Placing Bike
-    }
+}
 
+int MenuWindow::findUnpositionedShip(string type, QVector<Ship> ships){
+    for (int i = 0; i < ships.size(); i++){
+        if (!(ships[i].isPositioned()) && ships[i].toStr() == type){
+            return i;
+        }
+    }
+    return -1;
+    qDebug("Should not be here!");
+
+}
+
+void MenuWindow::on_gridClick(QPushButton *button){
+    QTextStream out(stdout);
+
+    bool determiner;
+    Coordinates cord;
+    string type;
+    int shipIndex;
+    int playerInt;
+    Ship tempShip;
+    Player &player = getActivePlayer();
+    initializeBoardButtons(cord, button);
+
+    if (ui->carRadio->isChecked()){
+        type = "Car"; // Placing Car
+    } else if (ui->busRadio->isChecked()){
+        type = "Bus"; // Placing Bus
+    } else {
+        type = "Bike"; //Placing Bike
+    }
 
     if (MenuWindow::activePlayer){
         playerInt = 0; //Index of player 1 in grids vector
     } else {playerInt = 1;} // Index of player 2 in grids vector
 
     if (player.carCount > 0 || player.busCount > 0 || player.bikeCount > 0){
-            if (typeInt == 1){ // Placing Car
+            if (type == "Car"){ // Placing Car
                 if (player.carCount > 0){
                     try {
                         if (playerInt == 0){
-                            ships1[typeInt].placeShip(cord.y,cord.x,cord.direction);
-                            grids[playerInt].addShip(ships1[typeInt]);
-                            tempShip = ships1[typeInt];
+                            shipIndex = findUnpositionedShip("Car", ships1);
+                            ships1[shipIndex].positionShip(true);
+                            ships1[shipIndex].placeShip(cord.y,cord.x,cord.direction);
+                            grids[playerInt].addShip(ships1[shipIndex]);
+                            tempShip = ships1[shipIndex];
                         } else {
-                            ships2[typeInt].placeShip(cord.y,cord.x,cord.direction);
-                            grids[playerInt].addShip(ships2[typeInt]);
-                            tempShip = ships2[typeInt];
+                            shipIndex = findUnpositionedShip("Car", ships2);
+                            ships1[shipIndex].positionShip(true);
+                            ships2[shipIndex].placeShip(cord.y,cord.x,cord.direction);
+                            grids[playerInt].addShip(ships2[shipIndex]);
+                            tempShip = ships2[shipIndex];
                         }
                         determiner = true;
                     } catch (ShipException& e) {
+                        if (playerInt == 0){
+                            ships1[shipIndex].positionShip(false);
+                        }
+                        else {
+                            ships2[shipIndex].positionShip(false);
+                        }
                         determiner = false;
                     } if (determiner == true){
                           player.carCount = player.carCount - 1;
@@ -134,20 +164,30 @@ void MenuWindow::on_gridClick(QPushButton *button){
                     } else {out << "NOT A VALID PLACEMENT" << endl;}
                 }
 
-            } else if (typeInt == 0){ // Placing Bus
+            } else if (type == "Bus"){ // Placing Bus
                 if (player.busCount > 0){
                     try {
                         if (playerInt == 0){
-                            ships1[typeInt].placeShip(cord.y,cord.x,cord.direction);
-                            grids[playerInt].addShip(ships1[typeInt]);
-                            tempShip = ships1[typeInt];
+                            shipIndex = findUnpositionedShip("Bus", ships1);
+                            ships1[shipIndex].positionShip(true);
+                            ships1[shipIndex].placeShip(cord.y,cord.x,cord.direction);
+                            grids[playerInt].addShip(ships1[shipIndex]);
+                            tempShip = ships1[shipIndex];
                         } else {
-                            ships2[typeInt].placeShip(cord.y,cord.x,cord.direction);
-                            grids[playerInt].addShip(ships2[typeInt]);
-                            tempShip = ships2[typeInt];
+                            shipIndex = findUnpositionedShip("Bus", ships2);
+                            ships2[shipIndex].positionShip(true);
+                            ships2[shipIndex].placeShip(cord.y,cord.x,cord.direction);
+                            grids[playerInt].addShip(ships2[shipIndex]);
+                            tempShip = ships2[shipIndex];
                         }
                         determiner = true;
                     } catch (ShipException& e) {
+                        if (playerInt == 0){
+                            ships1[shipIndex].positionShip(false);
+                        }
+                        else {
+                            ships2[shipIndex].positionShip(false);
+                        }
                         determiner = false;
                     } if (determiner == true){
                         player.busCount = player.busCount -1;
@@ -161,16 +201,26 @@ void MenuWindow::on_gridClick(QPushButton *button){
                 if (player.bikeCount > 0){
                     try {
                         if (playerInt == 0){
-                            ships1[typeInt].placeShip(cord.y,cord.x,cord.direction);
-                            grids[playerInt].addShip(ships1[typeInt]);
-                            tempShip = ships1[typeInt];
+                            shipIndex = findUnpositionedShip("Bike", ships1);
+                            ships1[shipIndex].positionShip(true);
+                            ships1[shipIndex].placeShip(cord.y,cord.x,cord.direction);
+                            grids[playerInt].addShip(ships1[shipIndex]);
+                            tempShip = ships1[shipIndex];
                         } else {
-                            ships2[typeInt].placeShip(cord.y,cord.x,cord.direction);
-                            grids[playerInt].addShip(ships2[typeInt]);
-                            tempShip = ships2[typeInt];
+                            shipIndex = findUnpositionedShip("Bike", ships2);
+                            ships2[shipIndex].positionShip(true);
+                            ships2[shipIndex].placeShip(cord.y,cord.x,cord.direction);
+                            grids[playerInt].addShip(ships2[shipIndex]);
+                            tempShip = ships2[shipIndex];
                         }
                         determiner = true;
                     } catch (ShipException& e) {
+                        if (playerInt == 0){
+                            ships1[shipIndex].positionShip(false);
+                        }
+                        else {
+                            ships2[shipIndex].positionShip(false);
+                        }
                         determiner = false;
                     } if (determiner == true){
                         player.bikeCount = player.bikeCount - 1;
@@ -214,6 +264,40 @@ void MenuWindow::placeVehichle(Coordinates placement, Ship ship1){
         }
 }
 
+void MenuWindow::addShipsToBoard(){
+    int bikeCount;
+    int carCount;
+    int busCount;
+    if (ui->isCustomize->isChecked()) {
+        bikeCount = convertStrToint(ui->bikeCount->text());
+        carCount = convertStrToint(ui->carCount->text());
+        busCount = convertStrToint(ui->busCount->text());
+    }
+    else {
+        bikeCount = convertStrToint(ui->defaultBikeCount->text());
+        carCount = convertStrToint(ui->defaultCarCount->text());
+        busCount = convertStrToint(ui->defaultBusCount->text());
+    }
+    for (int j = 0; j < bikeCount; j++){
+        Ship ship_obj("Bike", 2, 1);
+        Ship ship_obj_two("Bike", 2, 1);
+        ships1.push_back((ship_obj));
+        ships2.push_back((ship_obj_two));
+    }
+    for (int j = 0; j < carCount; j++){
+        Ship ship_obj("Car", 3, 1);
+        Ship ship_obj_two("Car", 3, 1);
+        ships1.push_back((ship_obj));
+        ships2.push_back((ship_obj_two));
+    }
+    for (int j = 0; j < busCount; j++){
+        Ship ship_obj("Bus", 3, 2);
+        Ship ship_obj_two("Bus", 3, 2);
+        ships1.push_back((ship_obj));
+        ships2.push_back((ship_obj_two));
+    }
+}
+
 
 // Menu Page
 
@@ -231,21 +315,7 @@ void MenuWindow::on_StartGameButton_clicked()
     grids.append(p1Grid);
     grids.append(p2Grid);
 
-    Ship bus1("Bus",3,2);
-    Ship car1("Car",3,1);
-    Ship bike1("Bike",2,1);
-
-    ships1.push_back(bus1);
-    ships1.push_back(car1);
-    ships1.push_back(bike1);
-
-    Ship bus2("Bus",3,2);
-    Ship car2("Car",3,1);
-    Ship bike2("Bus",2,1);
-
-    ships2.push_back(bus2);
-    ships2.push_back(car2);
-    ships2.push_back(bike2);
+    addShipsToBoard();
 
     clearGrid(); //Clear current placement grid in case a game has been played before
     buttonBoard.clear(); //Wipe the contents of button board
@@ -507,4 +577,80 @@ void MenuWindow::on_NewGameButton_clicked()
 void MenuWindow::on_ExitGameButton_clicked()
 {
     close();
+}
+
+void MenuWindow::on_addBike_clicked()
+{
+    int num = convertStrToint(ui->bikeCount->text()) + 1;
+    ui->bikeCount->setText(QString::number(num));
+}
+
+int MenuWindow::convertStrToint(QString numStr)
+{
+    bool ok;
+    int result = numStr.toInt(&ok);
+    if (!ok){
+        QString errorMsg = "Couldn't convert " + numStr + " to an int.";
+        displayErrorMessage(errorMsg);
+    }
+    return result;
+}
+
+void MenuWindow::displayErrorMessage(QString errorMsg)
+{
+    QMessageBox box;
+    box.setText(errorMsg);
+    box.exec();
+}
+
+void MenuWindow::on_addCar_clicked()
+{
+    int num = convertStrToint(ui->carCount->text()) + 1;
+    ui->carCount->setText(QString::number(num));
+}
+
+void MenuWindow::on_addBus_clicked()
+{
+    int num = convertStrToint(ui->busCount->text()) + 1;
+    ui->busCount->setText(QString::number(num));
+}
+
+void MenuWindow::on_addCustomShip_clicked()
+{
+    int num = convertStrToint(ui->shipCount->text()) + 1;
+    ui->shipCount->setText(QString::number(num));
+}
+
+void MenuWindow::on_rrmBike_clicked()
+{
+    int num = convertStrToint(ui->bikeCount->text()) - 1;
+    ui->bikeCount->setText(QString::number(num));
+}
+
+void MenuWindow::on_rmCar_clicked()
+{
+    int num = convertStrToint(ui->carCount->text()) - 1;
+    ui->carCount->setText(QString::number(num));
+}
+
+void MenuWindow::on_rmBus_clicked()
+{
+    int num = convertStrToint(ui->busCount->text()) - 1;
+    ui->busCount->setText(QString::number(num));
+}
+
+void MenuWindow::on_rmShip_clicked()
+{
+    int num = convertStrToint(ui->shipCount->text()) -1;
+    ui->shipCount->setText(QString::number(num));
+}
+
+void MenuWindow::on_isDefault_clicked()
+{
+    ui->addShipsWidget->setCurrentIndex(0);
+}
+
+void MenuWindow::on_isCustomize_clicked()
+{
+    ui->addShipsWidget->setCurrentIndex(1);
 }
