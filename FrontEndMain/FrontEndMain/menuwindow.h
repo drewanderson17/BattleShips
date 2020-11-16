@@ -46,7 +46,10 @@ public:
     void addShipsToBoard();
     void initializeBoardButtons(Coordinates& cord, QPushButton *button);
     int findUnpositionedShip(string type, const QVector<Ship> ships);
-    Ship& addAndPlaceShips(string type, int playerInt, int shipIndex, QVector<Ship> ships, const Coordinates cord);
+    Ship& placeAndAddShip(const int playerInt, const int shipIndex, QVector<Ship> ships, const Coordinates cord);
+    void updateUIAfterShot(string type, Player& player, int playerInt);
+    void getShipType(string& type, const Player& player);
+    bool canShoot(const Player& player);
 
 private slots:
     void on_StartGameButton_clicked(); //Starts the ship placement screen

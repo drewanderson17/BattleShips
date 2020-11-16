@@ -105,62 +105,14 @@ int MenuWindow::findUnpositionedShip(string type, QVector<Ship> ships){
     qDebug("Should not be here!");
 }
 
-Ship& MenuWindow::addAndPlaceShips(string type, int playerInt, int shipIndex, QVector<Ship> ships, const Coordinates cord){
-
+Ship& MenuWindow::placeAndAddShip(const int playerInt, const int shipIndex, QVector<Ship> ships, const Coordinates cord){
     ships[shipIndex].placeShip(cord.y,cord.x,cord.direction);
     grids[playerInt].addShip(ships[shipIndex]);
     return ships[shipIndex];
 }
 
-void MenuWindow::on_gridClick(QPushButton *button){
+void MenuWindow::updateUIAfterShot(string type, Player& player, int playerInt){
     QTextStream out(stdout);
-    Coordinates cord;
-    string type;
-    int shipIndex;
-    int playerInt;
-    Ship tempShip;
-    Player &player = getActivePlayer();
-    initializeBoardButtons(cord, button);
-
-    if (ui->carRadio->isChecked()){
-        type = "Car"; // Placing Car
-        if (player.carCount < 1)
-            return;
-    } else if (ui->busRadio->isChecked()){
-        type = "Bus"; // Placing Bus
-        if (player.busCount < 1)
-            return;
-    } else {
-        type = "Bike"; //Placing Bike
-        if (player.bikeCount < 1)
-            return;
-    }
-
-    if (MenuWindow::activePlayer){
-        playerInt = 0; //Index of player 1 in grids vector
-    } else {
-        playerInt = 1;
-    } // Index of player 2 in grids vector
-    try {
-        if (playerInt == 0){
-        shipIndex = findUnpositionedShip(type, ships1);
-        tempShip = addAndPlaceShips(type, playerInt, shipIndex, ships1, cord);
-        }
-        else{
-            shipIndex = findUnpositionedShip(type, ships2);
-            tempShip = addAndPlaceShips(type, playerInt, shipIndex, ships2, cord);
-        }
-    } catch (ShipException& e) {
-        if (playerInt == 0){
-            ships1[shipIndex].positionShip(false);
-        }
-        else {
-            ships2[shipIndex].positionShip(false);
-        }
-        out << "NOT A VALID PLACEMENT" << endl;
-        return;
-    }
-    // update UI
     if (type == "Car"){
           player.carCount = player.carCount - 1;
           ui->carTotal->setText(QString::number(player.carCount));
@@ -177,72 +129,75 @@ void MenuWindow::on_gridClick(QPushButton *button){
         out << "VALID" << endl;
         loadShotGrid(grids[playerInt], true);
     }
-} // end on_gridClick
-/*
-            } /*else if (type == "Bus"){ // Placing Bus
-                if (player.busCount > 0){
-                    try {
-                        if (playerInt == 0){
-                            shipIndex = findUnpositionedShip("Bus", ships1);
-                            ships1[shipIndex].placeShip(cord.y,cord.x,cord.direction);
-                            grids[playerInt].addShip(ships1[shipIndex]);
-                            tempShip = ships1[shipIndex];
-                        } else {
-                            shipIndex = findUnpositionedShip("Bus", ships2);
-                            ships2[shipIndex].placeShip(cord.y,cord.x,cord.direction);
-                            grids[playerInt].addShip(ships2[shipIndex]);
-                            tempShip = ships2[shipIndex];
-                        }
-                        determiner = true;
-                    } catch (ShipException& e) {
-                        if (playerInt == 0){
-                            ships1[shipIndex].positionShip(false);
-                        }
-                        else {
-                            ships2[shipIndex].positionShip(false);
-                        }
-                        determiner = false;
-                    } if (determiner == true){
-                        player.busCount = player.busCount -1;
-                        ui->busTotal->setText(QString::number(player.busCount));
-                        out << "VALID" << endl;
-                        loadShotGrid(grids[playerInt], true);
-                    }else {out << "NOT A VALID PLACEMENT" << endl;}
-                }
-            } else { // Placing Bike
-                if (player.bikeCount > 0){
-                    try {
-                        if (playerInt == 0){
-                            shipIndex = findUnpositionedShip("Bike", ships1);
-                            ships1[shipIndex].placeShip(cord.y,cord.x,cord.direction);
-                            grids[playerInt].addShip(ships1[shipIndex]);
-                            tempShip = ships1[shipIndex];
-                        } else {
-                            shipIndex = findUnpositionedShip("Bike", ships2);
-                            ships2[shipIndex].placeShip(cord.y,cord.x,cord.direction);
-                            grids[playerInt].addShip(ships2[shipIndex]);
-                            tempShip = ships2[shipIndex];
-                        }
-                        determiner = true;
-                    } catch (ShipException& e) {
-                        if (playerInt == 0){
-                            ships1[shipIndex].positionShip(false);
-                        }
-                        else {
-                            ships2[shipIndex].positionShip(false);
-                        }
-                        determiner = false;
-                    } if (determiner == true){
-                        player.bikeCount = player.bikeCount - 1;
-                        ui->bikeTotal->setText(QString::number(player.bikeCount));
-                        out << "VALID" << endl;
-                        loadShotGrid(grids[playerInt], true);
-                    }else {out << "NOT A VALID PLACEMENT" << endl;}
-                }
-            }*/
-//    }
+}
 
-/*}*/ //End of Ship Placement Methods
+bool MenuWindow::canShoot(const Player& player){
+    if (ui->carRadio->isChecked()){
+        if (player.carCount < 1)
+            return false;
+    } else if (ui->busRadio->isChecked()){
+        if (player.busCount < 1)
+            return false;
+    } else {
+        if (player.bikeCount < 1)
+            return false;
+    }
+    return true;
+}
+
+void MenuWindow::getShipType(string& type, const Player& player){
+    if (ui->carRadio->isChecked()){
+        type = "Car"; // Placing Car
+        if (player.carCount < 1)
+            return;
+    } else if (ui->busRadio->isChecked()){
+        type = "Bus"; // Placing Bus
+        if (player.busCount < 1)
+            return;
+    } else {
+        type = "Bike"; //Placing Bike
+        if (player.bikeCount < 1)
+            return;
+    }
+}
+
+void MenuWindow::on_gridClick(QPushButton *button){
+    QTextStream out(stdout);
+    Coordinates cord;
+    string type;
+    int shipIndex;
+    Ship tempShip;
+
+    Player &player = getActivePlayer();
+    initializeBoardButtons(cord, button);
+    getShipType(type, player);
+    if (!canShoot(player))
+        return;
+    int playerInt = 1;
+    if (MenuWindow::activePlayer){
+        playerInt = 0;
+    }
+    try {
+        if (playerInt == 0){
+        shipIndex = findUnpositionedShip(type, ships1);
+        tempShip = placeAndAddShip(playerInt, shipIndex, ships1, cord);
+        }
+        else {
+            shipIndex = findUnpositionedShip(type, ships2);
+            tempShip = placeAndAddShip(playerInt, shipIndex, ships2, cord);
+        }
+    } catch (ShipException& e) {
+        if (playerInt == 0){
+            ships1[shipIndex].positionShip(false);
+        }
+        else {
+            ships2[shipIndex].positionShip(false);
+        }
+        out << "NOT A VALID PLACEMENT" << endl;
+        return;
+    }
+    updateUIAfterShot(type, player, playerInt);
+} // end on_gridClick
 
 void MenuWindow::addShipsToBoard(){
     int bikeCount;
