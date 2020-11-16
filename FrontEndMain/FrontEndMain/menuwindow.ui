@@ -37,7 +37,7 @@
 </string>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="MenuPage">
      <property name="styleSheet">
@@ -308,7 +308,7 @@ QPushButton:pressed {
 font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
       </property>
       <property name="text">
-       <string>car1</string>
+       <string>Cars</string>
       </property>
       <property name="checked">
        <bool>true</bool>
@@ -328,7 +328,7 @@ font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
 font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
       </property>
       <property name="text">
-       <string>bus1</string>
+       <string>Buses</string>
       </property>
      </widget>
      <widget class="QRadioButton" name="bikeRadio">
@@ -345,7 +345,7 @@ font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
 font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
       </property>
       <property name="text">
-       <string>bike1</string>
+       <string>Bikes</string>
       </property>
      </widget>
      <widget class="QLabel" name="RemainingLabel_1">

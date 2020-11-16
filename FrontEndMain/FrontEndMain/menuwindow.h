@@ -45,6 +45,8 @@ public:
     int convertStrToint(QString numStr);
     void displayErrorMessage(QString errorMsg);
     void addShipsToBoard();
+    void initializeBoardButtons(Coordinates& cord, QPushButton *button);
+    int findUnpositionedShip(string type, const QVector<Ship> ships);
 
 private slots:
     void on_StartGameButton_clicked(); //Starts the ship placement screen
