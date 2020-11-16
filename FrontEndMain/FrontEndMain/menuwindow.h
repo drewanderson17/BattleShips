@@ -47,7 +47,7 @@ public:
     void initializeBoardButtons(Coordinates& cord, QPushButton *button);
     int findUnpositionedShip(string type, const QVector<Ship> ships);
     Ship& placeAndAddShip(const int playerInt, const int shipIndex, QVector<Ship> ships, const Coordinates cord);
-    void updateUIAfterShot(string type, Player& player, int playerInt);
+    void updateUIAfterPlacement(string type, Player& player, int playerInt);
     void getShipType(string& type, const Player& player);
     bool canShoot(const Player& player);
 

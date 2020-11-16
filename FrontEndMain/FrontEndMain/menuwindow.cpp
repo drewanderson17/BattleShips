@@ -111,7 +111,7 @@ Ship& MenuWindow::placeAndAddShip(const int playerInt, const int shipIndex, QVec
     return ships[shipIndex];
 }
 
-void MenuWindow::updateUIAfterShot(string type, Player& player, int playerInt){
+void MenuWindow::updateUIAfterPlacement(string type, Player& player, int playerInt){
     QTextStream out(stdout);
     if (type == "Car"){
           player.carCount = player.carCount - 1;
@@ -196,7 +196,7 @@ void MenuWindow::on_gridClick(QPushButton *button){
         out << "NOT A VALID PLACEMENT" << endl;
         return;
     }
-    updateUIAfterShot(type, player, playerInt);
+    updateUIAfterPlacement(type, player, playerInt);
 } // end on_gridClick
 
 void MenuWindow::addShipsToBoard(){
