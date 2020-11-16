@@ -44,6 +44,7 @@ public:
     void loadShotGrid(Grid currentGrid, bool showShips);
     int convertStrToint(QString numStr);
     void displayErrorMessage(QString errorMsg);
+    void addShipsToBoard();
 
 private slots:
     void on_StartGameButton_clicked(); //Starts the ship placement screen

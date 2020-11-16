@@ -217,6 +217,40 @@ void MenuWindow::placeVehichle(Coordinates placement, Ship ship1){
         }
 }
 
+void MenuWindow::addShipsToBoard(){
+    int bikeCount;
+    int carCount;
+    int busCount;
+    if (ui->isCustomize->isChecked()) {
+        bikeCount = convertStrToint(ui->bikeCount->text());
+        carCount = convertStrToint(ui->carCount->text());
+        busCount = convertStrToint(ui->busCount->text());
+    }
+    else {
+        bikeCount = convertStrToint(ui->defaultBikeCount->text());
+        carCount = convertStrToint(ui->defaultCarCount->text());
+        busCount = convertStrToint(ui->defaultBusCount->text());
+    }
+    for (int j = 0; j < bikeCount; j++){
+        Ship ship_obj("Bike", 2, 1);
+        Ship ship_obj_two("Bike", 2, 1);
+        ships1.push_back((ship_obj));
+        ships2.push_back((ship_obj_two));
+    }
+    for (int j = 0; j < carCount; j++){
+        Ship ship_obj("Car", 3, 1);
+        Ship ship_obj_two("Car", 3, 1);
+        ships1.push_back((ship_obj));
+        ships2.push_back((ship_obj_two));
+    }
+    for (int j = 0; j < busCount; j++){
+        Ship ship_obj("Bus", 3, 2);
+        Ship ship_obj_two("Bus", 3, 2);
+        ships1.push_back((ship_obj));
+        ships2.push_back((ship_obj_two));
+    }
+}
+
 
 // Menu Page
 
@@ -234,21 +268,23 @@ void MenuWindow::on_StartGameButton_clicked()
     grids.append(p1Grid);
     grids.append(p2Grid);
 
-    Ship bus1("Bus",3,2);
-    Ship car1("Car",3,1);
-    Ship bike1("Bike",2,1);
+    addShipsToBoard();
 
-    ships1.push_back(bus1);
-    ships1.push_back(car1);
-    ships1.push_back(bike1);
+//    Ship bus1("Bus",3,2);
+//    Ship car1("Car",3,1);
+//    Ship bike1("Bike",2,1);
 
-    Ship bus2("Bus",3,2);
-    Ship car2("Car",3,1);
-    Ship bike2("Bus",2,1);
+//    ships1.push_back(bus1);
+//    ships1.push_back(car1);
+//    ships1.push_back(bike1);
 
-    ships2.push_back(bus2);
-    ships2.push_back(car2);
-    ships2.push_back(bike2);
+//    Ship bus2("Bus",3,2);
+//    Ship car2("Car",3,1);
+//    Ship bike2("Bus",2,1);
+
+//    ships2.push_back(bus2);
+//    ships2.push_back(car2);
+//    ships2.push_back(bike2);
 
     clearGrid(); //Clear current placement grid in case a game has been played before
     buttonBoard.clear(); //Wipe the contents of button board
