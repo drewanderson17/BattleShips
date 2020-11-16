@@ -35,7 +35,6 @@ public:
     MenuWindow(QWidget *parent = nullptr);
     ~MenuWindow();
     void setGrid(); // Set the buttonGrid on the place ships page
-    void placeVehichle(Coordinates placement, Ship ship1); // Places vehicle on buttonBoard and on player boards (will be replaced by new backend)
     void clearGrid(); // Clear button grid before starting new game
     void setShipCounts(); // Sets the ship count found in the options page to each player
     Player& getActivePlayer(); // Returns which player the board should reference for placement
@@ -47,6 +46,10 @@ public:
     void addShipsToBoard();
     void initializeBoardButtons(Coordinates& cord, QPushButton *button);
     int findUnpositionedShip(string type, const QVector<Ship> ships);
+    Ship& placeAndAddShip(const int playerInt, const int shipIndex, QVector<Ship> ships, const Coordinates cord);
+    void updateUIAfterShot(string type, Player& player, int playerInt);
+    void getShipType(string& type, const Player& player);
+    bool canShoot(const Player& player);
 
 private slots:
     void on_StartGameButton_clicked(); //Starts the ship placement screen
