@@ -19,14 +19,17 @@ SOURCES += \
     Grid.cpp \
     Ship.cpp \
     main.cpp \
+    menupage.cpp \
     menuwindow.cpp
 
 HEADERS += \
     Grid.h \
     Ship.h \
+    menupage.h \
     menuwindow.h
 
 FORMS += \
+    menupage.ui \
     menuwindow.ui
 
 # Default rules for deployment.
