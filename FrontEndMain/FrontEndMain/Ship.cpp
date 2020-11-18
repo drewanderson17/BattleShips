@@ -12,6 +12,7 @@ string ShipException::what() const { return message; }
 
 Ship::Ship() {
     isLocked = false;
+    isPos = false;
     name = "Default";
     length = 1;
     width = 1;
@@ -19,6 +20,7 @@ Ship::Ship() {
 
 Ship::Ship(string nameIn, int lengthIn, int widthIn) {
     isLocked = false;
+    isPos = false;
     name = nameIn;
     length = lengthIn;
     width = widthIn;
@@ -32,7 +34,7 @@ Ship::Ship(string nameIn, int lengthIn, int widthIn) {
 }
 
 void Ship::placeShip(int row, int col, bool dir) {
-    if(!isLocked) {
+    if(isLocked) {
         throw ShipException("The ship has already been placed.");
     }
     else {
@@ -56,8 +58,16 @@ void Ship::placeShip(int row, int col, bool dir) {
     }
 }
 
-void Ship::lockPos() const {
+void Ship::lockPos() {
     isLocked = true;
+}
+
+void Ship::positionShip(bool isPlaced) {
+    isPos = isPlaced;
+}
+
+bool Ship::isPositioned() {
+    return isPos;
 }
 
 bool Ship::hit(int row, int col) {

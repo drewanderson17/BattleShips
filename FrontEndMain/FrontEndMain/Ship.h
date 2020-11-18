@@ -25,7 +25,9 @@ public:
     Ship();
     Ship(string name, int length, int width = 1);
     void placeShip(int row, int col, bool dir);
-    void lockPos() const;
+    void lockPos();
+    void positionShip(bool isPlaced);
+    bool isPositioned();
     vector<vector<int> > getPos() const;
     string toStr();
     int getLength();
@@ -39,6 +41,7 @@ private:
     int length;
     int width;
     bool isLocked;
+    bool isPos;
     vector<vector<int> > pos;//stores the (row, column, health) of each segment
 
 };
