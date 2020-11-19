@@ -13,3 +13,10 @@ PassToOppo::~PassToOppo()
 {
     delete ui;
 }
+
+void PassToOppo::on_passWindowOkayButton_clicked()
+{
+    ShotPage* shot = new ShotPage(main);
+    main->setCentralWidget(shot);
+    delete this;
+}

@@ -13,3 +13,17 @@ WinnerPage::~WinnerPage()
 {
     delete ui;
 }
+
+void WinnerPage::on_MainMenuButton_clicked()
+{
+    MenuPage* menu = new MenuPage(main);
+    main->setCentralWidget(menu);
+    delete this;
+}
+
+void WinnerPage::on_NewGameButton_clicked()
+{
+    PlacementPage* placement = new PlacementPage(main);
+    main->setCentralWidget(placement);
+    delete this;
+}

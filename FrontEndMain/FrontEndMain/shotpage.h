@@ -16,6 +16,9 @@ public:
     explicit ShotPage(QMainWindow *parent = nullptr);
     ~ShotPage();
 
+private slots:
+    void on_shootScreenEndTurn_clicked();
+
 private:
     Ui::ShotPage *ui;
     QMainWindow *main;

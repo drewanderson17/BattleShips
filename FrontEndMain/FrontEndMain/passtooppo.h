@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QMainWindow>
+#include "shotpage.h"
+#include "placementpage.h"
 
 namespace Ui {
 class PassToOppo;
@@ -15,6 +17,9 @@ class PassToOppo : public QWidget
 public:
     explicit PassToOppo(QMainWindow *parent = nullptr);
     ~PassToOppo();
+
+private slots:
+    void on_passWindowOkayButton_clicked();
 
 private:
     Ui::PassToOppo *ui;

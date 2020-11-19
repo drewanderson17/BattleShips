@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QMainWindow>
+#include "menupage.h"
+#include "passtooppo.h"
 
 namespace Ui {
 class PlacementPage;
@@ -15,6 +17,11 @@ class PlacementPage : public QWidget
 public:
     explicit PlacementPage(QMainWindow *parent = nullptr);
     ~PlacementPage();
+
+private slots:
+    void on_backButtonStartScreen_clicked();
+
+    void on_doneButtonStartScreen_clicked();
 
 private:
     Ui::PlacementPage *ui;
