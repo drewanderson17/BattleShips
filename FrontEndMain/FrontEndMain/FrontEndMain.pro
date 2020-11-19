@@ -20,6 +20,7 @@ SOURCES += \
     Ship.cpp \
     helppage.cpp \
     main.cpp \
+    mainwindow.cpp \
     menupage.cpp \
     menuwindow.cpp \
     optionspage.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     Grid.h \
     Ship.h \
     helppage.h \
+    mainwindow.h \
     menupage.h \
     menuwindow.h \
     optionspage.h \
@@ -42,6 +44,7 @@ HEADERS += \
 
 FORMS += \
     helppage.ui \
+    mainwindow.ui \
     menupage.ui \
     menuwindow.ui \
     optionspage.ui \
