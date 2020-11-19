@@ -18,19 +18,37 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Grid.cpp \
     Ship.cpp \
+    helppage.cpp \
     main.cpp \
     menupage.cpp \
-    menuwindow.cpp
+    menuwindow.cpp \
+    optionspage.cpp \
+    passtooppo.cpp \
+    placementpage.cpp \
+    shotpage.cpp \
+    winnerpage.cpp
 
 HEADERS += \
     Grid.h \
     Ship.h \
+    helppage.h \
     menupage.h \
-    menuwindow.h
+    menuwindow.h \
+    optionspage.h \
+    passtooppo.h \
+    placementpage.h \
+    shotpage.h \
+    winnerpage.h
 
 FORMS += \
+    helppage.ui \
     menupage.ui \
-    menuwindow.ui
+    menuwindow.ui \
+    optionspage.ui \
+    passtooppo.ui \
+    placementpage.ui \
+    shotpage.ui \
+    winnerpage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

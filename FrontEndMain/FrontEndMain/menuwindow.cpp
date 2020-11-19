@@ -18,6 +18,15 @@ MenuWindow::MenuWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MenuWindow)
 {
+    //Instantiating Page Objects
+    //menu = new MenuPage;
+    //options = new OptionsPage;
+    //help = new HelpPage;
+    //placement = new PlacementPage;
+    //shot = new ShotPage;
+    //pass = new PassToOppo;
+    //winner = new WinnerPage;
+
     ui->setupUi(this);
     ui->PageController->setCurrentIndex(0);
     ui->addShipsWidget->setCurrentIndex(0);

@@ -12,3 +12,5 @@ MenuPage::~MenuPage()
 {
     delete ui;
 }
+
+

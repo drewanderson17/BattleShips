@@ -8,6 +8,13 @@
 #include <Grid.h>
 #include <Ship.h>
 #include <QMessageBox>
+#include <menupage.h>
+#include <optionspage.h>
+#include <helppage.h>
+#include <placementpage.h>
+#include <shotpage.h>
+#include <passtooppo.h>
+#include <winnerpage.h>
 
 
 QT_BEGIN_NAMESPACE
@@ -107,5 +114,14 @@ protected:
     QVector<Ship> customShips;
     bool shotTurnFlag;
     bool alreadyShot;
+    //Page Classes
+    MenuPage *menu;
+    OptionsPage *options;
+    HelpPage *help;
+    PlacementPage *placement;
+    ShotPage *shot;
+    PassToOppo *pass;
+    WinnerPage *winner;
+
 };
 #endif // MENUWINDOW_H
