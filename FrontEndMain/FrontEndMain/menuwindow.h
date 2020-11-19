@@ -24,6 +24,7 @@ struct Player{
     int carCount;
     int busCount;
     int bikeCount;
+    int customCount;
     QString name;
 };
 
@@ -91,6 +92,8 @@ private slots:
 
     void on_isCustomize_clicked();
 
+    int getCustomShipCount(QVector<Ship> ships);
+
 protected:
     Ui::MenuWindow *ui;
     QVector<QVector<QPushButton*>> buttonBoard;
@@ -101,6 +104,7 @@ protected:
     QVector<Ship> ships1;
     QVector<Ship> ships2;
     QVector<Grid> grids;
+    QVector<Ship> customShips;
     bool shotTurnFlag;
     bool alreadyShot;
 };

@@ -29,7 +29,7 @@ public:
     void positionShip(bool isPlaced);
     bool isPositioned();
     vector<vector<int> > getPos() const;
-    string toStr();
+    string toStr(); // Returns name of ship
     int getLength();
     int getWidth();
     int getHealth() const;
