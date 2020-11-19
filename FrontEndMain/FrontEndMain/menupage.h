@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QMainWindow>
+#include "placementpage.h"
+#include "optionspage.h"
+#include "helppage.h"
 
 namespace Ui {
 class MenuPage;
@@ -18,6 +21,10 @@ public:
 
 private slots:
     void on_StartGameButton_clicked();
+
+    void on_optionsButton_clicked();
+
+    void on_helpButton_clicked();
 
 private:
     Ui::MenuPage *ui;

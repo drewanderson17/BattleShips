@@ -16,6 +16,9 @@ public:
     explicit OptionsPage(QMainWindow *parent = nullptr);
     ~OptionsPage();
 
+private slots:
+    void on_backButtonOptions_clicked();
+
 private:
     Ui::OptionsPage *ui;
     QMainWindow *main;

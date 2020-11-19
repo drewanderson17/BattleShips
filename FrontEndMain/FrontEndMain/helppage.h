@@ -16,6 +16,9 @@ public:
     explicit HelpPage(QMainWindow *parent = nullptr);
     ~HelpPage();
 
+private slots:
+    void on_backButtonHelp_clicked();
+
 private:
     Ui::HelpPage *ui;
     QMainWindow *main;

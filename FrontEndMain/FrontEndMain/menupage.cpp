@@ -1,6 +1,5 @@
 #include "menupage.h"
 #include "ui_menupage.h"
-#include "placementpage.h"
 #include <iostream>
 #include <QTextStream>
 MenuPage::MenuPage(QMainWindow *parent) :
@@ -18,7 +17,21 @@ MenuPage::~MenuPage()
 
 void MenuPage::on_StartGameButton_clicked()
 {
-    QTextStream out(stdout);
-    PlacementPage *placement = new PlacementPage;
+    PlacementPage *placement = new PlacementPage(main);
     main->setCentralWidget(placement);
+    delete this;
+}
+
+void MenuPage::on_optionsButton_clicked()
+{
+    OptionsPage *options = new OptionsPage(main);
+    main->setCentralWidget(options);
+    delete this;
+}
+
+void MenuPage::on_helpButton_clicked()
+{
+    HelpPage *help = new HelpPage(main);
+    main->setCentralWidget(help);
+    delete this;
 }
