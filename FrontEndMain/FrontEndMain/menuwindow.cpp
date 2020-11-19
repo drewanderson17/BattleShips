@@ -618,7 +618,3 @@ void MenuWindow::on_isCustomize_clicked()
     ui->addShipsWidget->setCurrentIndex(1);
 }
 
-void MenuWindow::on_lengthInput_textEdited(const QString &arg1)
-{
-
-}

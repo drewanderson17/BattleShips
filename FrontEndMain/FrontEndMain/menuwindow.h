@@ -92,8 +92,6 @@ private slots:
 
     void on_isCustomize_clicked();
 
-    void on_lengthInput_textEdited(const QString &arg1);
-
     int getCustomShipCount(QVector<Ship> ships);
 
 protected:
