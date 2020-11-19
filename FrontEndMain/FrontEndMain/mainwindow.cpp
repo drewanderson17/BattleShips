@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     //Instantiating Page Objects
-    menu = new MenuPage;
+    menu = new MenuPage(this);
     //options = new OptionsPage;
     //help = new HelpPage;
     //placement = new PlacementPage;
