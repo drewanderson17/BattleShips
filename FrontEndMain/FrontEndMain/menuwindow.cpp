@@ -585,26 +585,34 @@ void MenuWindow::on_addCustomShip_clicked()
 void MenuWindow::on_rrmBike_clicked()
 {
     int num = convertStrToint(ui->bikeCount->text()) - 1;
+    if (num < 0)
+        return;
     ui->bikeCount->setText(QString::number(num));
 }
 
 void MenuWindow::on_rmCar_clicked()
 {
     int num = convertStrToint(ui->carCount->text()) - 1;
+    if (num < 0)
+        return;
     ui->carCount->setText(QString::number(num));
 }
 
 void MenuWindow::on_rmBus_clicked()
 {
     int num = convertStrToint(ui->busCount->text()) - 1;
+    if (num < 0)
+        return;
     ui->busCount->setText(QString::number(num));
 }
 
 void MenuWindow::on_rmShip_clicked()
 {
+    int num = convertStrToint(ui->shipCount->text()) -1;
+    if (num < 0)
+        return;
     ships1.pop_back();
     ships2.pop_back();
-    int num = convertStrToint(ui->shipCount->text()) -1;
     ui->shipCount->setText(QString::number(num));
 }
 
