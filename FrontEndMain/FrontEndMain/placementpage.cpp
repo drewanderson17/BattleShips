@@ -1,6 +1,7 @@
 #include "placementpage.h"
 #include "ui_placementpage.h"
 #include <QTextStream>
+#include <iostream>
 
 PlacementPage::PlacementPage(MainWindow *parent) :
     QWidget(parent),
@@ -26,9 +27,24 @@ void PlacementPage::on_backButtonStartScreen_clicked()
 
 void PlacementPage::on_doneButtonStartScreen_clicked()
 {
-    PassToOppo *pass = new PassToOppo(main);
-    main->setCentralWidget(pass);
-    delete this;
+    Player &player = main->getActivePlayer();
+    if (player.busCount == 0 && player.carCount == 0 && player.bikeCount == 0 && player.customCount == 0){
+        if (main->alreadyPlaced){
+            main->buttonBoard.clear();
+            main->activePlayer = false;
+            main->alreadyPlaced = false;
+            PlacementPage *p2place = new PlacementPage(main);
+            main->setCentralWidget(p2place);
+        }else{
+            main->activePlayer = true;
+            main->buttonBoard.clear();
+            cout << main->grids[0].printGrid(true) << endl;
+            cout << main->grids[1].printGrid(true) << endl;
+            ShotPage *shot = new ShotPage(main);
+            main->setCentralWidget(shot);
+        }
+        delete this;
+    }
 }
 
 void PlacementPage::setGrid(){

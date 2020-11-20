@@ -46,6 +46,10 @@ public:
     bool activePlayer;
     Player playerOne;
     Player playerTwo;
+    bool alreadyPlaced;
+    bool shotTurnFlag;
+    bool alreadyShot;
+    QString winnerName;
 
 
 protected:
@@ -59,8 +63,8 @@ protected:
     //QVector<Ship> ships2;
     //QVector<Grid> grids;
     //QVector<Ship> customShips;
-    bool shotTurnFlag;
-    bool alreadyShot;
+    //bool shotTurnFlag;
+    //bool alreadyShot;
 };
 
 #endif // MAINWINDOW_H

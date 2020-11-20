@@ -21,7 +21,8 @@ void MenuPage::on_StartGameButton_clicked()
     main->activePlayer = true;
     main->playerOne.name = "P1";
     main->playerTwo.name = "P2";
-    main->boardSize = 10;
+    main->boardSize = 8;
+    main->alreadyPlaced = true;
     string name = "name";
     Grid p1Grid(main->boardSize,name);
     Grid p2Grid(main->boardSize,name);
@@ -62,13 +63,13 @@ void MenuPage::addShipsToBoard(){
         carCount = convertStrToint(ui->defaultCarCount->text());
         busCount = convertStrToint(ui->defaultBusCount->text());
     }*/
-    bikeCount = 2;
+    bikeCount = 1;
     main->playerOne.bikeCount = bikeCount;
     main->playerTwo.bikeCount = bikeCount;
-    carCount = 2;
+    carCount = 1;
     main->playerOne.carCount = carCount;
     main->playerTwo.carCount = carCount;
-    busCount = 2;
+    busCount = 1;
     main->playerOne.busCount = busCount;
     main->playerTwo.busCount = busCount;
 
