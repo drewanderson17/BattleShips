@@ -29,6 +29,19 @@ struct Player{
     QString name;
 };
 
+struct CustomShip{
+    int width;
+    int height;
+    int count;
+};
+
+struct Options{
+    int oCars;
+    int oBus;
+    int oBikes;
+    CustomShip oCustom;
+};
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -37,23 +50,37 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     Player& getActivePlayer();
     ~MainWindow();
-    QVector<QVector<QPushButton*>> buttonBoard;
+    //Accessors and Mutators
+    int getBoardSize();
+    void setBoardSize(int size);
+    bool getActive();
+    void setActive(bool condition);
+    Player getPlayerOne();
+    void setPlayerOne(Player tempPlayer);
+    Player getPlayerTwo();
+    void setPlayerTwo(Player tempPlayer);
+    bool getAlreadyShot();
+    void setAlreadyShot(bool condition);
+    QString getWinnerName();
+    void setWinnerName(QString winName);
+    QVector<QVector<QPushButton*>>& getButtonBoard();
+
     QVector<Ship> ships1;
     QVector<Ship> ships2;
     QVector<Grid> grids;
     QVector<Ship> customShips;
-    int boardSize;
-    bool activePlayer;
     Player playerOne;
     Player playerTwo;
-    bool alreadyPlaced;
-    bool shotTurnFlag;
-    bool alreadyShot;
-    QString winnerName;
+
 
 
 protected:
     Ui::MainWindow *ui;
+    QVector<QVector<QPushButton*>> buttonBoard;
+    int boardSize;
+    bool activePlayer;
+    bool alreadyShot;
+    QString winnerName;
     //QVector<QVector<QPushButton*>> buttonBoard;
     //int boardSize;
     //Player playerOne;

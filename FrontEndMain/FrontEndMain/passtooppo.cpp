@@ -16,11 +16,13 @@ PassToOppo::~PassToOppo()
 
 void PassToOppo::on_passWindowOkayButton_clicked()
 {
-    if (main->activePlayer){
-        main->activePlayer = false;
-    } else {main->activePlayer = true;}
-    main->buttonBoard.clear();
-    main->alreadyShot = false;
+    if (main->getActive()){
+        main->setActive(false);
+    } else {main->setActive(true);}
+    QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
+    //main->buttonBoard.clear();
+    bboard.clear();
+    main->setAlreadyShot(false);
     ShotPage* shot = new ShotPage(main);
     main->setCentralWidget(shot);
     delete this;

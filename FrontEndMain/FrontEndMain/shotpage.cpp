@@ -15,7 +15,7 @@ ShotPage::ShotPage(MainWindow *parent) :
     createShotGrid();
     int gridIndex = 0;
     ui->turnIndiShotPage->setText("P2");
-    if (main->activePlayer){
+    if (main->getActive()){
         ui->turnIndiShotPage->setText("P1");
         gridIndex = 1;
     }
@@ -35,12 +35,13 @@ void ShotPage::on_shootScreenEndTurn_clicked()
 }
 
 void ShotPage::createShotGrid(){
+    QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
     int gridHeight = ui->ShootingFrame->height();
     int gridWidth = ui->ShootingFrame->width();
-    const QSize btnSize = QSize(gridHeight/main->boardSize,gridWidth/main->boardSize);
-    for (int i = 0; i < main->boardSize; i++){
+    const QSize btnSize = QSize(gridHeight/main->getBoardSize(),gridWidth/main->getBoardSize());
+    for (int i = 0; i < main->getBoardSize(); i++){
         QVector<QPushButton*> temp;
-                    for (int j = 0; j < main->boardSize; j++){
+                    for (int j = 0; j < main->getBoardSize(); j++){
                         QPushButton *button = new QPushButton();
                         button->setText(QString::number(j)+""+QString::number(i));
                         button->sizePolicy().setHeightForWidth(true);
@@ -57,13 +58,14 @@ void ShotPage::createShotGrid(){
                         ui->ShootingGrid->addWidget(button,i,j);
                         temp.append(button);
                     }
-                    main->buttonBoard.append(temp);
+                    //main->buttonBoard.append(temp);
+                    bboard.append(temp);
                 }
 }
 
 void ShotPage::on_shotGridClick(QPushButton *button){
     int gridIndex;
-    if (main->alreadyShot == false){
+    if (main->getAlreadyShot() == false){
         Coordinates shotCord = getShotCords(button);
         cout << "X Cordinate of Shot:"<< shotCord.x << endl;
         cout << "Y Cordinate of Shot:"<< shotCord.y << endl;
@@ -71,7 +73,7 @@ void ShotPage::on_shotGridClick(QPushButton *button){
             gridIndex = 0;
         } else{ gridIndex = 1;}
         */
-        if (main->activePlayer){
+        if (main->getActive()){
             gridIndex = 1;
         } else {gridIndex = 0;}
 
@@ -88,11 +90,11 @@ void ShotPage::on_shotGridClick(QPushButton *button){
         if (main->grids[gridIndex].isWon()){
             if (gridIndex == 1){
                 cout << "Player One's stats are:" << endl << main->grids[gridIndex].printStats() << endl;
-                main->winnerName = "PLAYER ONE";
+                main->setWinnerName("PLAYER ONE");
                 //ui->winnerLabel_3->setText("PLAYER ONE");
             } else if (gridIndex == 0){
                 cout << "Player Two's stats are:" << endl << main->grids[gridIndex].printStats() << endl;
-                main->winnerName = "PLAYER TWO";
+                main->setWinnerName("PLAYER TWO");
                 //ui->winnerLabel_3->setText("PLAYER TWO");
             }
             //ui->PageController->setCurrentIndex(6);
@@ -101,14 +103,15 @@ void ShotPage::on_shotGridClick(QPushButton *button){
             delete this;
         }
     }
-    main->alreadyShot = true;
+    main->setAlreadyShot(true);
 }
 
 Coordinates ShotPage::getShotCords(QPushButton *button){
+    QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
     Coordinates cord;
-    for (int i = 0; i < main->buttonBoard.size(); i++){
-                    for (int j = 0; j < main->buttonBoard[i].size(); j++){
-                        if (main->buttonBoard[i][j] == button){
+    for (int i = 0; i < bboard.size(); i++){
+                    for (int j = 0; j < bboard[i].size(); j++){
+                        if (bboard[i][j] == button){
                              cord.x = j;
                              cord.y = i;
                              cord.direction = 10;
@@ -120,11 +123,12 @@ Coordinates ShotPage::getShotCords(QPushButton *button){
 
 void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
     vector<vector<char> > tempGrid = currentGrid.getGrid();
+    QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
 
-    for (int i = 0; i < main->buttonBoard.size(); i++){
-                    for (int j = 0; j < main->buttonBoard[i].size(); j++){
+    for (int i = 0; i < bboard.size(); i++){
+                    for (int j = 0; j < bboard[i].size(); j++){
                         if (tempGrid[i][j] == 'X'){
-                            main->buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                            bboard[i][j]->setStyleSheet("QPushButton{"
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
@@ -135,7 +139,7 @@ void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
                         }
                         else if (tempGrid[i][j] == 'O' || tempGrid[i][j] == 'S'){
                             if (showShips && tempGrid[i][j] == 'S'){
-                                main->buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                                bboard[i][j]->setStyleSheet("QPushButton{"
                                                                  "font: 18pt 'MS Shell Dlg 2';"
                                                                  "color: #333;"
                                                                  "border: 2px solid #555;"
@@ -143,7 +147,7 @@ void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
 
                                                              "QPushButton:hover {background-color: rgb(255,0,0);}");
                             } else {
-                                main->buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                                bboard[i][j]->setStyleSheet("QPushButton{"
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
@@ -152,7 +156,7 @@ void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
                                                          "QPushButton:hover {background-color: rgb(255,0,0);}");
                             }
                         } else if (tempGrid[i][j] == 'H'){
-                            main->buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                            bboard[i][j]->setStyleSheet("QPushButton{"
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
@@ -160,7 +164,7 @@ void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
 
                                                          "QPushButton:hover {background-color: rgb(255,0,0);}");
                         } else {
-                            main->buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                            bboard[i][j]->setStyleSheet("QPushButton{"
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"

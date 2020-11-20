@@ -27,17 +27,20 @@ void PlacementPage::on_backButtonStartScreen_clicked()
 
 void PlacementPage::on_doneButtonStartScreen_clicked()
 {
+    QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
     Player &player = main->getActivePlayer();
     if (player.busCount == 0 && player.carCount == 0 && player.bikeCount == 0 && player.customCount == 0){
-        if (main->alreadyPlaced){
-            main->buttonBoard.clear();
-            main->activePlayer = false;
-            main->alreadyPlaced = false;
+        if (main->getActive()){
+            //main->buttonBoard.clear();
+            bboard.clear();
+            main->setActive(false);
+            //main->alreadyPlaced = false;
             PlacementPage *p2place = new PlacementPage(main);
             main->setCentralWidget(p2place);
         }else{
-            main->activePlayer = true;
-            main->buttonBoard.clear();
+            main->setActive(true);
+            bboard.clear();
+            //main->buttonBoard.clear();
             cout << main->grids[0].printGrid(true) << endl;
             cout << main->grids[1].printGrid(true) << endl;
             ShotPage *shot = new ShotPage(main);
@@ -48,13 +51,14 @@ void PlacementPage::on_doneButtonStartScreen_clicked()
 }
 
 void PlacementPage::setGrid(){
+    QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
     Player &player = main->getActivePlayer();
     int gridHeight = ui->gridFrame->height();
     int gridWidth = ui->gridFrame->width();
-    const QSize btnSize = QSize(gridHeight/main->boardSize,gridWidth/main->boardSize);
-    for (int i = 0; i < main->boardSize; i++){
+    const QSize btnSize = QSize(gridHeight/main->getBoardSize(),gridWidth/main->getBoardSize());
+    for (int i = 0; i < main->getBoardSize(); i++){
         QVector<QPushButton*> temp;
-                    for (int j = 0; j < main->boardSize; j++){
+                    for (int j = 0; j < main->getBoardSize(); j++){
                         QPushButton *button = new QPushButton();
                         button->setText(QString::number(j)+""+QString::number(i));
                         button->sizePolicy().setHeightForWidth(true);
@@ -71,31 +75,34 @@ void PlacementPage::setGrid(){
                         ui->buttonGrid->addWidget(button,i,j);
                         temp.append(button);
                     }
-                    main->buttonBoard.append(temp);
+                    bboard.append(temp);
+                    //main->buttonBoard.append(temp);
                 }
     ui->indicatorLabel->setText(player.name);
 }
 
 
 void PlacementPage::clearGrid(){
-    for (int i = 0; i < main->buttonBoard.size(); i++){
-                    for (int j = 0; j < main->buttonBoard[i].size(); j++){
-                        ui->buttonGrid->layout()->removeWidget(main->buttonBoard[i][j]);
+    QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
+    for (int i = 0; i < bboard.size(); i++){
+                    for (int j = 0; j < bboard[i].size(); j++){
+                        ui->buttonGrid->layout()->removeWidget(bboard[i][j]);
                     }
                 }
+    //main->buttonBoard.size()
 }
 
 
 void PlacementPage::initializeBoardButtons(Coordinates& cord, QPushButton *button){
-
+    QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
     if (ui->directionCB->isChecked()){
         cord.direction = 0;
     } else {
         cord.direction = 1;
     }
-    for (int i = 0; i < main->buttonBoard.size(); i++){
-                    for (int j = 0; j < main->buttonBoard[i].size(); j++){
-                        if (main->buttonBoard[i][j] == button){
+    for (int i = 0; i < bboard.size(); i++){
+                    for (int j = 0; j < bboard[i].size(); j++){
+                        if (bboard[i][j] == button){
                              cord.x = j;
                              cord.y = i;
                         }
@@ -196,7 +203,7 @@ void PlacementPage::on_gridClick(QPushButton *button){
     if (!canShoot(player))
         return;
     int playerInt = 1;
-    if (main->activePlayer){
+    if (main->getActive()){
         playerInt = 0;
     }
     try {
@@ -231,11 +238,12 @@ void PlacementPage::setUIShipCounts(){
 
 void PlacementPage::loadShotGrid(Grid currentGrid, bool showShips){
     vector<vector<char> > tempGrid = currentGrid.getGrid();
+    QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
 
-    for (int i = 0; i < main->buttonBoard.size(); i++){
-                    for (int j = 0; j < main->buttonBoard[i].size(); j++){
+    for (int i = 0; i < bboard.size(); i++){
+                    for (int j = 0; j < bboard[i].size(); j++){
                         if (tempGrid[i][j] == 'X'){
-                            main->buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                            bboard[i][j]->setStyleSheet("QPushButton{"
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
@@ -246,24 +254,24 @@ void PlacementPage::loadShotGrid(Grid currentGrid, bool showShips){
                         }
                         else if (tempGrid[i][j] == 'O' || tempGrid[i][j] == 'S'){
                             if (showShips && tempGrid[i][j] == 'S'){
-                                main->buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                                bboard[i][j]->setStyleSheet("QPushButton{"
                                                                  "font: 18pt 'MS Shell Dlg 2';"
                                                                  "color: #333;"
                                                                  "border: 2px solid #555;"
                                                                  "background-color: rgb(0,255,0);}"
 
-                                                             "QPushButton:hover {background-color: rgb(255,0,0);}");
+                                                             "QPushButton:hover {background-color: rgb(120,120,120);}");
                             } else {
-                                main->buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                                bboard[i][j]->setStyleSheet("QPushButton{"
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
                                                              "background-color: rgb(255,255,255);}"
 
-                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");
+                                                         "QPushButton:hover {background-color: rgb(120,120,120);}");
                             }
                         } else if (tempGrid[i][j] == 'H'){
-                            main->buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                            bboard[i][j]->setStyleSheet("QPushButton{"
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
@@ -271,7 +279,7 @@ void PlacementPage::loadShotGrid(Grid currentGrid, bool showShips){
 
                                                          "QPushButton:hover {background-color: rgb(255,0,0);}");
                         } else {
-                            main->buttonBoard[i][j]->setStyleSheet("QPushButton{"
+                            bboard[i][j]->setStyleSheet("QPushButton{"
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"

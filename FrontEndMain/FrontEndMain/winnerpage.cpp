@@ -7,7 +7,7 @@ WinnerPage::WinnerPage(MainWindow *parent) :
 {
     ui->setupUi(this);
     main = parent;
-    ui->winnerLabel_3->setText(main->winnerName);
+    ui->winnerLabel_3->setText(main->getWinnerName());
 }
 
 WinnerPage::~WinnerPage()
