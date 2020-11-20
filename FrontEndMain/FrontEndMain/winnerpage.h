@@ -3,8 +3,6 @@
 
 #include <QWidget>
 #include <QMainWindow>
-#include "menupage.h"
-#include "placementpage.h"
 #include "mainwindow.h"
 
 namespace Ui {
@@ -18,11 +16,13 @@ class WinnerPage : public QWidget
 public:
     explicit WinnerPage(MainWindow *parent = nullptr);
     ~WinnerPage();
+    void addShipsToBoard();
 
 private slots:
     void on_MainMenuButton_clicked();
 
     void on_NewGameButton_clicked();
+
 
 private:
     Ui::WinnerPage *ui;
