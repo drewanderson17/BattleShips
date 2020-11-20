@@ -24,8 +24,8 @@ void MenuPage::on_StartGameButton_clicked()
     main->boardSize = 8;
     main->alreadyPlaced = true;
     string name = "name";
-    Grid p1Grid(main->boardSize,name);
-    Grid p2Grid(main->boardSize,name);
+    Grid p1Grid(name, main->boardSize);
+    Grid p2Grid(name, main->boardSize);
     main->grids.clear();
     main->grids.append(p1Grid);
     main->grids.append(p2Grid);
