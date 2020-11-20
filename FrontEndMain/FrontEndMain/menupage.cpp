@@ -18,14 +18,13 @@ MenuPage::~MenuPage()
 
 void MenuPage::on_StartGameButton_clicked()
 {
-    main->activePlayer = true;
+    main->setActive(true);
     main->playerOne.name = "P1";
     main->playerTwo.name = "P2";
-    main->boardSize = 8;
-    main->alreadyPlaced = true;
-    string name = "name";
-    Grid p1Grid(name, main->boardSize);
-    Grid p2Grid(name, main->boardSize);
+    main->setBoardSize(8);
+    //main->alreadyPlaced = true;
+    Grid p1Grid(main->playerOne.name.toStdString(), main->getBoardSize());
+    Grid p2Grid(main->playerTwo.name.toStdString(), main->getBoardSize());
     main->grids.clear();
     main->grids.append(p1Grid);
     main->grids.append(p2Grid);

@@ -64,6 +64,7 @@ public:
     QString getWinnerName();
     void setWinnerName(QString winName);
     QVector<QVector<QPushButton*>>& getButtonBoard();
+    void clearButtonBoard();
 
     QVector<Ship> ships1;
     QVector<Ship> ships2;

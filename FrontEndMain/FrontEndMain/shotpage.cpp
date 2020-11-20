@@ -19,6 +19,7 @@ ShotPage::ShotPage(MainWindow *parent) :
         ui->turnIndiShotPage->setText("P1");
         gridIndex = 1;
     }
+    main->setAlreadyShot(false);
     loadShotGrid(main->grids[gridIndex],true);
 }
 

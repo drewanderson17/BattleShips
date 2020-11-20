@@ -65,3 +65,7 @@ void MainWindow::setWinnerName(QString winName){
 QVector<QVector<QPushButton*>>& MainWindow::getButtonBoard(){
     return MainWindow::buttonBoard;
 }
+
+void MainWindow::clearButtonBoard(){
+    buttonBoard.clear();
+}

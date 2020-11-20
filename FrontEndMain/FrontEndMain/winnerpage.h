@@ -16,7 +16,7 @@ class WinnerPage : public QWidget
 public:
     explicit WinnerPage(MainWindow *parent = nullptr);
     ~WinnerPage();
-    void addShipsToBoard();
+    void resetShipCounts();
 
 private slots:
     void on_MainMenuButton_clicked();
