@@ -24,6 +24,13 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    QVector<Ship> ships1;
+    QVector<Ship> ships2;
+    QVector<Grid> grids;
+    QVector<Ship> customShips;
+
+
 };
 
 #endif // MAINWINDOW_H

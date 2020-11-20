@@ -17,15 +17,15 @@ Grid::Grid() {
 
 }
 
-Grid::Grid(int gridSizeIn, string name) {
+Grid::Grid(string name, int gridSize) {
     playerName = name;
-    if (gridSizeIn < MIN_GRID || gridSizeIn > MAX_GRID)
+    if (gridSize < MIN_GRID || gridSize > MAX_GRID)
         throw GridException("Grid dimensions must be less than " + to_string(MAX_GRID) + " or greater than " + to_string(MIN_GRID) + ".");
     shots = 0;
     hits = 0;
 
-    vector<char> row (gridSizeIn, 'O');
-    vector<vector<char>> grid (gridSizeIn, row);
+    vector<char> row (gridSize, 'O');
+    vector<vector<char>> grid (gridSize, row);
     shotsGrid = grid;
 
     vector<Ship> temp1;

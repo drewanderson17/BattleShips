@@ -273,10 +273,11 @@ void MenuWindow::on_StartGameButton_clicked()
     playerOne.name = "P1";
     playerTwo.name = "P2";
     boardSize = ui->boardSizeInput->text().toInt();
-    string name = "name";
-    Grid p1Grid(ui->boardSizeInput->text().toInt(),name);
-    Grid p2Grid(ui->boardSizeInput->text().toInt(),name);
+
+    Grid p1Grid(playerOne.name.toStdString(), ui->boardSizeInput->text().toInt());
+    Grid p2Grid(playerTwo.name.toStdString(), ui->boardSizeInput->text().toInt());
     grids.clear();
+
     grids.append(p1Grid);
     grids.append(p2Grid);
 
