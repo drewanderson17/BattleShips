@@ -22,7 +22,6 @@ void MenuPage::on_StartGameButton_clicked()
     main->setActive(true);
     main->playerOne.name = "P1";
     main->playerTwo.name = "P2";
-    main->setBoardSize(8);
     //main->alreadyPlaced = true;
     Grid p1Grid(main->playerOne.name.toStdString(), main->getBoardSize());
     Grid p2Grid(main->playerTwo.name.toStdString(), main->getBoardSize());
