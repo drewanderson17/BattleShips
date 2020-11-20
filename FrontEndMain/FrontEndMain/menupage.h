@@ -3,9 +3,10 @@
 
 #include <QWidget>
 #include <QMainWindow>
-#include "placementpage.h"
+#include "mainwindow.h"
 #include "optionspage.h"
 #include "helppage.h"
+#include "mainwindow.h"
 
 namespace Ui {
 class MenuPage;
@@ -16,7 +17,7 @@ class MenuPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit MenuPage(QMainWindow *parent = nullptr);
+    explicit MenuPage(MainWindow *parent = nullptr);
     ~MenuPage();
 
 private slots:
@@ -28,7 +29,7 @@ private slots:
 
 private:
     Ui::MenuPage *ui;
-    QMainWindow *main;
+    MainWindow *main;
 };
 
 #endif // MENUPAGE_H

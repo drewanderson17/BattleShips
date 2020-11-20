@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QMainWindow>
+#include "mainwindow.h"
 
 namespace Ui {
 class OptionsPage;
@@ -13,7 +14,7 @@ class OptionsPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit OptionsPage(QMainWindow *parent = nullptr);
+    explicit OptionsPage(MainWindow *parent = nullptr);
     ~OptionsPage();
 
 private slots:
@@ -21,7 +22,7 @@ private slots:
 
 private:
     Ui::OptionsPage *ui;
-    QMainWindow *main;
+    MainWindow *main;
 };
 
 #endif // OPTIONSPAGE_H

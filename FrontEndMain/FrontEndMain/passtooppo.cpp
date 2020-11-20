@@ -1,7 +1,7 @@
 #include "passtooppo.h"
 #include "ui_passtooppo.h"
 
-PassToOppo::PassToOppo(QMainWindow *parent) :
+PassToOppo::PassToOppo(MainWindow *parent) :
     QWidget(parent),
     ui(new Ui::PassToOppo)
 {

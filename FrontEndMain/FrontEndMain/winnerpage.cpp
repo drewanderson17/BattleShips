@@ -1,7 +1,7 @@
 #include "winnerpage.h"
 #include "ui_winnerpage.h"
 
-WinnerPage::WinnerPage(QMainWindow *parent) :
+WinnerPage::WinnerPage(MainWindow *parent) :
     QWidget(parent),
     ui(new Ui::WinnerPage)
 {

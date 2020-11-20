@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include "menupage.h"
 #include "passtooppo.h"
+#include "mainwindow.h"
 
 namespace Ui {
 class PlacementPage;
@@ -15,7 +16,7 @@ class PlacementPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit PlacementPage(QMainWindow *parent = nullptr);
+    explicit PlacementPage(MainWindow *parent = nullptr);
     ~PlacementPage();
 
 private slots:
@@ -25,7 +26,7 @@ private slots:
 
 private:
     Ui::PlacementPage *ui;
-    QMainWindow *main;
+    MainWindow *main;
 };
 
 #endif // PLACEMENTPAGE_H

@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include "menupage.h"
 #include "placementpage.h"
+#include "mainwindow.h"
 
 namespace Ui {
 class WinnerPage;
@@ -15,7 +16,7 @@ class WinnerPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit WinnerPage(QMainWindow *parent = nullptr);
+    explicit WinnerPage(MainWindow *parent = nullptr);
     ~WinnerPage();
 
 private slots:
@@ -25,7 +26,7 @@ private slots:
 
 private:
     Ui::WinnerPage *ui;
-    QMainWindow *main;
+    MainWindow *main;
 };
 
 #endif // WINNERPAGE_H

@@ -3,7 +3,7 @@
 #include "passtooppo.h"
 #include "winnerpage.h"
 
-ShotPage::ShotPage(QMainWindow *parent) :
+ShotPage::ShotPage(MainWindow *parent) :
     QWidget(parent),
     ui(new Ui::ShotPage)
 {

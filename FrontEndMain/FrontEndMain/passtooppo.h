@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QMainWindow>
 #include "shotpage.h"
-#include "placementpage.h"
+#include "mainwindow.h"
 
 namespace Ui {
 class PassToOppo;
@@ -15,7 +15,7 @@ class PassToOppo : public QWidget
     Q_OBJECT
 
 public:
-    explicit PassToOppo(QMainWindow *parent = nullptr);
+    explicit PassToOppo(MainWindow *parent = nullptr);
     ~PassToOppo();
 
 private slots:
@@ -23,7 +23,7 @@ private slots:
 
 private:
     Ui::PassToOppo *ui;
-    QMainWindow *main;
+    MainWindow *main;
 };
 
 #endif // PASSTOOPPO_H

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QMainWindow>
+#include "mainwindow.h"
 
 namespace Ui {
 class HelpPage;
@@ -13,7 +14,7 @@ class HelpPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit HelpPage(QMainWindow *parent = nullptr);
+    explicit HelpPage(MainWindow *parent = nullptr);
     ~HelpPage();
 
 private slots:
@@ -21,7 +22,7 @@ private slots:
 
 private:
     Ui::HelpPage *ui;
-    QMainWindow *main;
+    MainWindow *main;
 };
 
 #endif // HELPPAGE_H

@@ -1,8 +1,9 @@
 #include "menupage.h"
 #include "ui_menupage.h"
+#include "placementpage.h"
 #include <iostream>
 #include <QTextStream>
-MenuPage::MenuPage(QMainWindow *parent) :
+MenuPage::MenuPage(MainWindow *parent) :
     QWidget(parent),
     ui(new Ui::MenuPage)
 {

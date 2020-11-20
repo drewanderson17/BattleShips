@@ -8,13 +8,7 @@
 #include <Grid.h>
 #include <Ship.h>
 #include <QMessageBox>
-#include <menupage.h>
-#include <optionspage.h>
-#include <helppage.h>
-#include <placementpage.h>
-#include <shotpage.h>
-#include <passtooppo.h>
-#include <winnerpage.h>
+
 
 namespace Ui {
 class MainWindow;
@@ -30,13 +24,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    MenuPage *menu;
-    OptionsPage *options;
-    HelpPage *help;
-    PlacementPage *placement;
-    ShotPage *shot;
-    PassToOppo *pass;
-    WinnerPage *winner;
 };
 
 #endif // MAINWINDOW_H

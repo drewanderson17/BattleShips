@@ -2,7 +2,7 @@
 #include "ui_helppage.h"
 #include "menupage.h"
 
-HelpPage::HelpPage(QMainWindow *parent) :
+HelpPage::HelpPage(MainWindow *parent) :
     QWidget(parent),
     ui(new Ui::HelpPage)
 {

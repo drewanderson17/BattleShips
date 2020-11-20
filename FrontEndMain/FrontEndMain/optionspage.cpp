@@ -2,7 +2,7 @@
 #include "ui_optionspage.h"
 #include "menupage.h"
 
-OptionsPage::OptionsPage(QMainWindow *parent) :
+OptionsPage::OptionsPage(MainWindow *parent) :
     QWidget(parent),
     ui(new Ui::OptionsPage)
 {

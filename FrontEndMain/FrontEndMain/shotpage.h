@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QMainWindow>
+#include "mainwindow.h"
 
 namespace Ui {
 class ShotPage;
@@ -13,7 +14,7 @@ class ShotPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit ShotPage(QMainWindow *parent = nullptr);
+    explicit ShotPage(MainWindow *parent = nullptr);
     ~ShotPage();
 
 private slots:
@@ -21,7 +22,7 @@ private slots:
 
 private:
     Ui::ShotPage *ui;
-    QMainWindow *main;
+    MainWindow *main;
 };
 
 #endif // SHOTPAGE_H
