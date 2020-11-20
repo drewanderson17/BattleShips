@@ -15,13 +15,14 @@
 #include <shotpage.h>
 #include <passtooppo.h>
 #include <winnerpage.h>
+#include "mainwindow.h"
 
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MenuWindow; }
 QT_END_NAMESPACE
 
-struct Coordinates{
+/*struct Coordinates{
     int x;
     int y;
     int direction;
@@ -33,7 +34,7 @@ struct Player{
     int bikeCount;
     int customCount;
     QString name;
-};
+};*/
 
 class MenuWindow : public QMainWindow
 {

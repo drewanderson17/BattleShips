@@ -15,3 +15,10 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
+Player& MainWindow::getActivePlayer(){
+    if (MainWindow::activePlayer){
+        return MainWindow::playerOne;
+    } else {return MainWindow::playerTwo;}
+}

@@ -19,6 +19,7 @@ class MenuPage : public QWidget
 public:
     explicit MenuPage(MainWindow *parent = nullptr);
     ~MenuPage();
+    void addShipsToBoard();
 
 private slots:
     void on_StartGameButton_clicked();
