@@ -24,6 +24,8 @@ class Ship {
 public:
     Ship();
     Ship(string name, int length, int width = 1);
+    Ship(const Ship& right);
+    Ship& operator=(const Ship&);
     void placeShip(int row, int col, bool dir);
     void lockPos();
     void positionShip(bool isPlaced);

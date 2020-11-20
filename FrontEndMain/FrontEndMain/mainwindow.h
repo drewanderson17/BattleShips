@@ -65,6 +65,11 @@ public:
     void setWinnerName(QString winName);
     QVector<QVector<QPushButton*>>& getButtonBoard();
     void clearButtonBoard();
+    void assignShips();
+    void setCounts();
+    int getTypeCount(QString type);
+
+
 
     QVector<Ship> ships1;
     QVector<Ship> ships2;
@@ -72,6 +77,7 @@ public:
     QVector<Ship> customShips;
     Player playerOne;
     Player playerTwo;
+
 
 
 
