@@ -9,6 +9,14 @@ MainWindow::MainWindow(QWidget *parent) :
     MenuPage *menu = new MenuPage(this);
     ui->setupUi(this);
     MainWindow::setCentralWidget(menu);
+
+    Ship ship1("Bike", 2, 1);
+    Ship ship2("Car", 3, 1);
+    Ship ship3("Bus", 3, 2);
+    customShips.push_back(ship1);
+    customShips.push_back(ship2);
+    customShips.push_back(ship3);
+    boardSize = 10;
 }
 
 MainWindow::~MainWindow()
@@ -107,7 +115,7 @@ void MainWindow::assignShips(){
 int MainWindow::getTypeCount(QString type){
     int count = 0;
     for(int i = 0; i < customShips.size(); i++){
-        if(customShips[i].toStr().compare(type.toStdString()))
+        if(customShips[i].toStr().compare(type.toStdString()) == 0)
             count++;
     }
 

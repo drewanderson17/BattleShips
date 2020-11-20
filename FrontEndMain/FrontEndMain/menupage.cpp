@@ -1,6 +1,7 @@
 #include "menupage.h"
 #include "ui_menupage.h"
 #include "placementpage.h"
+#include "settingspage.h"
 #include <iostream>
 #include <QTextStream>
 MenuPage::MenuPage(MainWindow *parent) :
@@ -9,14 +10,6 @@ MenuPage::MenuPage(MainWindow *parent) :
 {
     ui->setupUi(this);
     main = parent;
-    Ship ship1("Bike", 2, 1);
-    Ship ship2("Car", 3, 1);
-    Ship ship3("Bus", 3, 2);
-    main->customShips.push_back(ship1);
-    //main->customShips.push_back(ship2);
-    //main->customShips.push_back(ship3);
-
-
 }
 
 MenuPage::~MenuPage()
@@ -36,6 +29,7 @@ void MenuPage::on_StartGameButton_clicked()
     main->grids.clear();
     main->grids.append(p1Grid);
     main->grids.append(p2Grid);
+    main->clearButtonBoard();
 
     main->assignShips();    //replaces addShipsToBoard
 
@@ -46,7 +40,7 @@ void MenuPage::on_StartGameButton_clicked()
 
 void MenuPage::on_optionsButton_clicked()
 {
-    OptionsPage *options = new OptionsPage(main);
+    settingspage *options = new settingspage(main);
     main->setCentralWidget(options);
     delete this;
 }
