@@ -21,6 +21,7 @@ ShotPage::ShotPage(MainWindow *parent) :
     }
     main->setAlreadyShot(false);
     loadShotGrid(main->grids[gridIndex],true);
+    updateSunkUI(gridIndex);
 }
 
 ShotPage::~ShotPage()
@@ -30,6 +31,8 @@ ShotPage::~ShotPage()
 
 void ShotPage::on_shootScreenEndTurn_clicked()
 {
+    if (!(main->getAlreadyShot()))
+        return;
     PassToOppo* pass = new PassToOppo(main);
     main->setCentralWidget(pass);
     delete this;
@@ -64,6 +67,35 @@ void ShotPage::createShotGrid(){
                 }
 }
 
+int ShotPage::getInt(QString ui_label){
+    bool ok;
+    int sunkShipCount = ui_label.toInt(&ok);
+    if (!ok){
+        qDebug("Couldn't convert sunk ship count to an int.");
+        sunkShipCount = -1000;
+    }
+    return sunkShipCount;
+}
+
+void ShotPage::updateSunkUI(int gridIndex){
+    int customsSunk = getInt(ui->customSunkCount->text());
+    int bikesSunk = getInt(ui->bikeSunkCount->text());
+    int carsSunk = getInt(ui->carSunkCount->text());
+    int busesSunk = getInt(ui->busSunkCount->text());
+
+    if ((bikesSunk + carsSunk + busesSunk + customsSunk) < main->grids[gridIndex].getSunkCount()){
+        string typeSunk = main->grids[gridIndex].getMostRecentlySunkShipName();
+        if (typeSunk == "Custom")
+            ui->customSunkCount->setText(QString::number(customsSunk + 1));
+        else if (typeSunk == "Bike")
+            ui->bikeSunkCount->setText(QString::number(bikesSunk + 1));
+        else if (typeSunk == "Car")
+            ui->carSunkCount->setText(QString::number(carsSunk + 1));
+        else if (typeSunk == "Bus")
+            ui->busSunkCount->setText(QString::number(busesSunk + 1));
+    }
+}
+
 void ShotPage::on_shotGridClick(QPushButton *button){
     int gridIndex;
     if (main->getAlreadyShot() == false){
@@ -85,7 +117,7 @@ void ShotPage::on_shotGridClick(QPushButton *button){
         }
 
         loadShotGrid(main->grids[gridIndex],true);
-
+        updateSunkUI(gridIndex);
 
         cout << main->grids[gridIndex].printGrid(true) << endl;
         if (main->grids[gridIndex].isWon()){

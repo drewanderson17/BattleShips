@@ -20,6 +20,8 @@ public:
     Coordinates getShotCords(QPushButton *button);
     void loadShotGrid(Grid currentGrid, bool showShips);
     void on_shotGridClick(QPushButton *button);
+    int getInt(QString ui_label);
+    void updateSunkUI(int gridIndex);
 
 private slots:
     void on_shootScreenEndTurn_clicked();

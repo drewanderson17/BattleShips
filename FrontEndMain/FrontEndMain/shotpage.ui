@@ -95,26 +95,6 @@ font: 75 20pt &quot;MS Shell Dlg 2&quot;;</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="BikesSunkLabel">
-   <property name="geometry">
-    <rect>
-     <x>580</x>
-     <y>180</y>
-     <width>101</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Bikes Sunk: 0</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QLabel" name="indiTitleLabelShotPage">
    <property name="geometry">
     <rect>
@@ -131,26 +111,6 @@ text-decoration: underline;</string>
    </property>
    <property name="text">
     <string>Turn Indicator:</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="carsSunkLabel">
-   <property name="geometry">
-    <rect>
-     <x>570</x>
-     <y>120</y>
-     <width>111</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Cars Sunk: 0</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -219,22 +179,123 @@ QPushButton:pressed {
     <string>End Turn</string>
    </property>
   </widget>
-  <widget class="QLabel" name="busesSunkLabel">
+  <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>580</x>
-     <y>150</y>
-     <width>101</width>
-     <height>16</height>
+     <x>530</x>
+     <y>120</y>
+     <width>211</width>
+     <height>111</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="3" column="0">
+     <widget class="QLabel" name="customSunkLabel">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
 font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Buses Sunk: 0</string>
-   </property>
+      </property>
+      <property name="text">
+       <string>Custom Ships Sunk: </string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="bikesSunkLabel">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Bikes Sunk: </string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="bikeSunkCount">
+      <property name="minimumSize">
+       <size>
+        <width>30</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="carSunkCount">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLabel" name="busSunkCount">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLabel" name="customSunkCount">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="carsSunkLabel">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Cars Sunk:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="busesSunkLabel">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Buses Sunk:</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

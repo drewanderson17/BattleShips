@@ -48,6 +48,8 @@ public:
     void attack(string name);
     string getPlayerName() const;
     vector<vector<char> > getGrid() const;
+    int getSunkCount();
+    string getMostRecentlySunkShipName();
 
 private:
     int shots, hits;
