@@ -30,6 +30,8 @@ ShotPage::~ShotPage()
 
 void ShotPage::on_shootScreenEndTurn_clicked()
 {
+    if (!(main->getAlreadyShot()))
+        return;
     PassToOppo* pass = new PassToOppo(main);
     main->setCentralWidget(pass);
     delete this;
