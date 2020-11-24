@@ -176,6 +176,13 @@ vector<vector<char> > Grid::getGrid() const{
     return shotsGrid;
 }
 
+int Grid::getSunkCount(){
+    return sunk.size();
+}
+string Grid::getMostRecentlySunkShipName(){
+    return sunk.at(sunk.size() - 1).toStr();
+}
+
 // Non-member function
 void displayEndOfGameStats(const Grid& grid1, const Grid& grid2){
     string winner, loser;
