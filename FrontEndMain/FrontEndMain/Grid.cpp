@@ -234,5 +234,13 @@ string Grid::getShots(){
     return to_string(shots);
 }
 string Grid::getAccuracy(){
-    return to_string(hits/(float)shots);
+    float hitsf = (hits/(float)shots);
+    int hitsInt;
+
+    if (hitsf!=hitsf){
+        hitsInt = 0;
+    } else {
+        hitsInt = (hitsf)*100;
+    }
+    return to_string(hitsInt)+" %";
 }
