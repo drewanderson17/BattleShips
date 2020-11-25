@@ -22,6 +22,7 @@ public:
     void on_shotGridClick(QPushButton *button);
     int getInt(QString ui_label);
     void updateSunkUI(int gridIndex);
+    void updateStats(Grid currentGrid);
 
 private slots:
     void on_shootScreenEndTurn_clicked();

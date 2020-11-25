@@ -226,3 +226,13 @@ int checkInput(string inType) {
 	}
 	return stoi(in);
 }
+
+string Grid::getHits(){
+    return to_string(hits);
+}
+string Grid::getShots(){
+    return to_string(shots);
+}
+string Grid::getAccuracy(){
+    return to_string(hits/(float)shots);
+}

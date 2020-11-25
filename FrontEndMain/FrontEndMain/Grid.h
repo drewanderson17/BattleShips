@@ -50,6 +50,9 @@ public:
     vector<vector<char> > getGrid() const;
     int getSunkCount();
     string getMostRecentlySunkShipName();
+    string getHits();
+    string getShots();
+    string getAccuracy();
 
 private:
     int shots, hits;

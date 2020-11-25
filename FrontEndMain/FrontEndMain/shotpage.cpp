@@ -102,10 +102,7 @@ void ShotPage::on_shotGridClick(QPushButton *button){
         Coordinates shotCord = getShotCords(button);
         cout << "X Cordinate of Shot:"<< shotCord.x << endl;
         cout << "Y Cordinate of Shot:"<< shotCord.y << endl;
-        /*if (main->shotTurnFlag){
-            gridIndex = 0;
-        } else{ gridIndex = 1;}
-        */
+
         if (main->getActive()){
             gridIndex = 1;
         } else {gridIndex = 0;}
@@ -207,6 +204,13 @@ void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
                         }
                     }
                 }
+    updateStats(currentGrid);
+}
+
+void ShotPage::updateStats(Grid currentGrid){
+    ui->accuracyCount->setText(QString::fromStdString(currentGrid.getAccuracy()));
+    ui->totalHitsCount->setText(QString::fromStdString(currentGrid.getHits()));
+    ui->totalShotsCount->setText(QString::fromStdString(currentGrid.getShots()));
 }
 
 

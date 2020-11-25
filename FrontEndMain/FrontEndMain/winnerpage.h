@@ -24,6 +24,8 @@ private slots:
     void on_NewGameButton_clicked();
 
 
+    void on_ExitGameButton_clicked();
+
 private:
     Ui::WinnerPage *ui;
     MainWindow *main;

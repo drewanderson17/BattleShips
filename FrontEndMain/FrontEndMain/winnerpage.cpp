@@ -41,6 +41,7 @@ void WinnerPage::on_NewGameButton_clicked()
     delete this;
 }
 
-
-
-
+void WinnerPage::on_ExitGameButton_clicked()
+{
+    main->close();
+}
