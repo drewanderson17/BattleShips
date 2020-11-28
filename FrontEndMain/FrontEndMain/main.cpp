@@ -1,7 +1,10 @@
 #include "menuwindow.h"
 #include "mainwindow.h"
-
 #include <QApplication>
+
+#include "Grid.h"
+#include "Ship.h"
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
