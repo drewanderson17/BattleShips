@@ -126,6 +126,10 @@ void PlacementPage::on_gridClick(QPushButton *button){
 
     shipIndex = ui->shipList->currentRow();
 
+    if (shipIndex == -1){
+        shipIndex = 0;
+    }
+
     if (ui->shipList->count() == 0)
         return;
 
