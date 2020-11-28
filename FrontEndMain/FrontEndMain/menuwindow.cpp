@@ -18,6 +18,15 @@ MenuWindow::MenuWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MenuWindow)
 {
+    //Instantiating Page Objects
+    //menu = new MenuPage;
+    //options = new OptionsPage;
+    //help = new HelpPage;
+    //placement = new PlacementPage;
+    //shot = new ShotPage;
+    //pass = new PassToOppo;
+    //winner = new WinnerPage;
+
     ui->setupUi(this);
     ui->PageController->setCurrentIndex(0);
     ui->addShipsWidget->setCurrentIndex(0);
@@ -128,6 +137,11 @@ void MenuWindow::updateUIAfterPlacement(string type, Player& player, int playerI
         ui->bikeTotal->setText(QString::number(player.bikeCount));
         out << "VALID" << endl;
         loadShotGrid(grids[playerInt], true);
+    } else if (type == "Custom") {
+        player.customCount = player.customCount - 1;
+        ui->customTotal->setText((QString::number(player.customCount)));
+        out << "VALID" << endl;
+        loadShotGrid(grids[playerInt], true);
     }
 }
 
@@ -137,6 +151,9 @@ bool MenuWindow::canShoot(const Player& player){
             return false;
     } else if (ui->busRadio->isChecked()){
         if (player.busCount < 1)
+            return false;
+    } else if (ui->customRadio->isChecked()){
+        if (player.customCount < 1)
             return false;
     } else {
         if (player.bikeCount < 1)
@@ -153,6 +170,10 @@ void MenuWindow::getShipType(string& type, const Player& player){
     } else if (ui->busRadio->isChecked()){
         type = "Bus"; // Placing Bus
         if (player.busCount < 1)
+            return;
+    } else if (ui->customRadio->isChecked()){
+        type = "Custom";
+        if (player.customCount < 1)
             return;
     } else {
         type = "Bike"; //Placing Bike
@@ -234,6 +255,15 @@ void MenuWindow::addShipsToBoard(){
 }
 
 
+int MenuWindow::getCustomShipCount(QVector<Ship> ships){
+    int count = 0;
+    for (int i = 0; i < ships.size(); i++) {
+        if (ships[i].toStr() == "Custom")
+            count += 1;
+    }
+    return count;
+}
+
 // Menu Page
 
 // Show Start Game Screen if button has been clicked
@@ -243,10 +273,11 @@ void MenuWindow::on_StartGameButton_clicked()
     playerOne.name = "P1";
     playerTwo.name = "P2";
     boardSize = ui->boardSizeInput->text().toInt();
-    string name = "name";
-    Grid p1Grid(ui->boardSizeInput->text().toInt(),name);
-    Grid p2Grid(ui->boardSizeInput->text().toInt(),name);
+
+    Grid p1Grid(playerOne.name.toStdString(), ui->boardSizeInput->text().toInt());
+    Grid p2Grid(playerTwo.name.toStdString(), ui->boardSizeInput->text().toInt());
     grids.clear();
+
     grids.append(p1Grid);
     grids.append(p2Grid);
 
@@ -259,6 +290,7 @@ void MenuWindow::on_StartGameButton_clicked()
     ui->carTotal->setText(ui->carCount->text()); //Sets placement window car count to car count from options screen
     ui->busTotal->setText(ui->busCount->text()); //Sets placement window bus count to bus count from options screen
     ui->bikeTotal->setText(ui->bikeCount->text()); // Same as above for bike
+    ui->customTotal->setText(QString::number(getCustomShipCount(ships1)));
 
     ui->PageController->setCurrentIndex(1); // Switch page to placement window
 }
@@ -285,24 +317,19 @@ void MenuWindow::setShipCounts(){
     playerOne.carCount = ui->carCount->text().toInt();
     playerOne.busCount = ui->busCount->text().toInt();
     playerOne.bikeCount = ui->bikeCount->text().toInt();
+    playerOne.customCount = getCustomShipCount(ships1);
 
     playerTwo.carCount = ui->carCount->text().toInt();
     playerTwo.busCount = ui->busCount->text().toInt();
     playerTwo.bikeCount = ui->bikeCount->text().toInt();
+    playerTwo.customCount = getCustomShipCount(ships1);
 }
-
-
-
-
 
 // Options Page
 void MenuWindow::on_backButtonOptions_clicked()
 {
     ui->PageController->setCurrentIndex(0);
 }
-
-
-
 
 //Help Page
 void MenuWindow::on_backButtonHelp_clicked()
@@ -316,7 +343,7 @@ void MenuWindow::on_backButtonHelp_clicked()
 void MenuWindow::on_doneButtonStartScreen_clicked()
 {
     Player &player = getActivePlayer();
-    if (player.busCount == 0 && player.carCount == 0 && player.bikeCount == 0){
+    if (player.busCount == 0 && player.carCount == 0 && player.bikeCount == 0 && player.customCount == 0){
         if (MenuWindow::activePlayer){
             MenuWindow::activePlayer = false;
             Player &secondPlayer = getActivePlayer();
@@ -552,6 +579,15 @@ void MenuWindow::on_addBus_clicked()
 
 void MenuWindow::on_addCustomShip_clicked()
 {
+    int length = convertStrToint(ui->lengthInput->text());
+    int width = convertStrToint(ui->widthInput->text());
+    if (!length || !width){
+        return;
+    }
+    Ship ship1("Custom", length, width);
+    ships1.push_back(ship1);
+    Ship ship2("Custom", length, width);
+    ships2.push_back((ship2));
     int num = convertStrToint(ui->shipCount->text()) + 1;
     ui->shipCount->setText(QString::number(num));
 }
@@ -559,24 +595,34 @@ void MenuWindow::on_addCustomShip_clicked()
 void MenuWindow::on_rrmBike_clicked()
 {
     int num = convertStrToint(ui->bikeCount->text()) - 1;
+    if (num < 0)
+        return;
     ui->bikeCount->setText(QString::number(num));
 }
 
 void MenuWindow::on_rmCar_clicked()
 {
     int num = convertStrToint(ui->carCount->text()) - 1;
+    if (num < 0)
+        return;
     ui->carCount->setText(QString::number(num));
 }
 
 void MenuWindow::on_rmBus_clicked()
 {
     int num = convertStrToint(ui->busCount->text()) - 1;
+    if (num < 0)
+        return;
     ui->busCount->setText(QString::number(num));
 }
 
 void MenuWindow::on_rmShip_clicked()
 {
     int num = convertStrToint(ui->shipCount->text()) -1;
+    if (num < 0)
+        return;
+    ships1.pop_back();
+    ships2.pop_back();
     ui->shipCount->setText(QString::number(num));
 }
 
@@ -589,3 +635,4 @@ void MenuWindow::on_isCustomize_clicked()
 {
     ui->addShipsWidget->setCurrentIndex(1);
 }
+

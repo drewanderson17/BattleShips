@@ -17,15 +17,15 @@ Grid::Grid() {
 
 }
 
-Grid::Grid(int gridSizeIn, string name) {
+Grid::Grid(string name, int gridSize) {
     playerName = name;
-    if (gridSizeIn < MIN_GRID || gridSizeIn > MAX_GRID)
+    if (gridSize < MIN_GRID || gridSize > MAX_GRID)
         throw GridException("Grid dimensions must be less than " + to_string(MAX_GRID) + " or greater than " + to_string(MIN_GRID) + ".");
     shots = 0;
     hits = 0;
 
-    vector<char> row (gridSizeIn, 'O');
-    vector<vector<char>> grid (gridSizeIn, row);
+    vector<char> row (gridSize, 'O');
+    vector<vector<char>> grid (gridSize, row);
     shotsGrid = grid;
 
     vector<Ship> temp1;
@@ -176,6 +176,13 @@ vector<vector<char> > Grid::getGrid() const{
     return shotsGrid;
 }
 
+int Grid::getSunkCount(){
+    return sunk.size();
+}
+string Grid::getMostRecentlySunkShipName(){
+    return sunk.at(sunk.size() - 1).toStr();
+}
+
 // Non-member function
 void displayEndOfGameStats(const Grid& grid1, const Grid& grid2){
     string winner, loser;
@@ -218,4 +225,22 @@ int checkInput(string inType) {
 		success = true;
 	}
 	return stoi(in);
+}
+
+string Grid::getHits(){
+    return to_string(hits);
+}
+string Grid::getShots(){
+    return to_string(shots);
+}
+string Grid::getAccuracy(){
+    float hitsf = (hits/(float)shots);
+    int hitsInt;
+
+    if (hitsf!=hitsf){
+        hitsInt = 0;
+    } else {
+        hitsInt = (hitsf)*100;
+    }
+    return to_string(hitsInt)+" %";
 }

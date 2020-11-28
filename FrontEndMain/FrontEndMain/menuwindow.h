@@ -8,13 +8,21 @@
 #include <Grid.h>
 #include <Ship.h>
 #include <QMessageBox>
+#include <menupage.h>
+#include <optionspage.h>
+#include <helppage.h>
+#include <placementpage.h>
+#include <shotpage.h>
+#include <passtooppo.h>
+#include <winnerpage.h>
+#include "mainwindow.h"
 
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MenuWindow; }
 QT_END_NAMESPACE
 
-struct Coordinates{
+/*struct Coordinates{
     int x;
     int y;
     int direction;
@@ -24,8 +32,9 @@ struct Player{
     int carCount;
     int busCount;
     int bikeCount;
+    int customCount;
     QString name;
-};
+};*/
 
 class MenuWindow : public QMainWindow
 {
@@ -91,6 +100,8 @@ private slots:
 
     void on_isCustomize_clicked();
 
+    int getCustomShipCount(QVector<Ship> ships);
+
 protected:
     Ui::MenuWindow *ui;
     QVector<QVector<QPushButton*>> buttonBoard;
@@ -101,7 +112,17 @@ protected:
     QVector<Ship> ships1;
     QVector<Ship> ships2;
     QVector<Grid> grids;
+    QVector<Ship> customShips;
     bool shotTurnFlag;
     bool alreadyShot;
+    //Page Classes
+    MenuPage *menu;
+    OptionsPage *options;
+    HelpPage *help;
+    PlacementPage *placement;
+    ShotPage *shot;
+    PassToOppo *pass;
+    WinnerPage *winner;
+
 };
 #endif // MENUWINDOW_H

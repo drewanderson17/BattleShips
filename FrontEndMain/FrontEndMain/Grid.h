@@ -30,7 +30,7 @@ public:
     //Grid() makes a square character array with dimension and
     //stores the player's name
     Grid();
-    Grid(int dimension, string name);
+    Grid(string name, int gridSize=10);
     // printGrid() displays hit and misses on opponent's board
     // showShips is only true when used for debugging purposes
     string printGrid(bool showShips=false) const;
@@ -48,6 +48,11 @@ public:
     void attack(string name);
     string getPlayerName() const;
     vector<vector<char> > getGrid() const;
+    int getSunkCount();
+    string getMostRecentlySunkShipName();
+    string getHits();
+    string getShots();
+    string getAccuracy();
 
 private:
     int shots, hits;

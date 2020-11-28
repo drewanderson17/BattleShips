@@ -33,6 +33,45 @@ Ship::Ship(string nameIn, int lengthIn, int widthIn) {
     pos = tempPos;
 }
 
+Ship::Ship(const Ship& right) {
+    name = right.name;
+    length = right.length;
+    width = right.width;
+    isLocked = right.isLocked;
+    isPos = right.isPos;
+
+    vector<int> cell(3, 0);
+    vector<vector<int>> ship(length*width, cell);
+
+    for(int i = 0; i < right.pos.size(); i++){
+        ship[i][0] = right.pos[i][0];
+        ship[i][1] = right.pos[i][1];
+        ship[i][2] = right.pos[i][2];
+    }
+    pos = ship;
+}
+
+Ship& Ship::operator=(const Ship& right){
+    if(this != &right){
+        name = right.name;
+        length = right.length;
+        width = right.width;
+        isLocked = right.isLocked;
+        isPos = right.isPos;
+
+        vector<int> cell(3, 0);
+        vector<vector<int>> ship(length*width, cell);
+
+        for(int i = 0; i < right.pos.size(); i++){
+            ship[i][0] = right.pos[i][0];
+            ship[i][1] = right.pos[i][1];
+            ship[i][2] = right.pos[i][2];
+        }
+        pos = ship;
+    }
+    return *this;
+}
+
 void Ship::placeShip(int row, int col, bool dir) {
     if(isLocked) {
         throw ShipException("The ship has already been placed.");
