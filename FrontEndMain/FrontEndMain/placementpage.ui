@@ -476,6 +476,19 @@ font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
     <string>0</string>
    </property>
   </widget>
+  <widget class="QListWidget" name="shipList">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>100</y>
+     <width>256</width>
+     <height>192</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255)</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

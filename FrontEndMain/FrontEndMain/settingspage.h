@@ -28,9 +28,17 @@ private slots:
 
     void on_busSpinBox_valueChanged(int arg1);
 
+
+    void on_addCustomShip_clicked();
+
+    void on_deleteCustomShip_clicked();
+
+    void on_customLength_valueChanged(int arg1);
+
 private:
     Ui::settingspage *ui;
     MainWindow *main;
+    void refreshShipList();
 };
 
 #endif // SETTINGSPAGE_H
