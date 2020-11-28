@@ -10,7 +10,8 @@ PlacementPage::PlacementPage(MainWindow *parent) :
     ui->setupUi(this);
     main = parent;
     setGrid();
-    setUIShipCounts();
+    refreshShipList();
+
 }
 
 PlacementPage::~PlacementPage()
@@ -29,7 +30,7 @@ void PlacementPage::on_doneButtonStartScreen_clicked()
 {
     QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
     Player &player = main->getActivePlayer();
-    if (player.busCount == 0 && player.carCount == 0 && player.bikeCount == 0 && player.customCount == 0){
+    if (ui->shipList->count() == 0){
         if (main->getActive()){
             //main->buttonBoard.clear();
             bboard.clear();
@@ -103,91 +104,11 @@ void PlacementPage::initializeBoardButtons(Coordinates& cord, QPushButton *butto
     for (int i = 0; i < bboard.size(); i++){
                     for (int j = 0; j < bboard[i].size(); j++){
                         if (bboard[i][j] == button){
-                             cord.x = j;
-                             cord.y = i;
+                             cord.x = i;
+                             cord.y = j;
                         }
                     }
                 }
-}
-
-int PlacementPage::findUnpositionedShip(string type, QVector<Ship> ships){
-    for (int i = 0; i < ships.size(); i++){
-        if (!(ships[i].isPositioned()) && ships[i].toStr() == type){
-            ships[i].positionShip(true);
-            return i;
-        }
-    }
-    return -1;
-    qDebug("Should not be here!");
-}
-
-
-Ship& PlacementPage::placeAndAddShip(const int playerInt, const int shipIndex, QVector<Ship> ships, const Coordinates cord){
-    ships[shipIndex].placeShip(cord.y,cord.x,cord.direction);
-    main->grids[playerInt].addShip(ships[shipIndex]);
-    return ships[shipIndex];
-}
-
-void PlacementPage::updateUIAfterPlacement(string type, Player& player, int playerInt){
-    QTextStream out(stdout);
-    if (type == "Car"){
-          player.carCount = player.carCount - 1;
-          ui->carTotal->setText(QString::number(player.carCount));
-          out << "VALID" << endl;
-          loadShotGrid(main->grids[playerInt], true);
-    } else if (type == "Bus"){
-        player.busCount = player.busCount -1;
-        ui->busTotal->setText(QString::number(player.busCount));
-        out << "VALID" << endl;
-        loadShotGrid(main->grids[playerInt], true);
-    } else if (type == "Bike") {
-        player.bikeCount = player.bikeCount - 1;
-        ui->bikeTotal->setText(QString::number(player.bikeCount));
-        out << "VALID" << endl;
-        loadShotGrid(main->grids[playerInt], true);
-    } else if (type == "Custom") {
-        player.customCount = player.customCount - 1;
-        ui->customTotal->setText((QString::number(player.customCount)));
-        out << "VALID" << endl;
-        loadShotGrid(main->grids[playerInt], true);
-    }
-}
-
-bool PlacementPage::canShoot(const Player& player){
-    if (ui->carRadio->isChecked()){
-        if (player.carCount < 1)
-            return false;
-    } else if (ui->busRadio->isChecked()){
-        if (player.busCount < 1)
-            return false;
-    } else if (ui->customRadio->isChecked()){
-        if (player.customCount < 1)
-            return false;
-    } else {
-        if (player.bikeCount < 1)
-            return false;
-    }
-    return true;
-}
-
-void PlacementPage::getShipType(string& type, const Player& player){
-    if (ui->carRadio->isChecked()){
-        type = "Car"; // Placing Car
-        if (player.carCount < 1)
-            return;
-    } else if (ui->busRadio->isChecked()){
-        type = "Bus"; // Placing Bus
-        if (player.busCount < 1)
-            return;
-    } else if (ui->customRadio->isChecked()){
-        type = "Custom";
-        if (player.customCount < 1)
-            return;
-    } else {
-        type = "Bike"; //Placing Bike
-        if (player.bikeCount < 1)
-            return;
-    }
 }
 
 void PlacementPage::on_gridClick(QPushButton *button){
@@ -197,44 +118,41 @@ void PlacementPage::on_gridClick(QPushButton *button){
     int shipIndex;
     Ship tempShip;
 
-    Player &player = main->getActivePlayer();
+    cord.x = 0;
+    cord.y = 0;
+    cord.direction = 0;
+
     initializeBoardButtons(cord, button);
-    getShipType(type, player);
-    if (!canShoot(player))
+
+    shipIndex = ui->shipList->currentRow();
+
+    if (ui->shipList->count() == 0)
         return;
-    int playerInt = 1;
-    if (main->getActive()){
-        playerInt = 0;
-    }
+
     try {
-        if (playerInt == 0){
-        shipIndex = findUnpositionedShip(type, main->ships1);
-        tempShip = placeAndAddShip(playerInt, shipIndex, main->ships1, cord);
+        if(main->getActive()){
+            main->ships1[shipIndex].placeShip(cord.x, cord.y, cord.direction);
+            main->grids[0].addShip(main->ships1[shipIndex]);
+            main->ships1.erase(main->ships1.begin() + shipIndex);
+        }else{
+            main->ships2[shipIndex].placeShip(cord.x, cord.y, cord.direction);
+            main->grids[1].addShip(main->ships2[shipIndex]);
+            main->ships2.erase(main->ships2.begin() + shipIndex);
         }
-        else {
-            shipIndex = findUnpositionedShip(type, main->ships2);
-            tempShip = placeAndAddShip(playerInt, shipIndex, main->ships2, cord);
-        }
+
     } catch (ShipException& e) {
-        if (playerInt == 0){
+        if (main->getActive()){
             main->ships1[shipIndex].positionShip(false);
         }
         else {
             main->ships2[shipIndex].positionShip(false);
         }
-        out << "NOT A VALID PLACEMENT" << endl;
+        cerr << e.what() << endl;
         return;
     }
-    updateUIAfterPlacement(type, player, playerInt);
+    refreshShipList();
+    loadShotGrid(main->grids[(int)(!main->getActive())], true);
 } // end on_gridClick
-
-void PlacementPage::setUIShipCounts(){
-    Player &player = main->getActivePlayer();
-    ui->carTotal->setText(QString::number(player.carCount));
-    ui->busTotal->setText(QString::number(player.busCount));
-    ui->bikeTotal->setText(QString::number(player.bikeCount));
-    ui->customTotal->setText(QString::number(player.customCount));
-}
 
 void PlacementPage::loadShotGrid(Grid currentGrid, bool showShips){
     vector<vector<char> > tempGrid = currentGrid.getGrid();
@@ -299,3 +217,18 @@ void PlacementPage::loadShotGrid(Grid currentGrid, bool showShips){
                 }
 }
 
+void PlacementPage::refreshShipList(QVector<Ship>& shipsIn){
+    ui->shipList->clear();  //this may cause memory leaks due to QListWidgetItems being stored on heap
+
+    for(int i = 0; i < shipsIn.length(); i++){
+        QListWidgetItem* temp = new QListWidgetItem(QString::fromStdString(shipsIn[i].toStr()));
+        ui->shipList->insertItem(i, temp);
+    }
+}
+
+void PlacementPage::refreshShipList(){
+    if(main->getActive())
+        refreshShipList(main->ships1);
+    else
+       refreshShipList(main->ships2);
+}

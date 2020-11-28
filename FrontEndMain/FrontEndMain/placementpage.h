@@ -22,25 +22,19 @@ public:
     //Coordinates getShotCords(QPushButton *button);
     void loadShotGrid(Grid currentGrid, bool showShips);
     void initializeBoardButtons(Coordinates& cord, QPushButton *button);
-    int findUnpositionedShip(string type, const QVector<Ship> ships);
-    Ship& placeAndAddShip(const int playerInt, const int shipIndex, QVector<Ship> ships, const Coordinates cord);
-    void updateUIAfterPlacement(string type, Player& player, int playerInt);
-    void getShipType(string& type, const Player& player);
-    bool canShoot(const Player& player);
     void on_gridClick(QPushButton *button);
-    void setUIShipCounts();
-
-
     ~PlacementPage();
 
 private slots:
     void on_backButtonStartScreen_clicked();
-
     void on_doneButtonStartScreen_clicked();
 
 private:
     Ui::PlacementPage *ui;
     MainWindow *main;
+    void refreshShipList(QVector<Ship>& shipsIn);
+    void refreshShipList();
+
 };
 
 #endif // PLACEMENTPAGE_H

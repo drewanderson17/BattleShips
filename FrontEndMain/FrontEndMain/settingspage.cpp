@@ -29,6 +29,12 @@ settingspage::settingspage(MainWindow *parent) :
     ui->carSpinBox->setValue(main->getTypeCount("Car"));
     ui->busSpinBox->setValue(main->getTypeCount("Bus"));
 
+    //QListWidget is called shipList
+
+    ui->customLength->setMaximum(main->getBoardSize()/2);
+    ui->customWidth->setMaximum(main->getBoardSize()/2 - 1);
+
+    refreshShipList();
 
 }
 
@@ -48,6 +54,9 @@ void settingspage::on_sizeSlider_sliderMoved(int position)
 {
     main->setBoardSize(position);
     ui->sizeValue->setText(QString::number(position));
+
+    ui->customLength->setMaximum(main->getBoardSize()/2);
+    ui->customWidth->setMaximum(main->getBoardSize()/2 - 1);
 }
 
 void settingspage::on_bikeSpinBox_valueChanged(int arg1)
@@ -69,6 +78,7 @@ void settingspage::on_bikeSpinBox_valueChanged(int arg1)
         //bikeDifference = arg1 - main->getTypeCount("Bike");
         bikeDifference++;
     }
+    refreshShipList();
 }
 
 void settingspage::on_carSpinBox_valueChanged(int arg1)
@@ -88,6 +98,7 @@ void settingspage::on_carSpinBox_valueChanged(int arg1)
         }
         carDifference++;
     }
+    refreshShipList();
 }
 
 void settingspage::on_busSpinBox_valueChanged(int arg1)
@@ -107,4 +118,40 @@ void settingspage::on_busSpinBox_valueChanged(int arg1)
         }
         busDifference++;
     }
+    refreshShipList();
+}
+
+void settingspage::refreshShipList(){
+    ui->shipList->clear();  //this may cause memory leaks due to QListWidgetItems being stored on heap
+
+    for(int i = 0; i < main->customShips.length(); i++){
+        QListWidgetItem* temp = new QListWidgetItem(QString::fromStdString(main->customShips[i].toStr()));
+        ui->shipList->insertItem(i, temp);
+    }
+}
+
+
+
+void settingspage::on_addCustomShip_clicked()
+{
+    string type = ui->customName->text().toStdString();
+    int length = ui->customLength->value();
+    int width = ui->customWidth->value();
+
+    Ship temp(type, length, width);
+    main->customShips.append(temp);
+
+    refreshShipList();
+}
+
+void settingspage::on_deleteCustomShip_clicked()
+{
+    int index = ui->shipList->currentRow();
+    main->customShips.erase(main->customShips.begin() + index);
+    refreshShipList();
+}
+
+void settingspage::on_customLength_valueChanged(int arg1)
+{
+    ui->customWidth->setMaximum(arg1 - 1);
 }
