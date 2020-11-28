@@ -18,7 +18,7 @@ public:
     ~ShotPage();
     void createShotGrid();
     Coordinates getShotCords(QPushButton *button);
-    void loadShotGrid(Grid currentGrid, bool showShips);
+    void loadShotGrid(Grid currentGrid, bool showShips, string shipType);
     void on_shotGridClick(QPushButton *button);
     int getInt(QString ui_label);
     void updateSunkUI(int gridIndex);

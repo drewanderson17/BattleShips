@@ -70,7 +70,9 @@ string Grid::printGrid(bool showShips) const {
     return gridOut;
 }
 
-void Grid::shoot(int row, int col) {
+string Grid::shoot(int row, int col) {
+    string shipType = "empty";
+
     if (this->checkBounds(row, col))
         throw GridException("Shot exceeds board bounds.");
     if (shotsGrid[row][col] == 'M' || shotsGrid[row][col] == 'H' || shotsGrid[row][col] == 'X')
@@ -82,6 +84,7 @@ void Grid::shoot(int row, int col) {
         hits++;
         for(int i = 0; i < ships.size(); i++){
             if(ships[i].hit(row, col)){
+                shipType=ships[i].toStr();
                 if(ships[i].getHealth() == 0){
                     this->writeShip(ships[i], 'X');
                     sunk.push_back(ships[i]);
@@ -100,7 +103,7 @@ void Grid::shoot(int row, int col) {
         shotsGrid[row][col] = 'M';
     }
     shots++;
-}
+return shipType;}
 
 void Grid::addShip(const Ship& shipIn) {
     bool validPos = true;

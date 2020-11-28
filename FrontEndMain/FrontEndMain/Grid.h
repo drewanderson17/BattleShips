@@ -35,7 +35,7 @@ public:
     // showShips is only true when used for debugging purposes
     string printGrid(bool showShips=false) const;
     string printStats() const;
-    void shoot(int row, int col);
+    string shoot(int row, int col);
     //addShip() adds a placed Ship object onto the grid
     void addShip(const Ship&);
     //updates the cells occupied by ship with char
