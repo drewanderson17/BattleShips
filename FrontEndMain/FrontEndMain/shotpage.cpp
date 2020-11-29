@@ -20,7 +20,7 @@ ShotPage::ShotPage(MainWindow *parent) :
         gridIndex = 1;
     }
     main->setAlreadyShot(false);
-    loadShotGrid(main->grids[gridIndex],true);
+    loadShotGrid(main->grids[gridIndex],true, "empty");
     updateSunkUI(gridIndex);
 }
 
@@ -108,13 +108,15 @@ void ShotPage::on_shotGridClick(QPushButton *button){
         } else {gridIndex = 0;}
 
         try {
-            main->grids[gridIndex].shoot(shotCord.y,shotCord.x);
+            string shipType;
+         shipType  = main->grids[gridIndex].shoot(shotCord.y,shotCord.x);
+         loadShotGrid(main->grids[gridIndex],true, shipType);
+         updateSunkUI(gridIndex);
         } catch (GridException& e) {
             cout << e.what() << endl;
         }
 
-        loadShotGrid(main->grids[gridIndex],true);
-        updateSunkUI(gridIndex);
+
 
         cout << main->grids[gridIndex].printGrid(true) << endl;
         if (main->grids[gridIndex].isWon()){
@@ -151,32 +153,63 @@ Coordinates ShotPage::getShotCords(QPushButton *button){
     return cord;
 }
 
-void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
+void ShotPage::loadShotGrid(Grid currentGrid, bool showShips, string shipType){
     vector<vector<char> > tempGrid = currentGrid.getGrid();
     QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
 
     for (int i = 0; i < bboard.size(); i++){
                     for (int j = 0; j < bboard[i].size(); j++){
+                        //if sunk
                         if (tempGrid[i][j] == 'X'){
-                            bboard[i][j]->setStyleSheet("QPushButton{"
-                                                             "font: 18pt 'MS Shell Dlg 2';"
-                                                             "color: #333;"
-                                                             "border: 2px solid #555;"
-                                                             "background-color: rgb(255,0,0);}"
-
-                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");
-
-                        }
-                        else if (tempGrid[i][j] == 'O' || tempGrid[i][j] == 'S'){
-                            if (showShips && tempGrid[i][j] == 'S'){
+                            if (shipType == "Car"){
                                 bboard[i][j]->setStyleSheet("QPushButton{"
+                                                                 "image: url(:/Car-purpled.svg);"
+                                                                 "font: 18pt 'MS Shell Dlg 2';"
+                                                                 "color: #333;"
+                                                                 "border: 2px solid #555;"
+                                                                 "background-color: rgb(0,255,0);}"
+
+
+                                                            "QPushButton:hover {background-color: rgb(255,0,0);}");
+                            }
+                            else if (shipType == "Bus"){
+                                bboard[i][j]->setStyleSheet("QPushButton{"
+                                                                 "image: url(:/bus-purpled.svg);"
                                                                  "font: 18pt 'MS Shell Dlg 2';"
                                                                  "color: #333;"
                                                                  "border: 2px solid #555;"
                                                                  "background-color: rgb(0,255,0);}"
 
                                                              "QPushButton:hover {background-color: rgb(255,0,0);}");
-                            } else {
+                            }
+                            else if (shipType == "bike"){
+                                bboard[i][j]->setStyleSheet("QPushButton{"
+                                                                "image: url(:/bike.svg);"
+
+                                                                 "border: 2px solid #555;"
+                                                                 "background-color: rgb(255,0,0);}"
+
+                                                             "QPushButton:hover {background-color: rgb(255,0,0);}");
+                            }
+                            //if shype type car
+                            //elif if
+
+                        }// end of hit
+                        // Miss
+                        else if (tempGrid[i][j] == 'O' || tempGrid[i][j] == 'S'){
+                            //if a ship is display ship
+                            if (showShips && tempGrid[i][j] == 'S'){
+
+
+
+                                bboard[i][j]->setStyleSheet("QPushButton{"
+                                                                 "font: 18pt 'MS Shell Dlg 2';"
+                                                                 "color: #333;"
+                                                                 "border: 2px solid #555;"
+                                                                 "background-color: rgb(0,255,0);}"//green
+
+                                                             "QPushButton:hover {background-color: rgb(255,0,0);}");
+                            } else { //sets ship
                                 bboard[i][j]->setStyleSheet("QPushButton{"
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
@@ -185,20 +218,24 @@ void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
 
                                                          "QPushButton:hover {background-color: rgb(255,0,0);}");
                             }
+                            //if hit
                         } else if (tempGrid[i][j] == 'H'){
+
+                            //if shype type car
+                            //elif if
                             bboard[i][j]->setStyleSheet("QPushButton{"
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
                                                              "background-color: rgb(128,0,128);}"
 
-                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");
+                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");//turns red
                         } else {
                             bboard[i][j]->setStyleSheet("QPushButton{"
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
-                                                             "background-color: rgb(120,120,120);}"
+                                                             "background-color: rgb(120,120,120);}"//creates purples
 
                                                          "QPushButton:hover {background-color: rgb(255,0,0);}");
                         }

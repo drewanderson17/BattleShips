@@ -164,27 +164,37 @@ void PlacementPage::loadShotGrid(Grid currentGrid, bool showShips){
 
     for (int i = 0; i < bboard.size(); i++){
                     for (int j = 0; j < bboard[i].size(); j++){
-                        if (tempGrid[i][j] == 'X'){
-                            bboard[i][j]->setStyleSheet("QPushButton{"
-                                                             "font: 18pt 'MS Shell Dlg 2';"
-                                                             "color: #333;"
-                                                             "border: 2px solid #555;"
-                                                             "background-color: rgb(255,0,0);}"
+                        // ship has been shot
 
-                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");
+
+                        if (tempGrid[i][j] == 'X'){
+                              bboard[i][j]->setStyleSheet("QPushButton{"
+
+
+                                    "font: 18pt 'MS Shell Dlg 2';"
+                                    "color: #333;"
+                                    "border: 2px solid #555;"
+                                    "background-color: rgb(0,255,0);}"
+
+                                     "QPushButton:hover {background-color: rgb(255,0,0);}");
 
                         }
+                        // if empty the shot wil
                         else if (tempGrid[i][j] == 'O' || tempGrid[i][j] == 'S'){
                             if (showShips && tempGrid[i][j] == 'S'){
                                 bboard[i][j]->setStyleSheet("QPushButton{"
+
+                                                                 "image: url(:/Car-purpled.svg);"
                                                                  "font: 18pt 'MS Shell Dlg 2';"
                                                                  "color: #333;"
                                                                  "border: 2px solid #555;"
                                                                  "background-color: rgb(0,255,0);}"
+                                                                  "image: url(:/Car-purpled.svg);"
 
                                                              "QPushButton:hover {background-color: rgb(120,120,120);}");
                             } else {
                                 bboard[i][j]->setStyleSheet("QPushButton{"
+
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
@@ -192,8 +202,10 @@ void PlacementPage::loadShotGrid(Grid currentGrid, bool showShips){
 
                                                          "QPushButton:hover {background-color: rgb(120,120,120);}");
                             }
+                            // if shit has been hit
                         } else if (tempGrid[i][j] == 'H'){
                             bboard[i][j]->setStyleSheet("QPushButton{"
+                                                            "image: url(:/Car-purpled.svg);"
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
@@ -202,10 +214,6 @@ void PlacementPage::loadShotGrid(Grid currentGrid, bool showShips){
                                                          "QPushButton:hover {background-color: rgb(255,0,0);}");
                         } else {
                             bboard[i][j]->setStyleSheet("QPushButton{"
-                                                             "font: 18pt 'MS Shell Dlg 2';"
-                                                             "color: #333;"
-                                                             "border: 2px solid #555;"
-                                                             "background-color: rgb(120,120,120);}"
 
                                                          "QPushButton:hover {background-color: rgb(255,0,0);}");
                         }
