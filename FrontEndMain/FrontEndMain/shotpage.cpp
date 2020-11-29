@@ -38,6 +38,11 @@ void ShotPage::on_shootScreenEndTurn_clicked()
         return;
 
     if(main->getCpuOn()){
+        Coordinates shot = getCpuShotCords();
+        shoot(0, shot);
+
+        checkForWin(0);
+
         PlayerBoardPage* board = new PlayerBoardPage(main);
         main->setCentralWidget(board);
         delete this;
@@ -116,13 +121,7 @@ void ShotPage::on_shotGridClick(QPushButton *button){
             gridIndex = 1;
         } else {gridIndex = 0;}
 
-        Coordinates shotCord;
-        if(main->getCpuOn() && gridIndex == 0){
-            shotCord = getCpuShotCords();
-        }
-        else{
-            shotCord = getShotCords(button);
-        }
+        Coordinates shotCord = getShotCords(button);
 
         cout << "X Cordinate of Shot:"<< shotCord.x << endl;
         cout << "Y Cordinate of Shot:"<< shotCord.y << endl;
@@ -130,9 +129,6 @@ void ShotPage::on_shotGridClick(QPushButton *button){
         shoot(gridIndex, shotCord);
         loadShotGrid(main->grids[gridIndex],true);
         updateSunkUI(gridIndex);
-
-
-
 
         cout << main->grids[gridIndex].printGrid(true) << endl;
         checkForWin(gridIndex);
@@ -187,7 +183,7 @@ Coordinates ShotPage::getCpuShotCords(){
     }
 
     char value = main->grids[0].getGrid()[shot.y][shot.x];  //grid index is always 0 of cpu shot
-    if(value =='X' || value == 'H'|| value =='M')
+    if(value !='X' || value != 'H'|| value !='M')
         return shot;
     else
         return getCpuShotCords();

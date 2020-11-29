@@ -10,9 +10,9 @@ PlayerBoardPage::PlayerBoardPage(MainWindow *parent) :
     main = parent;
     createPlayerGrid();
     if (main->getActive()){
-        loadShotGrid(main->grids[1],true,"str");
-    } else {
         loadShotGrid(main->grids[0],true,"str");
+    } else {
+        loadShotGrid(main->grids[1],true,"str");
     }
 }
 
@@ -25,7 +25,6 @@ void PlayerBoardPage::on_continueButton_clicked()
 {
     QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
     bboard.clear();
-    main->setAlreadyShot(false);
     ShotPage* shot = new ShotPage(main);
     main->setCentralWidget(shot);
     delete this;
