@@ -14,7 +14,6 @@ GridException::GridException(const string& m) : message(m) {}
 string GridException::what() const { return message; }
 
 Grid::Grid() {
-
 }
 
 Grid::Grid(string name, int gridSize) {
@@ -25,7 +24,7 @@ Grid::Grid(string name, int gridSize) {
     hits = 0;
 
     vector<char> row (gridSize, 'O');
-    vector<vector<char>> grid (gridSize, row);
+    vector<vector<char> > grid (gridSize, row);
     shotsGrid = grid;
 
     vector<Ship> temp1;
@@ -107,7 +106,7 @@ return shipType;}
 
 void Grid::addShip(const Ship& shipIn) {
     bool validPos = true;
-    vector<vector<int>> temp = shipIn.getPos();
+    vector<vector<int> > temp = shipIn.getPos();
     for(int i = 0; i < temp.size(); i++) {
         if (this->checkBounds(temp[i][0], temp[i][1])) {
             validPos = false;
@@ -129,7 +128,7 @@ bool Grid::checkBounds(int row, int col) {
 }
 
 void Grid::writeShip(const Ship& shipIn, char cIn) {
-    vector<vector<int>> temp = shipIn.getPos();
+    vector<vector<int> > temp = shipIn.getPos();
     for(int i = 0; i < temp.size(); i++){
         shotsGrid[temp[i][0]][temp[i][1]] = cIn;
     }
@@ -183,7 +182,9 @@ int Grid::getSunkCount(){
     return sunk.size();
 }
 string Grid::getMostRecentlySunkShipName(){
-    return sunk.at(sunk.size() - 1).toStr();
+    if (sunk.size() > 0)
+        return sunk.at(sunk.size() - 1).toStr();
+    return "";
 }
 
 // Non-member function
