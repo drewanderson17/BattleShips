@@ -26,6 +26,7 @@ SOURCES += \
     optionspage.cpp \
     passtooppo.cpp \
     placementpage.cpp \
+    playerboardpage.cpp \
     settingspage.cpp \
     shotpage.cpp \
     winnerpage.cpp
@@ -40,6 +41,7 @@ HEADERS += \
     optionspage.h \
     passtooppo.h \
     placementpage.h \
+    playerboardpage.h \
     settingspage.h \
     shotpage.h \
     winnerpage.h
@@ -52,6 +54,7 @@ FORMS += \
     optionspage.ui \
     passtooppo.ui \
     placementpage.ui \
+    playerboardpage.ui \
     settingspage.ui \
     shotpage.ui \
     winnerpage.ui
