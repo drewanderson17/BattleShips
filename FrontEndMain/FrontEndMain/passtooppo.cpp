@@ -1,6 +1,6 @@
 #include "passtooppo.h"
 #include "ui_passtooppo.h"
-
+#include "playerboardpage.h"
 PassToOppo::PassToOppo(MainWindow *parent) :
     QWidget(parent),
     ui(new Ui::PassToOppo)
@@ -16,7 +16,7 @@ PassToOppo::~PassToOppo()
 
 void PassToOppo::on_passWindowOkayButton_clicked()
 {
-    if (main->getActive()){
+    /*if (main->getActive()){
         main->setActive(false);
     } else {main->setActive(true);}
     QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
@@ -25,5 +25,10 @@ void PassToOppo::on_passWindowOkayButton_clicked()
     main->setAlreadyShot(false);
     ShotPage* shot = new ShotPage(main);
     main->setCentralWidget(shot);
+    delete this;*/
+
+    PlayerBoardPage* playerBoard = new PlayerBoardPage(main);
+    main->setCentralWidget(playerBoard);
     delete this;
+
 }
