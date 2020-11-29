@@ -59,6 +59,7 @@ void testGrid(){
     assert (customGrid.getSunkCount() == 1);
     assert (customGrid.getHits() == "2");
     assert (customGrid.getAccuracy() == "100 %");
+    assert (customGrid.getMostRecentlySunkShipName() == "Bike");
     cout << "Passed!" << endl;
 }
 
