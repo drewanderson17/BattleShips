@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     customShips.push_back(ship3);
     boardSize = 10;
     cpuOn = false;
-    cpuDifficulty = 1;
+    cpuDifficulty = boardSize * 0.2;  //20% base cpu accuracy
     srand(time(NULL));
 }
 
@@ -135,8 +135,7 @@ void MainWindow::setCpuOn(bool condition){
 }
 
 void MainWindow::setCpuDifficulty(int tempDifficulty){
-
-    cpuDifficulty = boardSize * (tempDifficulty/(float)boardSize) * 0.3 + boardSize / 5;
+    cpuDifficulty = boardSize * 0.2 * (tempDifficulty/(float)boardSize) + boardSize * 0.2;
 }
 
 int MainWindow::getCpuDifficulty(){
