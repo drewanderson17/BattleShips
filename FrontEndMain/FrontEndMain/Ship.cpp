@@ -133,11 +133,3 @@ int Ship::getLength() {
 int Ship::getWidth() {
     return width;
 }
-
-
-
-
-
-
-
-
