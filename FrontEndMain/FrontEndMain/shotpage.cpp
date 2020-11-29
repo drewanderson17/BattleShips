@@ -108,14 +108,7 @@ void ShotPage::on_shotGridClick(QPushButton *button){
 
         Coordinates shotCord;
         if(main->getCpuOn() && gridIndex == 0){
-            bool condition = true;
-            vector<vector<char> > tempGrid = main->grids[gridIndex].getGrid();
-            while (condition == true){
-                shotCord = getCpuShotCords();
-                if (tempGrid[shotCord.x][shotCord.y]!='X' ||tempGrid[shotCord.x][shotCord.y]!='H'||tempGrid[shotCord.x][shotCord.y]!='M'){
-                   condition = false;
-                }
-            }
+            shotCord = getCpuShotCords();
         }
         else{
             shotCord = getShotCords(button);
@@ -191,7 +184,11 @@ Coordinates ShotPage::getCpuShotCords(){
         shot.y = tempPos[index][0];
     }
 
-    return shot;
+    char value = main->grids[0].getGrid()[shot.y][shot.x];  //grid index is always 0 of cpu shot
+    if(value !='X' || value !='H'|| value !='M')
+        return shot;
+    else
+        return getCpuShotCords();
 }
 
 void ShotPage::loadShotGrid(Grid currentGrid, bool showShips, string shipType){
