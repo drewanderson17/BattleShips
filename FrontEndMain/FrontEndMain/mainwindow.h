@@ -68,6 +68,8 @@ public:
     void assignShips();
     void setCounts();
     int getTypeCount(QString type);
+    bool getCpuOn();
+    void setCpuOn(bool condition);
 
 
 
@@ -88,6 +90,7 @@ protected:
     bool activePlayer;
     bool alreadyShot;
     QString winnerName;
+    bool cpuOn;
     //QVector<QVector<QPushButton*>> buttonBoard;
     //int boardSize;
     //Player playerOne;

@@ -45,6 +45,7 @@ settingspage::~settingspage()
 
 void settingspage::on_backButtonOptions_clicked()
 {
+    main->setCpuOn(ui->singlePlayerCB->isChecked());
     MenuPage *menu = new MenuPage(main);
     main->setCentralWidget(menu);
     delete this;

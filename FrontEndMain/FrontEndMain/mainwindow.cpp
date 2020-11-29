@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     customShips.push_back(ship2);
     customShips.push_back(ship3);
     boardSize = 10;
+    cpuOn = false;
     srand(time(NULL));
 }
 
@@ -122,5 +123,13 @@ int MainWindow::getTypeCount(QString type){
     }
 
     return count;
+}
+
+bool MainWindow::getCpuOn(){
+    return cpuOn;
+}
+
+void MainWindow::setCpuOn(bool condition){
+    cpuOn = condition;
 }
 
