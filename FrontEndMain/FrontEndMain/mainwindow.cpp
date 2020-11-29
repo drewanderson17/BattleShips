@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "menupage.h"
 #include <time.h>
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -19,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     customShips.push_back(ship3);
     boardSize = 10;
     cpuOn = false;
+    cpuDifficulty = 1;
     srand(time(NULL));
 }
 
@@ -133,3 +135,12 @@ void MainWindow::setCpuOn(bool condition){
     cpuOn = condition;
 }
 
+void MainWindow::setCpuDifficulty(int tempDifficulty){
+
+    cpuDifficulty = boardSize * (tempDifficulty/(float)boardSize) * 0.3 + boardSize * 0.3;
+    cout<< cpuDifficulty << endl;
+}
+
+int MainWindow::getCpuDifficulty(){
+    return cpuDifficulty;
+}

@@ -23,6 +23,9 @@ settingspage::settingspage(MainWindow *parent) :
     ui->busSpinBox->setMinimum(0);
     ui->busSpinBox->setMaximum(3);
 
+    ui->difficultySlider->setMinimum(1);
+    ui->difficultySlider->setMaximum(main->getBoardSize());
+
 
     ui->sizeValue->setText(QString::number(main->getBoardSize()));
     ui->bikeSpinBox->setValue(main->getTypeCount("Bike"));
@@ -46,6 +49,7 @@ settingspage::~settingspage()
 void settingspage::on_backButtonOptions_clicked()
 {
     main->setCpuOn(ui->singlePlayerCB->isChecked());
+    main->setCpuDifficulty(ui->difficultySlider->value());
     MenuPage *menu = new MenuPage(main);
     main->setCentralWidget(menu);
     delete this;
@@ -54,6 +58,7 @@ void settingspage::on_backButtonOptions_clicked()
 void settingspage::on_sizeSlider_sliderMoved(int position)
 {
     main->setBoardSize(position);
+    ui->difficultySlider->setMaximum(main->getBoardSize());
     ui->sizeValue->setText(QString::number(position));
 
     ui->customLength->setMaximum(main->getBoardSize()/2);

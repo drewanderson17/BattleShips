@@ -169,13 +169,13 @@ Coordinates ShotPage::getCpuShotCords(){
     shot.y = rand() % main->getBoardSize();
     shot.direction = 10;
 
-    int difficulty = main->getBoardSize() / 3;
 
-    if(shot.x < difficulty){
+
+    if(shot.x < main->getCpuDifficulty()){
         vector<Ship> tempShips = main->grids[0].getShips();
         vector<vector<int>> tempPos = tempShips[0].getPos();
 
-        int index = 0;
+        int index;
         do{
             index =  rand() % tempPos.size();
         }while(tempPos[index][2] != 1);

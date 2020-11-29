@@ -70,6 +70,8 @@ public:
     int getTypeCount(QString type);
     bool getCpuOn();
     void setCpuOn(bool condition);
+    void setCpuDifficulty(int tempDifficulty);
+    int getCpuDifficulty();
 
 
 
@@ -91,6 +93,7 @@ protected:
     bool alreadyShot;
     QString winnerName;
     bool cpuOn;
+    int cpuDifficulty;
     //QVector<QVector<QPushButton*>> buttonBoard;
     //int boardSize;
     //Player playerOne;
