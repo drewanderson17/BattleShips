@@ -23,12 +23,7 @@ PlayerBoardPage::~PlayerBoardPage()
 
 void PlayerBoardPage::on_continueButton_clicked()
 {
-    //Send to shot screen
-    if (main->getActive()){
-        main->setActive(false);
-    } else {main->setActive(true);}
     QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
-    //main->buttonBoard.clear();
     bboard.clear();
     main->setAlreadyShot(false);
     ShotPage* shot = new ShotPage(main);
