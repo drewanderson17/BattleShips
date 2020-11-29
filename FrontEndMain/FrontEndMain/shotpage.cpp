@@ -108,7 +108,14 @@ void ShotPage::on_shotGridClick(QPushButton *button){
 
         Coordinates shotCord;
         if(main->getCpuOn() && gridIndex == 0){
-            shotCord = getCpuShotCords();
+            bool condition = true;
+            vector<vector<char> > tempGrid = main->grids[gridIndex].getGrid();
+            while (condition == true){
+                shotCord = getCpuShotCords();
+                if (tempGrid[shotCord.x][shotCord.y]!='X' ||tempGrid[shotCord.x][shotCord.y]!='H'||tempGrid[shotCord.x][shotCord.y]!='M'){
+                   condition = false;
+                }
+            }
         }
         else{
             shotCord = getShotCords(button);
