@@ -3,6 +3,7 @@
 #include "passtooppo.h"
 #include "winnerpage.h"
 #include "mainwindow.h"
+#include "playerboardpage.h"
 
 #include <iostream>
 
@@ -20,7 +21,7 @@ ShotPage::ShotPage(MainWindow *parent) :
         gridIndex = 1;
     }
     main->setAlreadyShot(false);
-    loadShotGrid(main->grids[gridIndex],true, "empty");
+    loadShotGrid(main->grids[gridIndex],true);
     updateSunkUI(gridIndex);
 
 
@@ -35,9 +36,18 @@ void ShotPage::on_shootScreenEndTurn_clicked()
 {
     if (!(main->getAlreadyShot()))
         return;
-    PassToOppo* pass = new PassToOppo(main);
-    main->setCentralWidget(pass);
-    delete this;
+
+    if(main->getCpuOn()){
+        PlayerBoardPage* board = new PlayerBoardPage(main);
+        main->setCentralWidget(board);
+        delete this;
+    }
+    else{
+        PassToOppo* pass = new PassToOppo(main);
+        main->setCentralWidget(pass);
+        delete this;
+    }
+
 }
 
 void ShotPage::createShotGrid(){
@@ -117,14 +127,10 @@ void ShotPage::on_shotGridClick(QPushButton *button){
         cout << "X Cordinate of Shot:"<< shotCord.x << endl;
         cout << "Y Cordinate of Shot:"<< shotCord.y << endl;
 
-        try {
-            string shipType;
-            shipType  = main->grids[gridIndex].shoot(shotCord.y,shotCord.x);
-            loadShotGrid(main->grids[gridIndex],true, shipType);
-            updateSunkUI(gridIndex);
-        } catch (GridException& e) {
-            cout << e.what() << endl;
-        }
+        shoot(gridIndex, shotCord);
+        loadShotGrid(main->grids[gridIndex],true);
+        updateSunkUI(gridIndex);
+
 
 
 
@@ -133,6 +139,15 @@ void ShotPage::on_shotGridClick(QPushButton *button){
 
     }
     main->setAlreadyShot(true);
+}
+
+void ShotPage::shoot(int index, Coordinates shotCord){
+    try {
+        string shipType;
+        shipType  = main->grids[index].shoot(shotCord.y,shotCord.x);
+    } catch (GridException& e) {
+        cout << e.what() << endl;
+    }
 }
 
 Coordinates ShotPage::getShotCords(QPushButton *button){
@@ -195,7 +210,7 @@ void ShotPage::checkForWin(int gridIndex){
 }
 
 
-void ShotPage::loadShotGrid(Grid currentGrid, bool showShips, string shipType){
+void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
     vector<vector<char> > tempGrid = currentGrid.getGrid();
     QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
 
