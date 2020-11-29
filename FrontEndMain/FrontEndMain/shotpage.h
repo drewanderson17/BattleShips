@@ -23,6 +23,7 @@ public:
     int getInt(QString ui_label);
     void updateSunkUI(int gridIndex);
     void updateStats(Grid currentGrid);
+    void checkForWin(int gridIndex);
     Coordinates getCpuShotCords();
 
 private slots:
