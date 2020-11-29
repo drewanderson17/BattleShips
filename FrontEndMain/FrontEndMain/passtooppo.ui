@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QFrame{image: url(:/passWindow.svg);
+    <string notr="true">QFrame{image: url(:/passWindow.png);
 background-color: rgb(0, 0, 0);}</string>
    </property>
    <property name="frameShape">

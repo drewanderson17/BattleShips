@@ -5,5 +5,6 @@
         <file>bus-purpled.svg</file>
         <file>Car-purpled.svg</file>
         <file>bike.svg</file>
+        <file>passWindow.png</file>
     </qresource>
 </RCC>
