@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "menupage.h"
 #include <time.h>
-#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -137,8 +136,7 @@ void MainWindow::setCpuOn(bool condition){
 
 void MainWindow::setCpuDifficulty(int tempDifficulty){
 
-    cpuDifficulty = boardSize * (tempDifficulty/(float)boardSize) * 0.3 + boardSize * 0.3;
-    cout<< cpuDifficulty << endl;
+    cpuDifficulty = boardSize * (tempDifficulty/(float)boardSize) * 0.3 + boardSize / 5;
 }
 
 int MainWindow::getCpuDifficulty(){
