@@ -2,6 +2,7 @@
 #include "ui_placementpage.h"
 #include <QTextStream>
 #include <iostream>
+#include <time.h>
 
 PlacementPage::PlacementPage(MainWindow *parent) :
     QWidget(parent),
@@ -235,4 +236,13 @@ void PlacementPage::refreshShipList(){
         refreshShipList(main->ships1);
     else
        refreshShipList(main->ships2);
+}
+
+
+Coordinates PlacementPage::cpuPlacementCords(){
+    Coordinates randCord;
+    randCord.x = rand() % main->getBoardSize();
+    randCord.y = rand() % main->getBoardSize();
+    randCord.direction = rand() % 2;
+    return randCord;
 }

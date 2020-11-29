@@ -23,6 +23,7 @@ public:
     int getInt(QString ui_label);
     void updateSunkUI(int gridIndex);
     void updateStats(Grid currentGrid);
+    void cpuShotCords();
 
 private slots:
     void on_shootScreenEndTurn_clicked();

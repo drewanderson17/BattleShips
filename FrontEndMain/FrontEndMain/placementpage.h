@@ -23,6 +23,7 @@ public:
     void loadShotGrid(Grid currentGrid, bool showShips);
     void initializeBoardButtons(Coordinates& cord, QPushButton *button);
     void on_gridClick(QPushButton *button);
+    Coordinates cpuPlacementCords();
     ~PlacementPage();
 
 private slots:

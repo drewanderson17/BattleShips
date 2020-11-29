@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "menupage.h"
+#include <time.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     customShips.push_back(ship2);
     customShips.push_back(ship3);
     boardSize = 10;
+    srand(time(NULL));
 }
 
 MainWindow::~MainWindow()
