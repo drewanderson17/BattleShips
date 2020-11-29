@@ -185,7 +185,7 @@ Coordinates ShotPage::getCpuShotCords(){
     }
 
     char value = main->grids[0].getGrid()[shot.y][shot.x];  //grid index is always 0 of cpu shot
-    if(value !='X' || value !='H'|| value !='M')
+    if(value =='X' || value == 'H'|| value =='M')
         return shot;
     else
         return getCpuShotCords();
