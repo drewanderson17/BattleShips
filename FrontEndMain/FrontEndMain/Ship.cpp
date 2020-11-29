@@ -7,11 +7,13 @@
 #include <vector>
 #include <string>
 
+#include <iostream>
+
+
 ShipException::ShipException(const string &m) : message(m) {}
 string ShipException::what() const { return message; }
 
 Ship::Ship() {
-    isLocked = false;
     isPos = false;
     name = "Default";
     length = 1;
@@ -19,7 +21,8 @@ Ship::Ship() {
 }
 
 Ship::Ship(string nameIn, int lengthIn, int widthIn) {
-    isLocked = false;
+    if (lengthIn < 1 || widthIn < 1 || nameIn.size() < 1)
+        throw ShipException("Illegal length, width, or name!");
     isPos = false;
     name = nameIn;
     length = lengthIn;
@@ -29,7 +32,7 @@ Ship::Ship(string nameIn, int lengthIn, int widthIn) {
     cell.push_back(0);
     cell.push_back(0);
     cell.push_back(1);
-    vector<vector<int>> tempPos(length*width, cell);
+    vector<vector<int> > tempPos(length*width, cell);
     pos = tempPos;
 }
 
@@ -37,11 +40,10 @@ Ship::Ship(const Ship& right) {
     name = right.name;
     length = right.length;
     width = right.width;
-    isLocked = right.isLocked;
     isPos = right.isPos;
 
     vector<int> cell(3, 0);
-    vector<vector<int>> ship(length*width, cell);
+    vector<vector<int> > ship(length*width, cell);
 
     for(int i = 0; i < right.pos.size(); i++){
         ship[i][0] = right.pos[i][0];
@@ -56,11 +58,10 @@ Ship& Ship::operator=(const Ship& right){
         name = right.name;
         length = right.length;
         width = right.width;
-        isLocked = right.isLocked;
         isPos = right.isPos;
 
         vector<int> cell(3, 0);
-        vector<vector<int>> ship(length*width, cell);
+        vector<vector<int> > ship(length*width, cell);
 
         for(int i = 0; i < right.pos.size(); i++){
             ship[i][0] = right.pos[i][0];
@@ -73,32 +74,22 @@ Ship& Ship::operator=(const Ship& right){
 }
 
 void Ship::placeShip(int row, int col, bool dir) {
-    if(isLocked) {
-        throw ShipException("The ship has already been placed.");
-    }
-    else {
-        vector<int> cell;
-        cell.push_back(row);
-        cell.push_back(col);
-        cell.push_back(1);
-        vector<vector<int>> ship(length*width, cell);
-
-        for (int i = 0; i < ship.size(); i++) {
-            if (dir) {
-                ship[i][0] += i % length;
-                ship[i][1] += i / length;
-            }
-            else {
-                ship[i][1] += i % length;
-                ship[i][0] += i / length;
-            }
+    vector<int> cell;
+    cell.push_back(row);
+    cell.push_back(col);
+    cell.push_back(1);
+    vector<vector<int> > ship(length*width, cell);
+    for (int i = 0; i < ship.size(); i++) {
+        if (dir) {
+            ship[i][0] += i % length;
+            ship[i][1] += i / length;
         }
-        pos = ship;
+        else {
+            ship[i][1] += i % length;
+            ship[i][0] += i / length;
+        }
     }
-}
-
-void Ship::lockPos() {
-    isLocked = true;
+    pos = ship;
 }
 
 void Ship::positionShip(bool isPlaced) {
@@ -120,7 +111,7 @@ bool Ship::hit(int row, int col) {
     return hit;
 }
 
-vector<vector<int>> Ship::getPos() const {
+vector<vector<int> > Ship::getPos() const {
     return pos;
 }
 
