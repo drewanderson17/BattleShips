@@ -22,6 +22,8 @@ ShotPage::ShotPage(MainWindow *parent) :
     main->setAlreadyShot(false);
     loadShotGrid(main->grids[gridIndex],true, "empty");
     updateSunkUI(gridIndex);
+
+
 }
 
 ShotPage::~ShotPage()
@@ -99,19 +101,27 @@ void ShotPage::updateSunkUI(int gridIndex){
 void ShotPage::on_shotGridClick(QPushButton *button){
     int gridIndex;
     if (main->getAlreadyShot() == false){
-        Coordinates shotCord = getShotCords(button);
-        cout << "X Cordinate of Shot:"<< shotCord.x << endl;
-        cout << "Y Cordinate of Shot:"<< shotCord.y << endl;
 
         if (main->getActive()){
             gridIndex = 1;
         } else {gridIndex = 0;}
 
+        Coordinates shotCord;
+        if(main->getCpuOn() && gridIndex == 0){
+            shotCord = getCpuShotCords();
+        }
+        else{
+            shotCord = getShotCords(button);
+        }
+
+        cout << "X Cordinate of Shot:"<< shotCord.x << endl;
+        cout << "Y Cordinate of Shot:"<< shotCord.y << endl;
+
         try {
             string shipType;
-         shipType  = main->grids[gridIndex].shoot(shotCord.y,shotCord.x);
-         loadShotGrid(main->grids[gridIndex],true, shipType);
-         updateSunkUI(gridIndex);
+            shipType  = main->grids[gridIndex].shoot(shotCord.y,shotCord.x);
+            loadShotGrid(main->grids[gridIndex],true, shipType);
+            updateSunkUI(gridIndex);
         } catch (GridException& e) {
             cout << e.what() << endl;
         }
@@ -151,6 +161,30 @@ Coordinates ShotPage::getShotCords(QPushButton *button){
                     }
                 }
     return cord;
+}
+
+Coordinates ShotPage::getCpuShotCords(){
+    Coordinates shot;
+    shot.x = rand() % main->getBoardSize();
+    shot.y = rand() % main->getBoardSize();
+    shot.direction = 10;
+
+    int difficulty = main->getBoardSize() / 3;
+
+    if(shot.x < difficulty){
+        vector<Ship> tempShips = main->grids[0].getShips();
+        vector<vector<int>> tempPos = tempShips[0].getPos();
+
+        int index = 0;
+        do{
+            index =  rand() % tempPos.size();
+        }while(tempPos[index][2] != 1);
+
+        shot.x = tempPos[index][1];
+        shot.y = tempPos[index][0];
+    }
+
+    return shot;
 }
 
 void ShotPage::loadShotGrid(Grid currentGrid, bool showShips, string shipType){
