@@ -22,18 +22,17 @@ private slots:
 
     void on_sizeSlider_sliderMoved(int position);
 
-    void on_bikeSpinBox_valueChanged(int arg1);
-
-    void on_carSpinBox_valueChanged(int arg1);
-
-    void on_busSpinBox_valueChanged(int arg1);
-
-
     void on_addCustomShip_clicked();
 
     void on_deleteCustomShip_clicked();
 
     void on_customLength_valueChanged(int arg1);
+
+    void on_addBike_clicked();
+
+    void on_addCar_clicked();
+
+    void on_addBus_clicked();
 
 private:
     Ui::settingspage *ui;

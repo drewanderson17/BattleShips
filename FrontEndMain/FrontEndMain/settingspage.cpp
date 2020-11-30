@@ -14,24 +14,10 @@ settingspage::settingspage(MainWindow *parent) :
     ui->sizeSlider->setMinimum(MIN_GRID);
     ui->sizeSlider->setMaximum(MAX_GRID);
 
-    ui->bikeSpinBox->setMinimum(0);
-    ui->bikeSpinBox->setMaximum(3);
-
-    ui->carSpinBox->setMinimum(0);
-    ui->carSpinBox->setMaximum(3);
-
-    ui->busSpinBox->setMinimum(0);
-    ui->busSpinBox->setMaximum(3);
-
     ui->difficultySlider->setMinimum(1);
     ui->difficultySlider->setMaximum(main->getBoardSize());
 
-
     ui->sizeValue->setText(QString::number(main->getBoardSize()));
-    ui->bikeSpinBox->setValue(main->getTypeCount("Bike"));
-    ui->carSpinBox->setValue(main->getTypeCount("Car"));
-    ui->busSpinBox->setValue(main->getTypeCount("Bus"));
-
     ui->singlePlayerCB->setChecked(main->getCpuOn());
 
     //QListWidget is called shipList
@@ -67,66 +53,6 @@ void settingspage::on_sizeSlider_sliderMoved(int position)
     ui->customWidth->setMaximum(main->getBoardSize()/2 - 1);
 }
 
-void settingspage::on_bikeSpinBox_valueChanged(int arg1)
-{
-    int bikeDifference = arg1 - main->getTypeCount("Bike");
-    while(bikeDifference > 0){
-        main->customShips.push_back(Ship("Bike", 2, 1));
-        bikeDifference--;
-    }
-
-    while(bikeDifference < 0){
-        for(int i = 0; i < main->customShips.size(); i++){
-            if(main->customShips[i].toStr().compare("Bike") == 0){
-                main->customShips.erase(main->customShips.begin()+i);
-                break;
-            }
-        }
-        bikeDifference++;
-    }
-    refreshShipList();
-}
-
-void settingspage::on_carSpinBox_valueChanged(int arg1)
-{
-    int carDifference = arg1 - main->getTypeCount("Car");
-    while(carDifference > 0){
-        main->customShips.push_back(Ship("Car", 3, 1));
-        carDifference--;
-    }
-
-    while(carDifference < 0){
-        for(int i = 0; i < main->customShips.size(); i++){
-            if(main->customShips[i].toStr().compare("Car") == 0){
-                main->customShips.erase(main->customShips.begin()+i);
-                break;
-            }
-        }
-        carDifference++;
-    }
-    refreshShipList();
-}
-
-void settingspage::on_busSpinBox_valueChanged(int arg1)
-{
-    int busDifference = arg1 - main->getTypeCount("Bus");
-    while(busDifference > 0){
-        main->customShips.push_back(Ship("Bus", 3, 2));
-        busDifference--;
-    }
-
-    while(busDifference < 0){
-        for(int i = 0; i < main->customShips.size(); i++){
-            if(main->customShips[i].toStr().compare("Bus") == 0){
-                main->customShips.erase(main->customShips.begin()+i);
-                break;
-            }
-        }
-        busDifference++;
-    }
-    refreshShipList();
-}
-
 void settingspage::refreshShipList(){
     ui->shipList->clear();  //this may cause memory leaks due to QListWidgetItems being stored on heap
 
@@ -160,4 +86,23 @@ void settingspage::on_deleteCustomShip_clicked()
 void settingspage::on_customLength_valueChanged(int arg1)
 {
     ui->customWidth->setMaximum(arg1 - 1);
+}
+
+void settingspage::on_addBike_clicked()
+{
+
+    main->customShips.push_back(Ship("Bike", 2, 1));
+    refreshShipList();
+}
+
+void settingspage::on_addCar_clicked()
+{
+    main->customShips.push_back(Ship("Car", 3, 1));
+    refreshShipList();
+}
+
+void settingspage::on_addBus_clicked()
+{
+    main->customShips.push_back(Ship("Bus", 3, 2));
+    refreshShipList();
 }
