@@ -68,7 +68,8 @@ void PlayerBoardPage::loadShotGrid(Grid currentGrid, bool showShips, string ship
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
-                                                             "background-color: rgb(128,0,128);}");
+                                                        "border-image: url(:/hit_explosion.png) 16;}"
+                                                             );
                         } else {
                             bboard[i][j]->setStyleSheet("QPushButton{"
                                                         "font: 18pt 'MS Shell Dlg 2';"
