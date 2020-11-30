@@ -38,11 +38,6 @@ void ShotPage::on_shootScreenEndTurn_clicked()
         return;
 
     if(main->getCpuOn()){
-        Coordinates shot = getCpuShotCords();
-        shoot(0, shot);
-
-        checkForWin(0);
-
         PlayerBoardPage* board = new PlayerBoardPage(main);
         main->setCentralWidget(board);
         delete this;
@@ -133,6 +128,11 @@ void ShotPage::on_shotGridClick(QPushButton *button){
         cout << main->grids[gridIndex].printGrid(true) << endl;
         checkForWin(gridIndex);
 
+        if(main->getCpuOn()){
+            Coordinates shot = getCpuShotCords();
+            shoot(0, shot);
+            checkForWin(0);
+        }
     }
     main->setAlreadyShot(true);
 }

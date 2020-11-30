@@ -32,6 +32,8 @@ settingspage::settingspage(MainWindow *parent) :
     ui->carSpinBox->setValue(main->getTypeCount("Car"));
     ui->busSpinBox->setValue(main->getTypeCount("Bus"));
 
+    ui->singlePlayerCB->setChecked(main->getCpuOn());
+
     //QListWidget is called shipList
 
     ui->customLength->setMaximum(main->getBoardSize()/2);
