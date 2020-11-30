@@ -284,9 +284,21 @@ void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
                 //cell has been hit but not sunk
                 //bboard[row][col]->setStyleSheet();
             }
-            else if((int)main->getActivePlayerName().compare(currentGrid.getPlayerName())){
+            else if(!main->getActivePlayerName().compare(currentGrid.getPlayerName())){
                 //show car for every tempPos[i]
                 //bboard[row][col]->setStyleSheet();
+                if(!type.compare("Bike")){
+
+                }
+                else if(!type.compare("Car")){
+
+                }
+                else if(!type.compare("Bus")){
+
+                }
+                else{
+
+                }
             }
         }
     }
@@ -298,7 +310,18 @@ void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
             col = tempPos[j][1];
                 //cell has been hit but not sunk
                 //bboard[row][col]->setStyleSheet();
+            if(!type.compare("Bike")){
 
+            }
+            else if(!type.compare("Car")){
+
+            }
+            else if(!type.compare("Bus")){
+
+            }
+            else{
+
+            }
         }
     }
     updateStats(currentGrid);
