@@ -64,6 +64,7 @@ void PlacementPage::setGrid(){
                         button->setText(QString::number(j)+""+QString::number(i));
                         button->sizePolicy().setHeightForWidth(true);
                         button->setStyleSheet("QPushButton{"
+
                                               "font: 18pt 'MS Shell Dlg 2';"
                                               "color: #333;"
                                               "border: 2px solid #555;"
@@ -180,19 +181,18 @@ void PlacementPage::loadShotGrid(Grid currentGrid, bool showShips){
                             if (showShips && tempGrid[i][j] == 'S'){
                                 bboard[i][j]->setStyleSheet("QPushButton{"
 
-                                                                 "image: url(:/Car-purpled.svg);"
-                                                                 "font: 18pt 'MS Shell Dlg 2';"
-                                                                 "color: #333;"
+                                                                 "image: url(:/Car-purpled.png);"
                                                                  "border: 2px solid #555;"
                                                                  "background-color: rgb(0,255,0);}"
                                                                   "image: url(:/Car-purpled.svg);"
 
                                                              "QPushButton:hover {background-color: rgb(120,120,120);}");
-                            } else {
+                            } else if (tempGrid[i][j] == 'O'){
                                 bboard[i][j]->setStyleSheet("QPushButton{"
 
-                                                             "font: 18pt 'MS Shell Dlg 2';"
-                                                             "color: #333;"
+                                                            "border-width: 16px;"
+                                                            "font: 18pt 'MS Shell Dlg 2';"
+
                                                              "border: 2px solid #555;"
                                                              "background-color: rgb(255,255,255);}"
 
@@ -201,12 +201,8 @@ void PlacementPage::loadShotGrid(Grid currentGrid, bool showShips){
                             // if shit has been hit
                         } else if (tempGrid[i][j] == 'H'){
                             bboard[i][j]->setStyleSheet("QPushButton{"
-                                                            "image: url(:/Car-purpled.svg);"
-                                                             "font: 18pt 'MS Shell Dlg 2';"
-                                                             "color: #333;"
-                                                             "border: 2px solid #555;"
-                                                             "background-color: rgb(128,0,128);}"
-
+                                              "border-image: url(/:hit_explosion.png) 16;"
+                                              "border-width: 16px;"
                                                          "QPushButton:hover {background-color: rgb(255,0,0);}");
                         } else {
                             bboard[i][j]->setStyleSheet("QPushButton{"

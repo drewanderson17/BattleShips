@@ -24,12 +24,17 @@ public:
     void updateSunkUI(int gridIndex);
     void updateStats(Grid currentGrid);
 
+
+
+
 private slots:
     void on_shootScreenEndTurn_clicked();
 
 private:
     Ui::ShotPage *ui;
     MainWindow *main;
+    vector<vector<int> > ship_passing;
+
 };
 
 #endif // SHOTPAGE_H

@@ -15,6 +15,7 @@
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QWidget>
@@ -48,6 +49,7 @@ public:
     QRadioButton *customRadio;
     QLabel *RemainingLabel_4;
     QLabel *customTotal;
+    QListWidget *shipList;
 
     void setupUi(QWidget *PlacementPage)
     {
@@ -233,6 +235,10 @@ public:
         customTotal->setGeometry(QRect(710, 200, 47, 16));
         customTotal->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);\n"
 "font: 14pt \"MS Shell Dlg 2\";"));
+        shipList = new QListWidget(PlacementPage);
+        shipList->setObjectName(QString::fromUtf8("shipList"));
+        shipList->setGeometry(QRect(530, 100, 256, 192));
+        shipList->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255)"));
 
         retranslateUi(PlacementPage);
 

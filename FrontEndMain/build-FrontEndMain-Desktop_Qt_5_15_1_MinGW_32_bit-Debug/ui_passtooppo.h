@@ -31,7 +31,7 @@ public:
         PassWindowFrame = new QFrame(PassToOppo);
         PassWindowFrame->setObjectName(QString::fromUtf8("PassWindowFrame"));
         PassWindowFrame->setGeometry(QRect(0, 0, 800, 600));
-        PassWindowFrame->setStyleSheet(QString::fromUtf8("QFrame{image: url(:/passWindow.svg);\n"
+        PassWindowFrame->setStyleSheet(QString::fromUtf8("QFrame{image: url(:/passWindow.png);\n"
 "background-color: rgb(0, 0, 0);}"));
         PassWindowFrame->setFrameShape(QFrame::StyledPanel);
         PassWindowFrame->setFrameShadow(QFrame::Raised);

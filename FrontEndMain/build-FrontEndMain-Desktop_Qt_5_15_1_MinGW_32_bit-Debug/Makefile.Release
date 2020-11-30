@@ -94,7 +94,7 @@ OBJECTS       = release/helppage.o \
 		release/moc_shotpage.o \
 		release/moc_winnerpage.o
 
-DIST          =  ..\FrontEndMain\Grid.h \
+DIST          = passWindow.png ..\FrontEndMain\Grid.h \
 		..\FrontEndMain\Ship.h \
 		..\FrontEndMain\helppage.h \
 		..\FrontEndMain\mainwindow.h \
@@ -161,10 +161,16 @@ compiler_rcc_clean:
 release/qrc_res.cpp: ../FrontEndMain/res.qrc \
 		C:/Qt/5.15.1/mingw81_32/bin/rcc.exe \
 		../FrontEndMain/BattleShipLogo.svg \
+		../FrontEndMain/bus-purpled.png \
 		../FrontEndMain/bus-purpled.svg \
+		../FrontEndMain/Car-purpled.png \
 		../FrontEndMain/Car-purpled.svg \
+		../FrontEndMain/passWindow.png \
+		../FrontEndMain/bike.png \
 		../FrontEndMain/passWindow.svg \
-		../FrontEndMain/bike.svg
+		../FrontEndMain/bike.svg \
+		../FrontEndMain/hit_explosion.png \
+		../FrontEndMain/BattleShipLogo.png
 	C:\Qt\5.15.1\mingw81_32\bin\rcc.exe -name res ..\FrontEndMain\res.qrc -o release\qrc_res.cpp
 
 compiler_moc_predefs_make_all: release/moc_predefs.h
@@ -2637,6 +2643,23 @@ release/placementpage.o: ../FrontEndMain/placementpage.cpp ../FrontEndMain/place
 		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qboxlayout.h \
 		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/QLabel \
 		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qlabel.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/QListWidget \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qlistwidget.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qlistview.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtGui/qvalidator.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtCore/qregularexpression.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qstyle.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qrubberband.h \
 		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/QRadioButton \
 		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qradiobutton.h \
 		C:/Qt/5.15.1/mingw81_32/include/QtCore/QTextStream
@@ -2779,14 +2802,32 @@ release/settingspage.o: ../FrontEndMain/settingspage.cpp ../FrontEndMain/setting
 		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qgridlayout.h \
 		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/QLabel \
 		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qlabel.h \
-		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/QSlider \
-		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qslider.h \
-		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qabstractslider.h \
-		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/QSpinBox \
-		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qspinbox.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtGui/qtextcursor.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtGui/qtextformat.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtGui/qpen.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtGui/qtextoption.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/QListWidget \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qlistwidget.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qlistview.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qstyleoption.h \
 		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qabstractspinbox.h \
 		C:/Qt/5.15.1/mingw81_32/include/QtGui/qvalidator.h \
 		C:/Qt/5.15.1/mingw81_32/include/QtCore/qregularexpression.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qstyle.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qrubberband.h \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/QSlider \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/QSpinBox \
+		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/qspinbox.h \
 		C:/Qt/5.15.1/mingw81_32/include/QtWidgets/QVBoxLayout \
 		../FrontEndMain/menupage.h \
 		../FrontEndMain/optionspage.h \

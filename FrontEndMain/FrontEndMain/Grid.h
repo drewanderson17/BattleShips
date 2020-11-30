@@ -51,6 +51,9 @@ public:
     int getSunkCount();
     string getMostRecentlySunkShipName();
     string getHits();
+
+//    in the Grid the following letter represent the various states of a grid
+//    S == ship, H == hit, X == sunk, H == hit, X == sunk, M == miss, O == empty
     string getShots();
     string getAccuracy();
 
