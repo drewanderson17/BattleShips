@@ -149,8 +149,7 @@ QPushButton:pressed {
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);
 text-decoration: underline;
-font: 75 8pt &quot;MS Shell Dlg 2&quot;;
-font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
+font: 16pt &quot;Impact&quot;;</string>
    </property>
    <property name="text">
     <string>Choose Direction:</string>
@@ -162,7 +161,7 @@ font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
      <x>540</x>
      <y>250</y>
      <width>251</width>
-     <height>31</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -185,8 +184,7 @@ font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);
 text-decoration: underline;
-font: 75 8pt &quot;MS Shell Dlg 2&quot;;
-font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
+font: 18pt &quot;Impact&quot;;</string>
    </property>
    <property name="text">
     <string>Ships:</string>
@@ -203,8 +201,9 @@ font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);
+font: 42pt &quot;Impact&quot;;
 text-decoration: underline;
-font: 75 26pt &quot;MS Shell Dlg 2&quot;;</string>
+</string>
    </property>
    <property name="text">
     <string>Ship Placement</string>
@@ -217,7 +216,7 @@ font: 75 26pt &quot;MS Shell Dlg 2&quot;;</string>
    <property name="geometry">
     <rect>
      <x>530</x>
-     <y>300</y>
+     <y>280</y>
      <width>171</width>
      <height>19</height>
     </rect>
@@ -272,13 +271,16 @@ font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
       <x>10</x>
       <y>10</y>
       <width>151</width>
-      <height>21</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(255, 255, 255);
-font: 75 16pt &quot;MS Shell Dlg 2&quot;;
-text-decoration: underline;</string>
+font: 18pt &quot;Impact&quot;;
+text-decoration: underline;
+
+
+</string>
     </property>
     <property name="text">
      <string>Turn Indicator</string>
@@ -298,8 +300,9 @@ text-decoration: underline;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(255, 255, 255);
-font: 75 24pt &quot;MS Shell Dlg 2&quot;;
-text-decoration: underline;</string>
+font: 34pt &quot;Impact&quot;;
+text-decoration: underline;
+</string>
     </property>
     <property name="text">
      <string/>

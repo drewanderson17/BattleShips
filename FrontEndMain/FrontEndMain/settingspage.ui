@@ -88,8 +88,9 @@ QPushButton:pressed {
      <widget class="QLabel" name="label_5">
       <property name="styleSheet">
        <string notr="true">color: rgb(255, 255, 255);
-font: 75 28pt &quot;MS Shell Dlg 2&quot;;
-text-decoration: underline;</string>
+font: 42pt &quot;Impact&quot;;
+text-decoration: underline;
+</string>
       </property>
       <property name="text">
        <string>OPTIONS</string>
@@ -138,7 +139,7 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <widget class="QLabel" name="label">
         <property name="styleSheet">
          <string notr="true">color: rgb(255, 255, 255);
-font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
+font: 75 12pt &quot;Impact&quot;;</string>
         </property>
         <property name="text">
          <string>Build Custom Ship</string>
@@ -310,7 +311,10 @@ QPushButton:pressed {
       <item>
        <widget class="QCheckBox" name="singlePlayerCB">
         <property name="styleSheet">
-         <string notr="true">color: rgb(255, 255, 255)</string>
+         <string notr="true">color: rgb(255, 255, 255);
+font: 8pt &quot;Impact&quot;;
+
+</string>
         </property>
         <property name="text">
          <string>Single Player Mode</string>
@@ -476,14 +480,14 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>570</x>
-     <y>240</y>
+     <y>230</y>
      <width>81</width>
-     <height>21</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);
-font: 75 16pt &quot;MS Shell Dlg 2&quot;;
+font: 75 16pt &quot;Impact&quot;;
 text-decoration: underline;</string>
    </property>
    <property name="text">
