@@ -35,6 +35,12 @@ Player& MainWindow::getActivePlayer(){
     } else {return MainWindow::playerTwo;}
 }
 
+string MainWindow::getActivePlayerName(){
+    if (MainWindow::activePlayer){
+        return MainWindow::playerOne.name.toStdString();
+    } else {return MainWindow::playerTwo.name.toStdString();}
+}
+
 
 
 int MainWindow::getBoardSize(){

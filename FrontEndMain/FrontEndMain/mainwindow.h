@@ -72,6 +72,7 @@ public:
     void setCpuOn(bool condition);
     void setCpuDifficulty(int tempDifficulty);
     int getCpuDifficulty();
+    string getActivePlayerName();
 
 
 
