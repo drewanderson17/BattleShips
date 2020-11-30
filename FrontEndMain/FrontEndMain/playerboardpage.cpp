@@ -68,7 +68,7 @@ void PlayerBoardPage::loadShotGrid(Grid currentGrid, bool showShips, string ship
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
-                                                        "border-image: url(:/hit_explosion.png) 16;}"
+                                                             "border-image: url(:/hit_explosion.png) 16;}"
                                                              );
                         } else {
                             bboard[i][j]->setStyleSheet("QPushButton{"
@@ -90,7 +90,7 @@ void PlayerBoardPage::createPlayerGrid(){
         QVector<QPushButton*> temp;
                     for (int j = 0; j < main->getBoardSize(); j++){
                         QPushButton *button = new QPushButton();
-                        button->setText(QString::number(j)+""+QString::number(i));
+                        //button->setText(QString::number(j)+""+QString::number(i));
                         button->sizePolicy().setHeightForWidth(true);
                         button->setStyleSheet("QPushButton{"
                                               "font: 18pt 'MS Shell Dlg 2';"

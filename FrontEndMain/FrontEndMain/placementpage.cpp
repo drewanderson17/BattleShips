@@ -81,7 +81,7 @@ void PlacementPage::setGrid(){
         QVector<QPushButton*> temp;
                     for (int j = 0; j < main->getBoardSize(); j++){
                         QPushButton *button = new QPushButton();
-                        button->setText(QString::number(j)+""+QString::number(i));
+                        //button->setText(QString::number(j)+""+QString::number(i));
                         button->sizePolicy().setHeightForWidth(true);
                         button->setStyleSheet("QPushButton{"
                                               "font: 18pt 'MS Shell Dlg 2';"
