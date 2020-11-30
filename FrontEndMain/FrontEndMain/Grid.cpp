@@ -235,6 +235,10 @@ vector<Ship> Grid::getShips(){
     return ships;
 }
 
+vector<Ship> Grid::getSunk(){
+    return sunk;
+}
+
 string Grid::getHits(){
     return to_string(hits);
 }

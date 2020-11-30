@@ -54,6 +54,7 @@ public:
     string getShots();
     string getAccuracy();
     vector<Ship> getShips();
+    vector<Ship> getSunk();
 
 private:
     int shots, hits;
