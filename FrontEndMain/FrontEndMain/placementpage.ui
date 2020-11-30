@@ -16,43 +16,6 @@
   <property name="styleSheet">
    <string notr="true">background-color: rgb(0, 0, 0);</string>
   </property>
-  <widget class="QRadioButton" name="carRadio">
-   <property name="geometry">
-    <rect>
-     <x>530</x>
-     <y>110</y>
-     <width>51</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Cars</string>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="carTotal">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>110</y>
-     <width>47</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>0</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="doneButtonStartScreen">
    <property name="geometry">
     <rect>
@@ -93,23 +56,6 @@ QPushButton:pressed {
    </property>
    <property name="text">
     <string>Done</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="RemainingLabel_1">
-   <property name="geometry">
-    <rect>
-     <x>600</x>
-     <y>110</y>
-     <width>101</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Remaining:</string>
    </property>
   </widget>
   <widget class="QLabel" name="indicatorTitleLabel">
@@ -249,74 +195,6 @@ text-decoration: underline;</string>
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="busTotal">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>140</y>
-     <width>47</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>0</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="RemainingLabel_2">
-   <property name="geometry">
-    <rect>
-     <x>600</x>
-     <y>140</y>
-     <width>101</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Remaining:</string>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="busRadio">
-   <property name="geometry">
-    <rect>
-     <x>530</x>
-     <y>140</y>
-     <width>61</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Buses</string>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="bikeRadio">
-   <property name="geometry">
-    <rect>
-     <x>530</x>
-     <y>170</y>
-     <width>61</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Bikes</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="directionDescriptionLabel">
    <property name="geometry">
     <rect>
@@ -332,23 +210,6 @@ font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <property name="text">
     <string>If not selected, Vertical is assumed</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="RemainingLabel_3">
-   <property name="geometry">
-    <rect>
-     <x>600</x>
-     <y>170</y>
-     <width>101</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Remaining:</string>
    </property>
   </widget>
   <widget class="QLabel" name="shipTitleLabel">
@@ -368,23 +229,6 @@ font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <property name="text">
     <string>Ships:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="bikeTotal">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>170</y>
-     <width>47</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>0</string>
    </property>
   </widget>
   <widget class="QLabel" name="placeShipLabel">
@@ -425,64 +269,13 @@ font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
     <string>Horizontal</string>
    </property>
   </widget>
-  <widget class="QRadioButton" name="customRadio">
-   <property name="geometry">
-    <rect>
-     <x>530</x>
-     <y>200</y>
-     <width>61</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Custom</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="RemainingLabel_4">
-   <property name="geometry">
-    <rect>
-     <x>600</x>
-     <y>200</y>
-     <width>101</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Remaining:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="customTotal">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>200</y>
-     <width>47</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>0</string>
-   </property>
-  </widget>
   <widget class="QListWidget" name="shipList">
    <property name="geometry">
     <rect>
-     <x>530</x>
+     <x>540</x>
      <y>100</y>
-     <width>256</width>
-     <height>192</height>
+     <width>231</width>
+     <height>111</height>
     </rect>
    </property>
    <property name="styleSheet">

@@ -72,7 +72,6 @@ void settingspage::on_bikeSpinBox_valueChanged(int arg1)
     int bikeDifference = arg1 - main->getTypeCount("Bike");
     while(bikeDifference > 0){
         main->customShips.push_back(Ship("Bike", 2, 1));
-        //bikeDifference = arg1 - main->getTypeCount("Bike");        //this iterator requires another loop but confirms that the bike has been added
         bikeDifference--;
     }
 
@@ -83,7 +82,6 @@ void settingspage::on_bikeSpinBox_valueChanged(int arg1)
                 break;
             }
         }
-        //bikeDifference = arg1 - main->getTypeCount("Bike");
         bikeDifference++;
     }
     refreshShipList();
