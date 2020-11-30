@@ -37,8 +37,27 @@ void PlacementPage::on_doneButtonStartScreen_clicked()
             bboard.clear();
             main->setActive(false);
             //main->alreadyPlaced = false;
-            PlacementPage *p2place = new PlacementPage(main);
-            main->setCentralWidget(p2place);
+            if (main->getCpuOn()){ //If user is playing against CPU
+                while (main->ships2.length() > 0) {
+                    try {
+                        Coordinates cpuCords = cpuPlacementCords();
+                        main->ships2[0].placeShip(cpuCords.x, cpuCords.y, cpuCords.direction);
+                        main->grids[1].addShip(main->ships2[0]);
+                        main->ships2.erase(main->ships2.begin() + 0);
+                    } catch (ShipException& e) {
+                        main->ships2[0].positionShip(false);
+                    }
+                }
+                main->setActive(true);
+                bboard.clear();
+                cout << main->grids[0].printGrid(true) << endl;
+                cout << main->grids[1].printGrid(true) << endl;
+                ShotPage *shot = new ShotPage(main);
+                main->setCentralWidget(shot);
+            } else { //If user is playing by himself
+                PlacementPage *p2place = new PlacementPage(main);
+                main->setCentralWidget(p2place);
+            }
         }else{
             main->setActive(true);
             bboard.clear();
@@ -166,31 +185,23 @@ void PlacementPage::loadShotGrid(Grid currentGrid, bool showShips){
     for (int i = 0; i < bboard.size(); i++){
                     for (int j = 0; j < bboard[i].size(); j++){
                         // ship has been shot
-
-
                         if (tempGrid[i][j] == 'X'){
                               bboard[i][j]->setStyleSheet("QPushButton{"
-
-
                                     "font: 18pt 'MS Shell Dlg 2';"
                                     "color: #333;"
                                     "border: 2px solid #555;"
-                                    "background-color: rgb(0,255,0);}"
+                                    "background-color: rgb(255,0,0);}"
 
-                                     "QPushButton:hover {background-color: rgb(255,0,0);}");
-
+                                     "QPushButton:hover {background-color: rgb(120,120,120);}");
                         }
                         // if empty the shot wil
                         else if (tempGrid[i][j] == 'O' || tempGrid[i][j] == 'S'){
                             if (showShips && tempGrid[i][j] == 'S'){
                                 bboard[i][j]->setStyleSheet("QPushButton{"
-
-                                                                 "image: url(:/Car-purpled.svg);"
                                                                  "font: 18pt 'MS Shell Dlg 2';"
                                                                  "color: #333;"
                                                                  "border: 2px solid #555;"
                                                                  "background-color: rgb(0,255,0);}"
-                                                                  "image: url(:/Car-purpled.svg);"
 
                                                              "QPushButton:hover {background-color: rgb(120,120,120);}");
                             } else {
@@ -206,17 +217,19 @@ void PlacementPage::loadShotGrid(Grid currentGrid, bool showShips){
                             // if shit has been hit
                         } else if (tempGrid[i][j] == 'H'){
                             bboard[i][j]->setStyleSheet("QPushButton{"
-                                                            "image: url(:/Car-purpled.svg);"
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
                                                              "background-color: rgb(128,0,128);}"
 
-                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");
+                                                         "QPushButton:hover {background-color: rgb(120,120,120);}");
                         } else {
                             bboard[i][j]->setStyleSheet("QPushButton{"
-
-                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");
+                                                        "font: 18pt 'MS Shell Dlg 2';"
+                                                        "color: #333;"
+                                                        "border: 2px solid #555;"
+                                                        "background-color: rgb(120,120,120);}"
+                                                         "QPushButton:hover {background-color: rgb(120,120,120);}");
                         }
                     }
                 }

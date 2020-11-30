@@ -3,6 +3,7 @@
 #include "passtooppo.h"
 #include "winnerpage.h"
 #include "mainwindow.h"
+#include "playerboardpage.h"
 
 #include <iostream>
 
@@ -20,8 +21,10 @@ ShotPage::ShotPage(MainWindow *parent) :
         gridIndex = 1;
     }
     main->setAlreadyShot(false);
-    loadShotGrid(main->grids[gridIndex],true, "empty");
+    loadShotGrid(main->grids[gridIndex],true);
     updateSunkUI(gridIndex);
+
+
 }
 
 ShotPage::~ShotPage()
@@ -33,9 +36,18 @@ void ShotPage::on_shootScreenEndTurn_clicked()
 {
     if (!(main->getAlreadyShot()))
         return;
-    PassToOppo* pass = new PassToOppo(main);
-    main->setCentralWidget(pass);
-    delete this;
+
+    if(main->getCpuOn()){
+        PlayerBoardPage* board = new PlayerBoardPage(main);
+        main->setCentralWidget(board);
+        delete this;
+    }
+    else{
+        PassToOppo* pass = new PassToOppo(main);
+        main->setCentralWidget(pass);
+        delete this;
+    }
+
 }
 
 void ShotPage::createShotGrid(){
@@ -99,43 +111,39 @@ void ShotPage::updateSunkUI(int gridIndex){
 void ShotPage::on_shotGridClick(QPushButton *button){
     int gridIndex;
     if (main->getAlreadyShot() == false){
-        Coordinates shotCord = getShotCords(button);
-        cout << "X Cordinate of Shot:"<< shotCord.x << endl;
-        cout << "Y Cordinate of Shot:"<< shotCord.y << endl;
 
         if (main->getActive()){
             gridIndex = 1;
         } else {gridIndex = 0;}
 
-        try {
-            string shipType;
-         shipType  = main->grids[gridIndex].shoot(shotCord.y,shotCord.x);
-         loadShotGrid(main->grids[gridIndex],true, shipType);
-         updateSunkUI(gridIndex);
-        } catch (GridException& e) {
-            cout << e.what() << endl;
-        }
+        Coordinates shotCord = getShotCords(button);
 
+        cout << "X Cordinate of Shot:"<< shotCord.x << endl;
+        cout << "Y Cordinate of Shot:"<< shotCord.y << endl;
 
+        shoot(gridIndex, shotCord);
+        loadShotGrid(main->grids[gridIndex],true);
+        updateSunkUI(gridIndex);
 
         cout << main->grids[gridIndex].printGrid(true) << endl;
-        if (main->grids[gridIndex].isWon()){
-            if (gridIndex == 1){
-                cout << "Player One's stats are:" << endl << main->grids[gridIndex].printStats() << endl;
-                main->setWinnerName("PLAYER ONE");
-                //ui->winnerLabel_3->setText("PLAYER ONE");
-            } else if (gridIndex == 0){
-                cout << "Player Two's stats are:" << endl << main->grids[gridIndex].printStats() << endl;
-                main->setWinnerName("PLAYER TWO");
-                //ui->winnerLabel_3->setText("PLAYER TWO");
-            }
-            //ui->PageController->setCurrentIndex(6);
-            WinnerPage *win = new WinnerPage(main);
-            main->setCentralWidget(win);
-            delete this;
+        checkForWin(gridIndex);
+
+        if(main->getCpuOn()){
+            Coordinates shot = getCpuShotCords();
+            shoot(0, shot);
+            checkForWin(0);
         }
     }
     main->setAlreadyShot(true);
+}
+
+void ShotPage::shoot(int index, Coordinates shotCord){
+    try {
+        string shipType;
+        shipType  = main->grids[index].shoot(shotCord.y,shotCord.x);
+    } catch (GridException& e) {
+        cout << e.what() << endl;
+    }
 }
 
 Coordinates ShotPage::getShotCords(QPushButton *button){
@@ -153,64 +161,80 @@ Coordinates ShotPage::getShotCords(QPushButton *button){
     return cord;
 }
 
-void ShotPage::loadShotGrid(Grid currentGrid, bool showShips, string shipType){
+Coordinates ShotPage::getCpuShotCords(){
+    Coordinates shot;
+    shot.x = rand() % main->getBoardSize();
+    shot.y = rand() % main->getBoardSize();
+    shot.direction = 10;
+
+
+
+    if(shot.x < main->getCpuDifficulty()){
+        vector<Ship> tempShips = main->grids[0].getShips();
+        vector<vector<int>> tempPos = tempShips[0].getPos();
+
+        int index;
+        do{
+            index =  rand() % tempPos.size();
+        }while(tempPos[index][2] != 1);
+
+        shot.x = tempPos[index][1];
+        shot.y = tempPos[index][0];
+    }
+
+    char value = main->grids[0].getGrid()[shot.y][shot.x];  //grid index is always 0 of cpu shot
+    if(value !='X' || value != 'H'|| value !='M')
+        return shot;
+    else
+        return getCpuShotCords();
+}
+
+
+void ShotPage::checkForWin(int gridIndex){
+    if (main->grids[gridIndex].isWon()){
+        if (gridIndex == 1){
+            cout << "Player One's stats are:" << endl << main->grids[gridIndex].printStats() << endl;
+            main->setWinnerName("PLAYER ONE");
+        } else if (gridIndex == 0){
+            cout << "Player Two's stats are:" << endl << main->grids[gridIndex].printStats() << endl;
+            main->setWinnerName("PLAYER TWO");
+        }
+        WinnerPage *win = new WinnerPage(main);
+        main->setCentralWidget(win);
+        delete this;
+    }
+}
+
+
+void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
     vector<vector<char> > tempGrid = currentGrid.getGrid();
     QVector<QVector<QPushButton*>> &bboard = main->getButtonBoard();
 
     for (int i = 0; i < bboard.size(); i++){
                     for (int j = 0; j < bboard[i].size(); j++){
-                        //if sunk
+                        // ship has been shot
                         if (tempGrid[i][j] == 'X'){
-                            if (shipType == "Car"){
-                                bboard[i][j]->setStyleSheet("QPushButton{"
-                                                                 "image: url(:/Car-purpled.svg);"
-                                                                 "font: 18pt 'MS Shell Dlg 2';"
-                                                                 "color: #333;"
-                                                                 "border: 2px solid #555;"
-                                                                 "background-color: rgb(0,255,0);}"
+                              bboard[i][j]->setStyleSheet("QPushButton{"
+                                    "font: 18pt 'MS Shell Dlg 2';"
+                                    "color: #333;"
+                                    "border: 2px solid #555;"
+                                    "background-color: rgb(255,0,0);}"
 
-
-                                                            "QPushButton:hover {background-color: rgb(255,0,0);}");
-                            }
-                            else if (shipType == "Bus"){
-                                bboard[i][j]->setStyleSheet("QPushButton{"
-                                                                 "image: url(:/bus-purpled.svg);"
-                                                                 "font: 18pt 'MS Shell Dlg 2';"
-                                                                 "color: #333;"
-                                                                 "border: 2px solid #555;"
-                                                                 "background-color: rgb(0,255,0);}"
-
-                                                             "QPushButton:hover {background-color: rgb(255,0,0);}");
-                            }
-                            else if (shipType == "bike"){
-                                bboard[i][j]->setStyleSheet("QPushButton{"
-                                                                "image: url(:/bike.svg);"
-
-                                                                 "border: 2px solid #555;"
-                                                                 "background-color: rgb(255,0,0);}"
-
-                                                             "QPushButton:hover {background-color: rgb(255,0,0);}");
-                            }
-                            //if shype type car
-                            //elif if
-
-                        }// end of hit
-                        // Miss
+                                     "QPushButton:hover {background-color: rgb(255,0,0);}");
+                        }
+                        // if empty the shot wil
                         else if (tempGrid[i][j] == 'O' || tempGrid[i][j] == 'S'){
-                            //if a ship is display ship
                             if (showShips && tempGrid[i][j] == 'S'){
-
-
-
                                 bboard[i][j]->setStyleSheet("QPushButton{"
                                                                  "font: 18pt 'MS Shell Dlg 2';"
                                                                  "color: #333;"
                                                                  "border: 2px solid #555;"
-                                                                 "background-color: rgb(0,255,0);}"//green
+                                                                 "background-color: rgb(0,255,0);}"
 
                                                              "QPushButton:hover {background-color: rgb(255,0,0);}");
-                            } else { //sets ship
+                            } else {
                                 bboard[i][j]->setStyleSheet("QPushButton{"
+
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
@@ -218,25 +242,21 @@ void ShotPage::loadShotGrid(Grid currentGrid, bool showShips, string shipType){
 
                                                          "QPushButton:hover {background-color: rgb(255,0,0);}");
                             }
-                            //if hit
+                            // if shit has been hit
                         } else if (tempGrid[i][j] == 'H'){
-
-                            //if shype type car
-                            //elif if
                             bboard[i][j]->setStyleSheet("QPushButton{"
                                                              "font: 18pt 'MS Shell Dlg 2';"
                                                              "color: #333;"
                                                              "border: 2px solid #555;"
                                                              "background-color: rgb(128,0,128);}"
 
-                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");//turns red
+                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");
                         } else {
                             bboard[i][j]->setStyleSheet("QPushButton{"
-                                                             "font: 18pt 'MS Shell Dlg 2';"
-                                                             "color: #333;"
-                                                             "border: 2px solid #555;"
-                                                             "background-color: rgb(120,120,120);}"//creates purples
-
+                                                        "font: 18pt 'MS Shell Dlg 2';"
+                                                        "color: #333;"
+                                                        "border: 2px solid #555;"
+                                                        "background-color: rgb(120,120,120);}"
                                                          "QPushButton:hover {background-color: rgb(255,0,0);}");
                         }
                     }

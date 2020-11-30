@@ -231,6 +231,10 @@ int checkInput(string inType) {
 	return stoi(in);
 }
 
+vector<Ship> Grid::getShips(){
+    return ships;
+}
+
 string Grid::getHits(){
     return to_string(hits);
 }

@@ -18,12 +18,14 @@ public:
     ~ShotPage();
     void createShotGrid();
     Coordinates getShotCords(QPushButton *button);
-    void loadShotGrid(Grid currentGrid, bool showShips, string shipType);
+    void loadShotGrid(Grid currentGrid, bool showShips);
     void on_shotGridClick(QPushButton *button);
     int getInt(QString ui_label);
     void updateSunkUI(int gridIndex);
     void updateStats(Grid currentGrid);
-    void cpuShotCords();
+    void checkForWin(int gridIndex);
+    Coordinates getCpuShotCords();
+    void shoot(int index, Coordinates shot);
 
 private slots:
     void on_shootScreenEndTurn_clicked();

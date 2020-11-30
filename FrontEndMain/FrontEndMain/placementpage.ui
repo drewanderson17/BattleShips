@@ -234,7 +234,7 @@ font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
   <widget class="QLabel" name="indicatorLabel">
    <property name="geometry">
     <rect>
-     <x>610</x>
+     <x>620</x>
      <y>400</y>
      <width>61</width>
      <height>41</height>
@@ -486,7 +486,9 @@ font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255)</string>
+    <string notr="true">background-color: rgb(0, 0, 0);
+color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
   </widget>
  </widget>

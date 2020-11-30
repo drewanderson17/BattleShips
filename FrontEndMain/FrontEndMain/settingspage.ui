@@ -36,7 +36,7 @@
    <property name="geometry">
     <rect>
      <x>570</x>
-     <y>520</y>
+     <y>530</y>
      <width>191</width>
      <height>41</height>
     </rect>
@@ -87,7 +87,9 @@ QPushButton:pressed {
     <item>
      <widget class="QLabel" name="label_5">
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);</string>
+       <string notr="true">color: rgb(255, 255, 255);
+font: 75 28pt &quot;MS Shell Dlg 2&quot;;
+text-decoration: underline;</string>
       </property>
       <property name="text">
        <string>OPTIONS</string>
@@ -102,7 +104,9 @@ QPushButton:pressed {
       <item>
        <widget class="QLabel" name="BoardSize">
         <property name="styleSheet">
-         <string notr="true">color: rgb(255, 255, 255);</string>
+         <string notr="true">color: rgb(255, 255, 255);
+color: rgb(255, 255, 255);
+font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
         </property>
         <property name="text">
          <string>Board Size</string>
@@ -139,7 +143,8 @@ QPushButton:pressed {
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(255, 255, 255);</string>
+         <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
         </property>
         <property name="text">
          <string>Bike Count</string>
@@ -166,7 +171,8 @@ QPushButton:pressed {
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(255, 255, 255);</string>
+         <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
         </property>
         <property name="text">
          <string>Car Count</string>
@@ -193,7 +199,8 @@ QPushButton:pressed {
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(255, 255, 255);</string>
+         <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
         </property>
         <property name="text">
          <string>Bus Count</string>
@@ -214,7 +221,8 @@ QPushButton:pressed {
       <item>
        <widget class="QLabel" name="label">
         <property name="styleSheet">
-         <string notr="true">color: rgb(255, 255, 255);</string>
+         <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
         </property>
         <property name="text">
          <string>Build Custom Ship</string>
@@ -248,7 +256,7 @@ QPushButton:pressed {
         <item>
          <widget class="QSpinBox" name="customLength">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255)</string>
+           <string notr="true">color: rgb(255, 255, 255)</string>
           </property>
           <property name="minimum">
            <number>1</number>
@@ -258,7 +266,7 @@ QPushButton:pressed {
         <item>
          <widget class="QSpinBox" name="customWidth">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255)</string>
+           <string notr="true">color: rgb(255, 255, 255)</string>
           </property>
           <property name="minimum">
            <number>1</number>
@@ -269,27 +277,95 @@ QPushButton:pressed {
       </item>
      </layout>
     </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QCheckBox" name="singlePlayerCB">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255)</string>
+        </property>
+        <property name="text">
+         <string>Single Player Mode</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="easyDifficulty">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255)</string>
+        </property>
+        <property name="text">
+         <string>Easy</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSlider" name="difficultySlider">
+        <property name="maximum">
+         <number>3</number>
+        </property>
+        <property name="pageStep">
+         <number>1</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickInterval">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="hardDifficulty">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255)</string>
+        </property>
+        <property name="text">
+         <string>Hard</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
   <widget class="QListWidget" name="shipList">
    <property name="geometry">
     <rect>
      <x>450</x>
-     <y>260</y>
+     <y>270</y>
      <width>331</width>
      <height>201</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255)</string>
+    <string notr="true">background-color: rgb(0, 0, 0);
+color: rgb(255, 255, 255);
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
   </widget>
   <widget class="QPushButton" name="deleteCustomShip">
    <property name="geometry">
     <rect>
-     <x>630</x>
-     <y>470</y>
-     <width>121</width>
+     <x>620</x>
+     <y>480</y>
+     <width>141</width>
      <height>41</height>
     </rect>
    </property>
@@ -330,8 +406,8 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>480</x>
-     <y>470</y>
-     <width>111</width>
+     <y>480</y>
+     <width>121</width>
      <height>41</height>
     </rect>
    </property>
@@ -366,6 +442,24 @@ QPushButton:pressed {
    </property>
    <property name="text">
     <string>Add Ship</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>240</y>
+     <width>81</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+font: 75 16pt &quot;MS Shell Dlg 2&quot;;
+text-decoration: underline;</string>
+   </property>
+   <property name="text">
+    <string>Ship List</string>
    </property>
   </widget>
  </widget>
