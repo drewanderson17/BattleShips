@@ -268,6 +268,39 @@ void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
                         }
                     }
                 }
+
+    vector<Ship> ships = currentGrid.getShips();
+    vector <Ship> sunks = currentGrid.getSunk();
+    vector<vector<int>> tempPos;
+    string type;
+    int row, col;
+    for(int i = 0; i < ships.size(); i++){
+        tempPos = ships[i].getPos();
+        type = ships[i].toStr();
+        for(int j = 0; j < tempPos.size(); j++){
+            row = tempPos[j][0];
+            col = tempPos[j][1];
+            if(tempPos[j][2] == 0){
+                //cell has been hit but not sunk
+                //bboard[row][col]->setStyleSheet();
+            }
+            else if((int)main->getActivePlayerName().compare(currentGrid.getPlayerName())){
+                //show car for every tempPos[i]
+                //bboard[row][col]->setStyleSheet();
+            }
+        }
+    }
+    for(int i = 0; i < sunks.size(); i++){
+        tempPos = sunks[i].getPos();
+        type = sunks[i].toStr();
+        for(int j = 0; j < tempPos.size(); j++){
+            row = tempPos[j][0];
+            col = tempPos[j][1];
+                //cell has been hit but not sunk
+                //bboard[row][col]->setStyleSheet();
+
+        }
+    }
     updateStats(currentGrid);
 }
 
