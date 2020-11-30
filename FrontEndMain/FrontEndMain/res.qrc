@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+<<<<<<< Updated upstream
         <file>BattleShipLogo.svg</file>
         <file>passWindow.svg</file>
         <file>bus-purpled.svg</file>
@@ -13,6 +14,14 @@
         <file>bus-purpled.png</file>
         <file>Car-purpled.png</file>
         <file>hit_explosion.png</file>
+>>>>>>> Stashed changes
+=======
+        <file>BattleShipLogo.png</file>
+        <file>passWindow.png</file>
+        <file>hit_explosion.png</file>
+        <file>bike.png</file>
+        <file>car.png</file>
+        <file>bus.png</file>
 >>>>>>> Stashed changes
     </qresource>
 </RCC>

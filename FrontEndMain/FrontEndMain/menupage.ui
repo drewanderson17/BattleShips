@@ -152,7 +152,7 @@ QPushButton:pressed {
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">image: url(:/BattleShipLogo.svg);
+    <string notr="true">image: url(:/BattleShipLogo.png);
 background-color: rgb(0, 0, 0);</string>
    </property>
    <property name="frameShape">
