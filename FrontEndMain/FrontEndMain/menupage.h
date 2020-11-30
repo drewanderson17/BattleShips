@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QMainWindow>
 #include "mainwindow.h"
-#include "optionspage.h"
 #include "helppage.h"
 #include "mainwindow.h"
 

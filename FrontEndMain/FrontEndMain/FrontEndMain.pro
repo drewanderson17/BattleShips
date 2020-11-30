@@ -22,7 +22,6 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     menupage.cpp \
-    optionspage.cpp \
     passtooppo.cpp \
     placementpage.cpp \
     playerboardpage.cpp \
@@ -36,7 +35,6 @@ HEADERS += \
     helppage.h \
     mainwindow.h \
     menupage.h \
-    optionspage.h \
     passtooppo.h \
     placementpage.h \
     playerboardpage.h \
@@ -48,7 +46,6 @@ FORMS += \
     helppage.ui \
     mainwindow.ui \
     menupage.ui \
-    optionspage.ui \
     passtooppo.ui \
     placementpage.ui \
     playerboardpage.ui \
