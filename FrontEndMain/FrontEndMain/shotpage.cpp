@@ -21,8 +21,15 @@ ShotPage::ShotPage(MainWindow *parent) :
         gridIndex = 1;
     }
     main->setAlreadyShot(false);
+
+
+
     loadShotGrid(main->grids[gridIndex],true);
+    vector<vector<int> > ship_passing (main->getBoardSize(),vector<int>(main->getBoardSize(),0));
     updateSunkUI(gridIndex);
+
+
+
 
 
 }
@@ -140,7 +147,7 @@ void ShotPage::on_shotGridClick(QPushButton *button){
 void ShotPage::shoot(int index, Coordinates shotCord){
     try {
         string shipType;
-        shipType  = main->grids[index].shoot(shotCord.y,shotCord.x);
+        main->grids[index].shoot(shotCord.y,shotCord.x);
     } catch (GridException& e) {
         cout << e.what() << endl;
     }
@@ -245,12 +252,12 @@ void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
                             // if shit has been hit
                         } else if (tempGrid[i][j] == 'H'){
                             bboard[i][j]->setStyleSheet("QPushButton{"
-                                                             "font: 18pt 'MS Shell Dlg 2';"
-                                                             "color: #333;"
-                                                             "border: 2px solid #555;"
-                                                             "background-color: rgb(128,0,128);}"
+                                                            "border-image: url(:/hit_explosion.png) 16;"
 
-                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");
+                                                             "border: 2px solid #555;"
+                                                             "background-color: rgb(0,0,0);}"
+
+                                                         "QPushButton:hover {background-color: rgb(255,0,0);}");//turns red
                         } else {
                             bboard[i][j]->setStyleSheet("QPushButton{"
                                                         "font: 18pt 'MS Shell Dlg 2';"
@@ -263,6 +270,7 @@ void ShotPage::loadShotGrid(Grid currentGrid, bool showShips){
                 }
     updateStats(currentGrid);
 }
+
 
 void ShotPage::updateStats(Grid currentGrid){
     ui->accuracyCount->setText(QString::fromStdString(currentGrid.getAccuracy()));

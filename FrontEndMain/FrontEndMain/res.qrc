@@ -6,5 +6,10 @@
         <file>Car-purpled.svg</file>
         <file>bike.svg</file>
         <file>passWindow.png</file>
+        <file>hit_explosion.png</file>
+        <file>car_purple.png</file>
+        <file>bus-purpled.png</file>
+        <file>bike.png</file>
+        <file>BattleShipLogo.png</file>
     </qresource>
 </RCC>
