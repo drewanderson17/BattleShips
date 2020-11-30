@@ -29,7 +29,7 @@ ShotPage::ShotPage(MainWindow *parent) :
     updateSunkUI(gridIndex);
 
 
-
+    //testcommit
 
 
 }
