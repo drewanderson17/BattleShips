@@ -35,9 +35,9 @@
   <widget class="QPushButton" name="backButtonOptions">
    <property name="geometry">
     <rect>
-     <x>570</x>
+     <x>480</x>
      <y>530</y>
-     <width>191</width>
+     <width>281</width>
      <height>41</height>
     </rect>
    </property>
@@ -197,6 +197,35 @@ font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QPushButton" name="addBike">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+	font: 18pt &quot;MS Shell Dlg 2&quot;;
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 20px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+    border-style: inset;
+    background: qradialgradient(
+        cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,
+        radius: 1.35, stop: 0 #fff, stop: 1 #ddd
+        );
+    }</string>
+        </property>
         <property name="text">
          <string>Add Bike</string>
         </property>
@@ -204,6 +233,35 @@ font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
       </item>
       <item>
        <widget class="QPushButton" name="addCar">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+	font: 18pt &quot;MS Shell Dlg 2&quot;;
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 20px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+    border-style: inset;
+    background: qradialgradient(
+        cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,
+        radius: 1.35, stop: 0 #fff, stop: 1 #ddd
+        );
+    }</string>
+        </property>
         <property name="text">
          <string>Add Car</string>
         </property>
@@ -211,6 +269,35 @@ font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
       </item>
       <item>
        <widget class="QPushButton" name="addBus">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+	font: 18pt &quot;MS Shell Dlg 2&quot;;
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 20px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+    border-style: inset;
+    background: qradialgradient(
+        cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,
+        radius: 1.35, stop: 0 #fff, stop: 1 #ddd
+        );
+    }</string>
+        </property>
         <property name="text">
          <string>Add Bus</string>
         </property>
