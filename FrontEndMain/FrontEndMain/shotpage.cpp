@@ -24,13 +24,9 @@ ShotPage::ShotPage(MainWindow *parent) :
 
 
 
-    loadShotGrid(main->grids[gridIndex],true);
+    loadShotGrid(main->grids[gridIndex],false);
     vector<vector<int> > ship_passing (main->getBoardSize(),vector<int>(main->getBoardSize(),0));
     updateSunkUI(gridIndex);
-
-
-
-
 
 }
 
@@ -129,7 +125,7 @@ void ShotPage::on_shotGridClick(QPushButton *button){
         cout << "Y Cordinate of Shot:"<< shotCord.y << endl;
 
         shoot(gridIndex, shotCord);
-        loadShotGrid(main->grids[gridIndex],true);
+        loadShotGrid(main->grids[gridIndex],false);
         updateSunkUI(gridIndex);
 
         cout << main->grids[gridIndex].printGrid(true) << endl;
