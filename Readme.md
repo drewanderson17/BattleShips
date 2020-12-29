@@ -25,10 +25,10 @@ To run the application go to BattleShips/Game and deploy BattleShip.exe
 ----
 ## Screenshots of the UI
 
-![Main Menu](C:\Users\drewa\Downloads\mainMenu.PNG)
+![Main Menu](https://github.com/drewanderson17/BattleShips/blob/Working-Copy/FrontEndMain/mainMenu.PNG)
 ![Help page](https://github.com/drewanderson17/BattleShips/blob/Working-Copy/FrontEndMain/helpPage.PNG)
-![Shoot screen](C:\Users\drewa\Downloads\betterOptionsPage.PNG)
-![Options Window](C:\Users\drewa\Downloads\winScreen.PNG)
+![Shoot screen](https://github.com/drewanderson17/BattleShips/blob/Working-Copy/FrontEndMain/shotScreen.PNGG)
+![Options Window](https://github.com/drewanderson17/BattleShips/blob/Working-Copy/FrontEndMain/betterOptionsPage.PNG)
 
 
 ___
@@ -39,7 +39,7 @@ checkout the class diagram below
 
 
 
-![Class Diagram of Different Folders](C:\Users\drewa\Downloads\Class Diagram BattleShips.jpg)
+![Class Diagram of Different Folders](https://github.com/drewanderson17/BattleShips/blob/Working-Copy/FrontEndMain/Class%20Diagram%20BattleShips.jpg)
 
 
 
