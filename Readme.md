@@ -26,7 +26,7 @@ To run the application go to BattleShips/Game and deploy BattleShip.exe
 ## Screenshots of the UI
 
 ![Main Menu](C:\Users\drewa\Downloads\mainMenu.PNG)
-![Help page](C:\Users\drewa\Downloads\helpPage.PNG)
+![Help page](https://github.com/drewanderson17/BattleShips/blob/Working-Copy/FrontEndMain/helpPage.PNG)
 ![Shoot screen](C:\Users\drewa\Downloads\betterOptionsPage.PNG)
 ![Options Window](C:\Users\drewa\Downloads\winScreen.PNG)
 
